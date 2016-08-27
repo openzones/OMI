@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Uralsibins.SmsExternalService.EasySms" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Uralsibins.SmsExternalService.EasySms" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="SmsMessage">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MessageId" type="xs:long" />
+      <xs:element minOccurs="0" name="Phone" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SenderId" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SmsMessage" nillable="true" type="tns:SmsMessage" />
+  <xs:complexType name="SmsSendingResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ErrorCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ErrorMessage" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsSuccess" type="xs:boolean" />
+      <xs:element minOccurs="0" name="MessageId" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SmsSendingResult" nillable="true" type="tns:SmsSendingResult" />
+  <xs:complexType name="ArrayOfSmsMessage">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SmsMessage" nillable="true" type="tns:SmsMessage" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSmsMessage" nillable="true" type="tns:ArrayOfSmsMessage" />
+  <xs:complexType name="ArrayOfSmsSendingResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SmsSendingResult" nillable="true" type="tns:SmsSendingResult" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSmsSendingResult" nillable="true" type="tns:ArrayOfSmsSendingResult" />
+</xs:schema>

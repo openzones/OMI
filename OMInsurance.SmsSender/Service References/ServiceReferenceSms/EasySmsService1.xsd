@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://uralsibins.ru" elementFormDefault="qualified" targetNamespace="http://uralsibins.ru" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://vs-tst00-web02.uralsibins.ru/SmsExternalService/EasySmsService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Uralsibins.SmsExternalService.EasySms" />
+  <xs:element name="SendMessage">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Uralsibins.SmsExternalService.EasySms" minOccurs="0" name="item" nillable="true" type="q1:SmsMessage" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SendMessageResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Uralsibins.SmsExternalService.EasySms" minOccurs="0" name="SendMessageResult" nillable="true" type="q2:SmsSendingResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SendMessages">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Uralsibins.SmsExternalService.EasySms" minOccurs="0" name="items" nillable="true" type="q3:ArrayOfSmsMessage" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SendMessagesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Uralsibins.SmsExternalService.EasySms" minOccurs="0" name="SendMessagesResult" nillable="true" type="q4:ArrayOfSmsSendingResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

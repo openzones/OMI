@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://uralsibins.ru" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://uralsibins.ru" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://uralsibins.ru/Imports">
+      <xsd:import schemaLocation="http://vs-tst00-web02.uralsibins.ru/SmsExternalService/EasySmsService.svc?xsd=xsd0" namespace="http://uralsibins.ru" />
+      <xsd:import schemaLocation="http://vs-tst00-web02.uralsibins.ru/SmsExternalService/EasySmsService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://vs-tst00-web02.uralsibins.ru/SmsExternalService/EasySmsService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Uralsibins.SmsExternalService.EasySms" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IEasySmsService_SendMessage_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendMessage" />
+  </wsdl:message>
+  <wsdl:message name="IEasySmsService_SendMessage_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SendMessageResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEasySmsService_SendMessages_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendMessages" />
+  </wsdl:message>
+  <wsdl:message name="IEasySmsService_SendMessages_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SendMessagesResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IEasySmsService">
+    <wsdl:operation name="SendMessage">
+      <wsdl:input wsaw:Action="http://uralsibins.ru/IEasySmsService/SendMessage" message="tns:IEasySmsService_SendMessage_InputMessage" />
+      <wsdl:output wsaw:Action="http://uralsibins.ru/IEasySmsService/SendMessageResponse" message="tns:IEasySmsService_SendMessage_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SendMessages">
+      <wsdl:input wsaw:Action="http://uralsibins.ru/IEasySmsService/SendMessages" message="tns:IEasySmsService_SendMessages_InputMessage" />
+      <wsdl:output wsaw:Action="http://uralsibins.ru/IEasySmsService/SendMessagesResponse" message="tns:IEasySmsService_SendMessages_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

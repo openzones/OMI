@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="8f2bbab8-2b53-44e6-8770-f7064f134c98" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.Generic.List`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>false</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://vs-tst00-web02.uralsibins.ru/SmsExternalService/EasySmsService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="EasySmsService.wsdl" MetadataType="Wsdl" ID="f726d88b-adfe-4022-8579-83df55701924" SourceId="1" SourceUrl="http://vs-tst00-web02.uralsibins.ru/SmsExternalService/EasySmsService.svc?wsdl" />
+    <MetadataFile FileName="EasySmsService.xsd" MetadataType="Schema" ID="e61f5475-acf6-480d-880e-b89c294c6677" SourceId="1" SourceUrl="http://vs-tst00-web02.uralsibins.ru/SmsExternalService/EasySmsService.svc?xsd=xsd2" />
+    <MetadataFile FileName="EasySmsService1.xsd" MetadataType="Schema" ID="c594743b-cfc0-4cee-b55c-bcdce0fe06a0" SourceId="1" SourceUrl="http://vs-tst00-web02.uralsibins.ru/SmsExternalService/EasySmsService.svc?xsd=xsd0" />
+    <MetadataFile FileName="EasySmsService2.xsd" MetadataType="Schema" ID="951f8279-8468-4519-9285-11d69dc6caf1" SourceId="1" SourceUrl="http://vs-tst00-web02.uralsibins.ru/SmsExternalService/EasySmsService.svc?xsd=xsd1" />
+    <MetadataFile FileName="EasySmsService1.wsdl" MetadataType="Wsdl" ID="f5a0cfe7-376f-487c-b7c3-9cdf699c139b" SourceId="1" SourceUrl="http://vs-tst00-web02.uralsibins.ru/SmsExternalService/EasySmsService.svc?wsdl=wsdl0" />
+    <MetadataFile FileName="EasySmsService.disco" MetadataType="Disco" ID="6a7a6b1a-d07c-4dad-bf3b-e59661438357" SourceId="1" SourceUrl="http://vs-tst00-web02.uralsibins.ru/SmsExternalService/EasySmsService.svc?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
