@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1B4472F9-CA26-4296-9F66-5010C795DA1A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OMInsurance.DataAccess</RootNamespace>
+    <AssemblyName>OMInsurance.DataAccess</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Core\DatabaseAliases.cs" />
+    <Compile Include="Core\DatabaseErrorHandler.cs" />
+    <Compile Include="Core\DataReaderAdapter.cs" />
+    <Compile Include="Core\Helpers\DaoHelper.cs" />
+    <Compile Include="Core\Helpers\DbHelper.cs" />
+    <Compile Include="Core\IDatabaseErrorHandler.cs" />
+    <Compile Include="Core\IMaterializer.cs" />
+    <Compile Include="Core\ItemDAO.cs" />
+    <Compile Include="Core\ParametersListExtensions.cs" />
+    <Compile Include="DAO\AddressDao.cs" />
+    <Compile Include="DAO\BSODao.cs" />
+    <Compile Include="DAO\CheckDao.cs" />
+    <Compile Include="DAO\ClientDao.cs" />
+    <Compile Include="DAO\ClientVisitReportDao.cs" />
+    <Compile Include="DAO\DocumentDao.cs" />
+    <Compile Include="DAO\FundProcessingDao.cs" />
+    <Compile Include="DAO\LogDao.cs" />
+    <Compile Include="DAO\NomernikDao.cs" />
+    <Compile Include="DAO\PolicyDao.cs" />
+    <Compile Include="DAO\PostDao.cs" />
+    <Compile Include="DAO\ReferencesDao.cs" />
+    <Compile Include="DAO\SmsMessageDao.cs" />
+    <Compile Include="DAO\TableSets\FundFileHistoryTableSet.cs" />
+    <Compile Include="DAO\TableSets\LogMessageTableSet.cs" />
+    <Compile Include="DAO\TableSets\NOMPTableSet.cs" />
+    <Compile Include="DAO\TableSets\PolicyFromRegionTableSet.cs" />
+    <Compile Include="DAO\TableSets\SaveClientVisitTableSet.cs" />
+    <Compile Include="DAO\TableSets\SmsResultTableSet.cs" />
+    <Compile Include="DAO\TableSets\STOPTableSet.cs" />
+    <Compile Include="DAO\UserDao.cs" />
+    <Compile Include="Materializers\AddressMaterializer.cs" />
+    <Compile Include="Materializers\BSOHistoryItemMaterializer.cs" />
+    <Compile Include="Materializers\BSOInfoMaterializer.cs" />
+    <Compile Include="Materializers\BSOMaterializer.cs" />
+    <Compile Include="Materializers\BSOStatusRefMaterializer.cs" />
+    <Compile Include="Materializers\BSOSumStatusMaterializer.cs" />
+    <Compile Include="Materializers\CheckClientMaterializer.cs" />
+    <Compile Include="Materializers\ClientAcquisitionEmployeeMaterializer.cs" />
+    <Compile Include="Materializers\ClientBaseInfoMaterializer.cs" />
+    <Compile Include="Materializers\ClientMaterializer.cs" />
+    <Compile Include="Materializers\ClientPretensionGenerationMaterializer.cs" />
+    <Compile Include="Materializers\ClientPretensionMaterializer.cs" />
+    <Compile Include="Materializers\FundFileHistoryMaterializer.cs" />
+    <Compile Include="Materializers\FundResponse\FundRequestRecidMaterializer.cs" />
+    <Compile Include="Materializers\FundResponse\GoznakResponseMaterializer.cs" />
+    <Compile Include="Materializers\FundResponse\FundErrorResponseMaterializer.cs" />
+    <Compile Include="Materializers\FundResponse\S9FundResponseMaterializer.cs" />
+    <Compile Include="Materializers\Nomernik\NomernikClientNOMPMaterializer.cs" />
+    <Compile Include="Materializers\Nomernik\NomernikClientShotInfoMaterializer.cs" />
+    <Compile Include="Materializers\Nomernik\NomernikClientSTOPMaterializer.cs" />
+    <Compile Include="Materializers\Nomernik\NomernikNOMPMaterializer.cs" />
+    <Compile Include="Materializers\Nomernik\NomernikHistoryMaterializer.cs" />
+    <Compile Include="Materializers\PostMaterializer.cs" />
+    <Compile Include="Materializers\ReferenceUniversalItemMaterializer.cs" />
+    <Compile Include="Materializers\SmsMaterializer.cs" />
+    <Compile Include="Materializers\ClientVersionMaterializer.cs" />
+    <Compile Include="Materializers\ClientVisitHistoryItemMaterializer.cs" />
+    <Compile Include="Materializers\ClientVisitInfoMaterializer.cs" />
+    <Compile Include="Materializers\ClientVisitMaterializer.cs" />
+    <Compile Include="Materializers\DeliveryCenterMaterializer.cs" />
+    <Compile Include="Materializers\DocumentMaterializer.cs" />
+    <Compile Include="Materializers\FiasEntryMaterializer.cs" />
+    <Compile Include="Materializers\FundResponse\FundResponseMaterializer.cs" />
+    <Compile Include="Materializers\FundResponse\SvdFundResponseMaterializer.cs" />
+    <Compile Include="Materializers\FundResponse\SnilsFundResponseMaterializer.cs" />
+    <Compile Include="Materializers\FundResponse\S6FundResponseMaterializer.cs" />
+    <Compile Include="Materializers\FundResponse\S5FundResponseMaterializer.cs" />
+    <Compile Include="Materializers\PolicyMaterializer.cs" />
+    <Compile Include="Materializers\ReferencesMaterializer.cs" />
+    <Compile Include="Materializers\RepresentativeMaterializer.cs" />
+    <Compile Include="Materializers\RoleMaterializer.cs" />
+    <Compile Include="Materializers\SMOMaterializer.cs" />
+    <Compile Include="Materializers\SmsMessageMaterializer.cs" />
+    <Compile Include="Materializers\SmsTemplateMaterializer.cs" />
+    <Compile Include="Materializers\Nomernik\NomernikSTOPMaterializer.cs" />
+    <Compile Include="Materializers\StreetMaterializer.cs" />
+    <Compile Include="Materializers\UserMaterializer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OMInsurance.Configuration\OMInsurance.Configuration.csproj">
+      <Project>{cbcdbd33-86ea-43bc-aa9e-5d1b5a02893f}</Project>
+      <Name>OMInsurance.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OMInsurance.DBUtils\OMInsurance.DBUtils.csproj">
+      <Project>{2da608a9-622a-41ad-80a6-e9d6e146c3bc}</Project>
+      <Name>OMInsurance.DBUtils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OMInsurance.Entities\OMInsurance.Entities.csproj">
+      <Project>{88f8110f-5870-48df-89d7-a14f9b7efc1a}</Project>
+      <Name>OMInsurance.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DAO\RepresentativeDao.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DAO\FiasDao.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
