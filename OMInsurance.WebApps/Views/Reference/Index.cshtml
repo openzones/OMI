@@ -1,0 +1,27 @@
+﻿@model OMInsurance.WebApps.Models.ReferenceChoiceModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Выберите справочник</h2>
+
+@using (Html.BeginForm("Index", "Reference", FormMethod.Post))
+{
+
+    <div class="margined row">
+        <div class="col-md-2">
+            @Html.DisplayNameFor(model => model.ReferenceId)
+        </div>
+        <div class="col-md-4">
+            @Html.DropDownListFor(model => model.ReferenceId, Model.ReferencesDisplayName, new { @class = "form-control", required = "required" })
+        </div>
+        <div class="col-md-4">
+            <input class="btn btn-default"
+                   type="submit"
+                   value="Редактировать" />
+        </div>
+    </div>
+}
+
+

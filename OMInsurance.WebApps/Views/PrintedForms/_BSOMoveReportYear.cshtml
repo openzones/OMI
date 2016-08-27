@@ -1,0 +1,21 @@
+﻿@model OMInsurance.WebApps.Models.PrintedForms.BSOMoveReportYearModel
+@using OMInsurance.WebApps.Helpers
+@using (@Html.BeginForm("BSOMoveReportYear", "PrintedForms"))
+{
+    <div class="margined row">
+        <div class="col-md-2">
+            @Html.LabelFor(model => Model.Year)
+        </div>
+        <div class="col-md-3">
+            @Html.DropDownListFor(model => model.Year, Model.Years, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => Model.Year)
+        </div>
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-3">
+            <input class="btn btn-default"
+                   type="submit"
+                   value="Печать" />
+        </div>
+    </div>
+}

@@ -1,0 +1,209 @@
+﻿@model OMInsurance.WebApps.Models.AddressModel
+@Html.HiddenFor(m => m.Id)
+@Html.HiddenFor(m => m.TerritoryCode)
+@Html.HiddenFor(m => m.RegionCode)
+@Html.HiddenFor(m => m.AddressType)
+@Html.HiddenFor(m => m.StreetCode, new { @class = "streetFIASValue" })
+<div class="row margined">
+    <div class="col-md-12">
+        @if (Model.MessagesNotCritical.Count > 0)
+        {
+            <div class="row margined">
+                <div class="col-md-12">
+                    <div class="alert alert-warning alert-dismissable" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        @foreach (var message in Model.MessagesNotCritical)
+                {
+                            <span>
+                                @message<br />
+                            </span>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+        @if (Model.Messages.Count > 0)
+        {
+            <div class="row margined">
+                <div class="col-md-12">
+                    <div class="alert alert-danger" role="alert">
+                        @foreach (var message in Model.Messages)
+                        {
+                            <span>@message</span>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<div class="row margined">
+    <div class="col-md-2">
+        <div>
+            @Html.DisplayNameFor(m => m.Region)
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div>
+            @Html.HiddenFor(m => m.RegionId, new { @class = "regionFIASValue" })
+            @if (Model.AddressType == OMInsurance.WebApps.Models.Core.AddressType.Living)
+            {
+                @Html.TextBoxFor(model => model.Region, new { @class = "form-control regionFIASLabel", maxlength = "60", required = "required" })
+            }
+            else
+            {
+                @Html.TextBoxFor(model => model.Region, new { @class = "form-control regionFIASLabel", maxlength = "60" })
+            }
+            @Html.ValidationMessageFor(m => m.Region)
+        </div>
+    </div>
+    <div class="col-md-2">
+        @if (Model.AddressType != OMInsurance.WebApps.Models.Core.AddressType.Living)
+        {
+            <div>
+                @Html.DisplayNameFor(m => m.Area)
+            </div>
+        }
+    </div>
+    <div class="col-md-4">
+        <div>
+            @if (Model.AddressType != OMInsurance.WebApps.Models.Core.AddressType.Living)
+            {
+                @Html.HiddenFor(m => m.AreaId, new { @class = "areaFIASValue" })
+                @Html.TextBoxFor(model => model.Area, new { @class = "form-control areaFIASLabel", maxlength = "60" })
+                @Html.ValidationMessageFor(m => m.Area)
+            }
+        </div>
+    </div>
+</div>
+<div class="row margined">
+    <div class="col-md-2">
+        @if (Model.AddressType != OMInsurance.WebApps.Models.Core.AddressType.Living)
+        {
+            <div>
+                @Html.DisplayNameFor(m => m.City)
+            </div>
+        }
+    </div>
+    <div class="col-md-4">
+        @if (Model.AddressType != OMInsurance.WebApps.Models.Core.AddressType.Living)
+        {
+            <div>
+                @Html.HiddenFor(m => m.CityId, new { @class = "cityFIASValue" })
+                @Html.TextBoxFor(model => model.City, new { @class = "form-control cityFIASLabel", maxlength = "60" })
+                @Html.ValidationMessageFor(m => m.City)
+            </div>
+        }
+    </div>
+    <div class="col-md-2">
+        @if (Model.AddressType != OMInsurance.WebApps.Models.Core.AddressType.Living)
+        {
+            <div>
+                @Html.DisplayNameFor(m => m.Locality)
+            </div>
+        }
+    </div>
+    <div class="col-md-4">
+        @if (Model.AddressType != OMInsurance.WebApps.Models.Core.AddressType.Living)
+        {
+            <div>
+                @Html.HiddenFor(m => m.LocalityId, new { @class = "localityFIASValue" })
+                @Html.TextBoxFor(model => model.Locality, new { @class = "form-control localityFIASLabel", maxlength = "60" })
+                @Html.ValidationMessageFor(m => m.Locality)
+            </div>
+        }
+    </div>
+</div>
+<div class="row margined">
+    <div class="col-md-2">
+        <div>
+            @Html.DisplayNameFor(m => m.Street)
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div>
+            @if (Model.AddressType == OMInsurance.WebApps.Models.Core.AddressType.Living)
+            {
+                @Html.TextBoxFor(model => model.Street, new { @class = "form-control streetFIASLabel", maxlength = "60", required = "required" })
+            }
+            else
+            {
+                @Html.TextBoxFor(model => model.Street, new { @class = "form-control streetFIASLabel", maxlength = "60" })
+            }
+            @Html.ValidationMessageFor(m => m.Street)
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div>
+            @Html.DisplayNameFor(m => m.House)
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div>
+            @Html.TextBoxFor(model => model.House, new { @class = "form-control houseLabel", maxlength = "7" })
+            @Html.ValidationMessageFor(m => m.House)
+        </div>
+    </div>
+</div>
+
+<div class="row margined">
+    <div class="col-md-2">
+        <div>
+            @Html.DisplayNameFor(m => m.Housing)
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div>
+            @Html.TextBoxFor(model => model.Housing, new { @class = "form-control housingLabel", maxlength = "5" })
+            @Html.ValidationMessageFor(m => m.Housing)
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div>
+            @Html.DisplayNameFor(m => m.Building)
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div>
+            @Html.TextBoxFor(model => model.Building, new { @class = "form-control buildingLabel", maxlength = "5" })
+            @Html.ValidationMessageFor(m => m.Building)
+        </div>
+    </div>
+</div>
+<div class="row margined">
+    <div class="col-md-2">
+        <div>
+            @Html.DisplayNameFor(m => m.Appartment)
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div>
+            @Html.TextBoxFor(model => model.Appartment, new { @class = "form-control appartmentLabel", maxlength = "5" })
+            @Html.ValidationMessageFor(m => m.Appartment)
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div>
+            @Html.DisplayNameFor(m => m.PostIndex)
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div>
+            @Html.TextBoxFor(model => model.PostIndex, new { @class = "form-control", maxlength = "6" })
+            @Html.ValidationMessageFor(m => m.PostIndex)
+        </div>
+    </div>
+</div>
+<div class="row margined">
+    <div class="col-md-2">
+        <div>
+            @Html.DisplayNameFor(m => m.FullAddressString)
+        </div>
+    </div>
+    <div class="col-md-10">
+        <div>
+            @Html.TextAreaFor(model => model.FullAddressString, new { @class = "form-control fullAddressLabel", maxlength = "500" })
+            @Html.ValidationMessageFor(m => m.FullAddressString)
+        </div>
+    </div>
+</div>

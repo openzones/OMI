@@ -1,0 +1,152 @@
+﻿@model OMInsurance.WebApps.Models.PolicyInfoClientVisitSaveModel
+@Html.HiddenFor(m => m.Id)
+@Html.HiddenFor(m => m.EntityType, new { @class = "entityType" })
+<div class="row margined">
+    <div class="col-md-12">
+        @if (Model.MessagesNotCritical.Count > 0)
+        {
+            <div class="row margined">
+                <div class="col-md-12">
+                    <div class="alert alert-warning alert-dismissable" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        @foreach (var message in Model.MessagesNotCritical)
+                        {
+                            <span>
+                                @message<br />
+                            </span>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+        @if (Model.Messages.Count > 0)
+        {
+            <div class="row margined">
+                <div class="col-md-12">
+                    <div class="alert alert-danger" role="alert">
+                        @foreach (var message in Model.Messages)
+                        {
+                            <span>@message</span>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<div class="row margined">
+    <div class="col-md-4">
+        <div>
+            @Html.DisplayNameFor(m => m.PolicyTypeId)
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div>
+            @Html.DropDownListFor(model => model.PolicyTypeId, Model.PolicyTypes, new { @class = "form-control policyType" })
+        </div>
+    </div>
+</div>
+<div class="row margined">
+    <div class="col-md-4">
+        <div>
+            @Html.DisplayNameFor(m => m.UnifiedPolicyNumber)
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div>
+            @Html.TextBoxFor(model => model.UnifiedPolicyNumber, new { @class = "form-control", maxlength = "16" })
+            @Html.ValidationMessageFor(m => m.UnifiedPolicyNumber)
+        </div>
+    </div>
+</div>
+<div class="row margined">
+    <div class="col-md-4">
+        <div>
+            @Html.DisplayNameFor(m => m.Series)
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div>
+            @Html.TextBoxFor(model => model.Series, new { @class = "form-control", maxlength = "12" })
+            @Html.ValidationMessageFor(m => m.Series)
+        </div>
+    </div>
+</div>
+<div class="row margined">
+    <div class="col-md-4">
+        <div>
+            @Html.DisplayNameFor(m => m.Number)
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div>
+            @Html.TextBoxFor(model => model.Number, new { @class = "form-control", maxlength = "32" })
+            @Html.ValidationMessageFor(m => m.Series)
+        </div>
+    </div>
+</div>
+<div class="row margined">
+    <div class="col-md-4">
+        <div>
+            @Html.DisplayNameFor(m => m.StartDate)
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div>
+            @Html.TextBoxFor(model => model.StartDate,
+                new { @class = "form-control datepicker", id = string.Format("StartDate{0}", Model.Id) })
+        </div>
+    </div>
+</div>
+<div class="row margined">
+    <div class="col-md-4">
+        <div>
+            @Html.DisplayNameFor(m => m.EndDate)
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div>
+            @Html.TextBoxFor(model => model.EndDate,
+                new { @class = "form-control datepicker", id = string.Format("EndDate{0}", Model.Id) })
+        </div>
+    </div>
+</div>
+<div class="row margined">
+    <div class="col-md-4">
+        <div>
+            @Html.DisplayNameFor(m => m.OGRN)
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div>
+            @Html.TextBoxFor(model => model.OGRN, new { @class = "form-control ogrnValue", @readonly = "readonly"})
+            @Html.ValidationMessageFor(m => m.OGRN)
+        </div>
+    </div>
+</div>
+<div class="row margined">
+    <div class="col-md-4">
+        <div>
+            @Html.DisplayNameFor(m => m.OKATO)
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div>
+            @Html.TextBoxFor(model => model.OKATO, new { @class = "form-control okatoValue", @readonly = "readonly" })
+            @Html.ValidationMessageFor(m => m.Series)
+        </div>
+    </div>
+</div>
+<div>
+    <div class="col-md-4">
+        <div>
+            @Html.DisplayNameFor(m => m.SmoName)
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div>
+            @Html.HiddenFor(m => m.SmoId, new { @class = "smoValue" })
+            @Html.TextBoxFor(model => model.SmoName, new { @class = "form-control smoLabel", maxlength = "200" })
+        </div>
+    </div>
+</div>

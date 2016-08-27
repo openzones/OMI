@@ -1,0 +1,114 @@
+﻿@model OMInsurance.WebApps.Models.DocumentModel
+@Html.HiddenFor(m => m.Id)
+@Html.HiddenFor(m => m.DocumentType, new { @class = "entityType" })
+
+@if (Model.MessagesNotCritical.Count > 0)
+{
+    <div class="row margined">
+        <div class="col-md-12">
+            <div class="alert alert-warning alert-dismissable" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                @foreach (var message in Model.MessagesNotCritical)
+                {
+                    <span>
+                        @message<br />
+                    </span>
+                }
+            </div>
+        </div>
+    </div>
+}
+
+@if(Model.Messages.Count > 0){
+<div class="row margined">
+    <div class="col-md-12">
+        <div class="alert alert-danger" role="alert">
+            @foreach (var message in Model.Messages)
+            {
+                <span>@message<br /></span>
+            }
+        </div>
+    </div>
+</div>
+}
+<div class="row margined">
+    <div class="col-md-2">
+        <div>
+            @Html.DisplayNameFor(m => m.DocumentTypeID)
+        </div>
+    </div>
+    <div class="col-md-10">
+        <div>
+            @Html.DropDownListFor(model => model.DocumentTypeID, Model.DocumentTypes, new { @class = "form-control documentType" })
+        </div>
+    </div>
+</div>
+<div class="row margined">
+    <div class="col-md-2">
+        <div>
+            @Html.DisplayNameFor(m => m.Series)
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div>
+            @if (User.IsInRole(OMInsurance.Entities.Core.Role.Administrator.Name))
+            {
+                @Html.TextBoxFor(m => m.Series, new { @class = "form-control", maxlength = "9" })
+            }
+            else
+            {
+                @Html.TextBoxFor(m => m.Series, new { @class = "form-control series", maxlength = "9" })
+            }
+            
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div>
+            @Html.DisplayNameFor(m => m.Number)
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div>
+            @if (User.IsInRole(OMInsurance.Entities.Core.Role.Administrator.Name))
+            {
+                @Html.TextBoxFor(m => m.Number, new { @class = "form-control", maxlength = "16" })
+            }
+            else
+            {
+                @Html.TextBoxFor(m => m.Number, new { @class = "form-control number", maxlength = "16" })
+            }
+            
+        </div>
+    </div>
+</div>
+<div class="row margined">
+    <div class="col-md-6">
+        <div>
+            @Html.DisplayNameFor(m => m.IssueDate)
+        </div>
+        <div>
+            @Html.TextBoxFor(m => m.IssueDate,
+                new { @class = "form-control datepicker", id = string.Format("IssueDate_{0}_{1}", Model.DocumentTypeID, Model.Id) })
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div>
+            @Html.DisplayNameFor(m => m.ExpirationDate)
+        </div>
+        <div>
+            @Html.TextBoxFor(m => m.ExpirationDate,
+                new { @class = "form-control datepicker", id = string.Format("ExpirationDate_{0}_{1}", Model.DocumentTypeID, Model.Id) })
+        </div>
+    </div>
+</div>
+
+<div class="row margined">
+    <div class="col-md-12">
+        <div>
+            @Html.DisplayNameFor(m => m.IssueDepartment)
+        </div>
+        <div>
+            @Html.TextAreaFor(m => m.IssueDepartment, new { @class = "form-control" })
+        </div>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+﻿@model OMInsurance.WebApps.Models.UserModel
+<div class="row margined">
+    <div class="col-md-2">
+        <div>
+            ФИО сотрудника
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div>
+            @string.Format("{0} {1} {2}", Model.Lastname, Model.Firstname, Model.Secondname)
+        </div>
+    </div>
+</div>
+<div class="row margined">
+    <div class="col-md-2">
+        <div>
+            @Html.DisplayNameFor(m => m.Department)
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div>
+            @Html.DisplayFor(model => model.Department.Name)
+        </div>
+    </div>
+</div>

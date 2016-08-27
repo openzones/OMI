@@ -1,0 +1,202 @@
+﻿@model OMInsurance.WebApps.Models.ClientVersionEditModel
+@Html.HiddenFor(m => m.Id)
+<div class="row margined">
+    <div class="col-md-12">
+        @if (Model.MessagesNotCritical.Count > 0)
+        {
+            <div class="row margined">
+                <div class="col-md-12">
+                    <div class="alert alert-warning alert-dismissable" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        @foreach (var message in Model.MessagesNotCritical)
+                        {
+                            <span>
+                                @message<br />
+                            </span>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+        @if (Model.Messages.Count > 0)
+        {
+            <div class="row margined">
+                <div class="col-md-12">
+                    <div class="alert alert-danger" role="alert">
+                        @foreach (var message in Model.Messages)
+                        {
+                            <span>@message</span>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<div class="row margined">
+    <div class="col-md-2">
+        <div>
+            @Html.DisplayNameFor(m => m.Lastname)
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div>
+            @if (Model.EntityType == OMInsurance.Entities.Core.EntityType.New)
+            {
+                @Html.TextBoxFor(m => m.Lastname, new { @class = "form-control capitalized", required = "required", maxlength = "50" })
+            }
+            else
+            {
+                @Html.TextBoxFor(m => m.Lastname, new { @class = "form-control capitalized", maxlength = "50" })
+            }
+            @Html.ValidationMessageFor(m => m.Lastname)
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div>
+            @Html.DropDownListFor(model => model.LastnameTypeId, Model.CodFioClassifier, new { @class = "form-control" })
+        </div>
+    </div>
+</div>
+<div class="row margined">
+    <div class="col-md-2">
+        <div>
+            @Html.DisplayNameFor(m => m.Firstname)
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div>
+            @if (Model.EntityType == OMInsurance.Entities.Core.EntityType.New)
+            {
+                @Html.TextBoxFor(m => m.Firstname, new { @class = "form-control capitalized", maxlength = "50" })
+            }
+            else
+            {
+                @Html.TextBoxFor(m => m.Firstname, new { @class = "form-control capitalized", maxlength = "50" })
+            }
+            @Html.ValidationMessageFor(m => m.Firstname)
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div>
+            @Html.DropDownListFor(model => model.FirstnameTypeId, Model.CodFioClassifier, new { @class = "form-control" })
+        </div>
+    </div>
+</div>
+<div class="row margined">
+    <div class="col-md-2">
+        <div>
+            @Html.DisplayNameFor(m => m.Secondname)
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div>
+            @Html.TextBoxFor(m => m.Secondname, new { @class = "form-control capitalized", maxlength = "50" })
+            @Html.ValidationMessageFor(m => m.Secondname)
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div>
+            @Html.DropDownListFor(model => model.SecondnameTypeId, Model.CodFioClassifier, new { @class = "form-control" })
+        </div>
+    </div>
+</div>
+<div class="row margined">
+    <div class="col-md-6">
+        <div>
+            @Html.DisplayNameFor(m => m.Sex)
+        </div>
+        <div>
+            @if (Model.EntityType == OMInsurance.Entities.Core.EntityType.New)
+            {
+            @Html.DropDownListFor(model => model.Sex, new List<SelectListItem>() 
+                                                { new SelectListItem(){ Text="Не выбрано", Value="" },
+                                                  new SelectListItem(){ Text="Мужской", Value="1" },
+                                                  new SelectListItem(){ Text="Женский", Value="2" }}
+                                                , new { @class = "form-control", required = "required" })
+            }
+            else
+            {
+            @Html.DropDownListFor(model => model.Sex, new List<SelectListItem>() 
+                                                { new SelectListItem(){ Text="Не выбрано", Value="" },
+                                                  new SelectListItem(){ Text="Мужской", Value="1" },
+                                                  new SelectListItem(){ Text="Женский", Value="2" }}
+                                                , new { @class = "form-control" })
+            }
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div>
+            @Html.DisplayNameFor(m => m.SNILS)
+        </div>
+        <div>
+            @Html.TextBoxFor(m => m.SNILS, new { @class = "form-control snils", maxlength = "14" })
+            @Html.ValidationMessageFor(m => m.SNILS)
+        </div>
+    </div>
+</div>
+<div class="row margined">
+    <div class="col-md-6">
+        <div>
+            @Html.DisplayNameFor(m => m.Birthday)
+        </div>
+        <div>
+
+            @if (Model.EntityType == OMInsurance.Entities.Core.EntityType.New)
+            {
+                @Html.TextBoxFor(m => m.Birthday, Model.Birthday.HasValue ? Model.Birthday.Value.ToShortDateString() : String.Empty,
+                    new { @class = "form-control datepicker", required = "required", id = string.Format("NewBirthday{0}", Model.Id) })
+            }
+            else
+            {
+                @Html.TextBoxFor(m => m.Birthday,
+                    new { @class = "form-control datepicker", id = string.Format("OldBirthday{0}", Model.Id) })
+            }
+            @Html.ValidationMessageFor(m => m.Birthday)
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div>
+            @Html.DisplayNameFor(m => m.Birthplace)
+        </div>
+        <div>
+            @if (Model.EntityType == OMInsurance.Entities.Core.EntityType.New)
+            {
+                @Html.TextBoxFor(m => m.Birthplace, new { @class = "form-control", required = "required", maxlength = "150" })
+            }
+            else
+            {
+                @Html.TextBoxFor(m => m.Birthplace, new { @class = "form-control", maxlength = "150" })
+            }
+            @Html.ValidationMessageFor(m => m.Birthplace)
+        </div>
+    </div>
+</div>
+<div class="row margined">
+    <div class="col-md-6">
+        <div>
+            @Html.DisplayNameFor(m => m.Citizenship)
+        </div>
+        <div>
+            @if (Model.EntityType == OMInsurance.Entities.Core.EntityType.New)
+            {
+                @Html.DropDownListFor(model => model.Citizenship, Model.Citizenships, new { @class = "form-control", required = "required" })
+            }else{
+                @Html.DropDownListFor(model => model.Citizenship, Model.Citizenships, new { @class = "form-control" })
+            }
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div>
+            @Html.DisplayNameFor(m => m.Category)
+        </div>
+        <div>
+            @if (Model.EntityType == OMInsurance.Entities.Core.EntityType.New)
+            {
+                @Html.DropDownListFor(model => model.Category, Model.Categories, new { @class = "form-control", required = "required" })
+            }else{
+                @Html.DropDownListFor(model => model.Category, Model.Categories, new { @class = "form-control" })
+            }
+        </div>
+    </div>
+</div>

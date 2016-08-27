@@ -1,0 +1,9 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+@{
+    Layout = "~/Views/Shared/_UnauthorizedLayout.cshtml";
+}
+<h2>Ошибка сервера</h2>
+<div class="alert alert-danger">
+    <h5>@Model.Exception.Message</h5>
+</div>
+

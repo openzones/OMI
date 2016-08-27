@@ -1,0 +1,49 @@
+﻿@model OMInsurance.WebApps.Models.PrintedForms.AllocationBSOModel
+@using OMInsurance.WebApps.Helpers
+@using (@Html.BeginForm("AllocationBSO", "PrintedForms"))
+{
+    <div class="margined row">
+        <div class="col-md-2">
+            @Html.LabelFor(model => model.PartyNumber)
+        </div>
+        <div class="col-md-3">
+            @Html.TextBoxFor(model => model.PartyNumber, new { @class = "form-control" })
+        </div>
+        <div class="col-md-2">
+            @Html.LabelFor(model => model.DeliveryCenterIds)
+        </div>
+        <div class="col-md-3">
+            @Html.ListBoxFor(model => model.DeliveryCenterIds, Model.DeliveryCenters, new { @class = "form-control multiselect" })
+        </div>
+    </div>
+
+    <div class="margined row">
+        <div class="col-md-2">
+            @Html.LabelFor(model => Model.AllocationBSODateFrom)
+        </div>
+        <div class="col-md-3">
+            @Html.EditorFor(model => Model.AllocationBSODateFrom, new { @class = "form-control" })
+        </div>
+        <div class="col-md-2">
+            @Html.LabelFor(model => model.DeliveryPointIds)
+        </div>
+        <div class="col-md-3">
+            @Html.ListBoxFor(model => model.DeliveryPointIds, Model.DeliveryPoints, new { @class = "form-control multiselect" })
+        </div>
+    </div>
+    <div class="margined row">
+        <div class="col-md-2">
+            @Html.LabelFor(model => Model.AllocationBSODateTo)
+        </div>
+        <div class="col-md-3">
+            @Html.EditorFor(model => Model.AllocationBSODateTo, new { @class = "form-control" })
+        </div>
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-3">
+            <input class="btn btn-default"
+                   type="submit"
+                   value="Печать" />
+        </div>
+    </div>
+}

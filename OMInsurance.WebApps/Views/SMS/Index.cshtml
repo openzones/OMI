@@ -1,0 +1,96 @@
+﻿@model OMInsurance.WebApps.Models.SmsTemplateModel
+@using OMInsurance.WebApps.Helpers
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (@Html.BeginForm("Index", "SMS", FormMethod.Post))
+{
+    <div class="margined row">
+        <div class="panel panel-primary ">
+            <div class="panel-heading  ">
+                <h3 class="clickable panel-title ">Шаблон смс сообщения</h3>
+            </div>
+            <div class="panel-body col-md-12 collapse in ">
+                <div class="margined row">
+                    <div class="col-md-3">
+                        @Html.DisplayNameFor(model => model.CreateDate)
+                    </div>
+                    <div class="col-md-3">
+                        @Html.TextBoxFor(model => model.CreateDate, new { @class = "form-control", disabled = "disabled" })
+                    </div>
+                </div>
+                <div class="margined row">
+                    <div class="col-md-3">
+                        @Html.DisplayNameFor(model => model.SenderId)
+                    </div>
+                    <div class="col-md-3">
+                        @Html.TextBoxFor(model => model.SenderId, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="margined row">
+                    <div class="col-md-3">
+                        @Html.DisplayNameFor(model => model.StatusId)
+                    </div>
+                    <div class="col-md-3">
+                        @Html.DropDownListFor(model => model.StatusId, Model.Statuses, new { @class = "form-control" })
+                        @Html.HiddenFor(m => m.StatusId)
+                    </div>
+                </div>
+                <div class="margined row">
+                    <div class="col-md-3">
+                        @Html.DisplayNameFor(model => model.Message)
+                    </div>
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(model => model.Message, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="margined row">
+
+                    <div class="col-md-3">
+                    </div>
+                    <div class="col-md-3">
+                        <input class="btn btn-default"
+                               type="submit"
+                               value="Сохранить" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@using (@Html.BeginForm("SendTestSms", "SMS", FormMethod.Post))
+{
+    <div class="margined row">
+        <div class="panel panel-primary ">
+            <div class="panel-heading  ">
+                <h3 class="clickable panel-title ">Протестировать отправку</h3>
+            </div>
+            <div class="panel-body col-md-12 collapse in ">
+                <div class="margined row">
+                    <div class="col-md-2">
+                        @Html.DisplayNameFor(model => model.Phone)
+                    </div>
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(model => model.Phone, new { @class = "form-control phone" })
+                        @Html.ValidationMessageFor(model => model.Phone)
+                    </div>
+                    <div class="col-md-2">
+                        <input class="btn btn-default"
+                               type="submit"
+                               value="Отправить смс" />
+                    </div>
+                </div>
+                <div class="margined row">
+                    <div class="col-md-2">
+                        @Html.DisplayNameFor(model => model.Result)
+                    </div>
+                    <div class="col-md-4">
+                        @Html.TextAreaFor(model => model.Result, new { @class = "form-control", disabled = "disabled" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

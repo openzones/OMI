@@ -1,0 +1,245 @@
+﻿@model OMInsurance.WebApps.Models.PrintedForms.PrintedFormsModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <div class="row margined">
+        <div class="col-md-12">
+            <div class="alert alert-danger" role="alert">
+                <span>Ошибка при формировании отчета.<br /></span>
+                <span>@Model.Message<br /></span>
+            </div>
+        </div>
+    </div>
+}
+<div class="container">
+    <div class="row margined">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="clickable panel-title panel-collapsed">Журнал партий</h3>
+                    <span class="pull-right"><i class="glyphicon glyphicon-chevron-up"></i></span>
+                </div>
+                <div class="panel-body" style="display: none;">
+                    <div class="row margined">
+                        @Html.Partial("_PartyJournal", Model.PartyJournal)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (User.IsInRole(OMInsurance.Entities.Core.Role.Administrator.Name))
+{
+    <div class="container">
+        <div class="row margined">
+            <div class="col-md-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="clickable panel-title panel-collapsed">Сводный отчет по обращениям</h3>
+                        <span class="pull-right"><i class="glyphicon glyphicon-chevron-up"></i></span>
+                    </div>
+                    <div class="panel-body" style="display: none;">
+                        <div class="row margined">
+                            @Html.Partial("_ClientVisitReport", Model.ClientVisitReport)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@if (User.IsInRole(OMInsurance.Entities.Core.Role.Administrator.Name)
+  || User.IsInRole(OMInsurance.Entities.Core.Role.OperatorSG.Name))
+{
+    <div class="container">
+        <div class="row margined">
+            <div class="col-md-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="clickable panel-title panel-collapsed">Отчет по сценариям (Форма 2)</h3>
+                        <span class="pull-right"><i class="glyphicon glyphicon-chevron-up"></i></span>
+                    </div>
+                    <div class="panel-body" style="display: none;">
+                        <div class="row margined">
+                            @Html.Partial("_ScenarioForm2", Model.ScenarioForm2)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="container">
+    <div class="row margined">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="clickable panel-title panel-collapsed">Отчет по статусам</h3>
+                    <span class="pull-right"><i class="glyphicon glyphicon-chevron-up"></i></span>
+                </div>
+                <div class="panel-body" style="display: none;">
+                    <div class="row margined">
+                        @Html.Partial("_StatusReport", Model.StatusReport)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row margined">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="clickable panel-title panel-collapsed">Отчет по распределению БСО</h3>
+                    <span class="pull-right"><i class="glyphicon glyphicon-chevron-up"></i></span>
+                </div>
+                <div class="panel-body" style="display: none;">
+                    <div class="row margined">
+                        @Html.Partial("_AllocationBSO", Model.AllocationBSO)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row margined">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="clickable panel-title panel-collapsed">Акт передачи испорченных бланков БСО (временных свидетельств). Форма №13</h3>
+                    <span class="pull-right"><i class="glyphicon glyphicon-chevron-up"></i></span>
+                </div>
+                <div class="panel-body" style="display: none;">
+                    <div class="row margined">
+                        @Html.Partial("_BSOFailForm13", Model.BSOFailForm13)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@if (User.IsInRole(OMInsurance.Entities.Core.Role.Administrator.Name)
+  || User.IsInRole(OMInsurance.Entities.Core.Role.AdministratorBSO.Name))
+{
+    <div class="container">
+        <div class="row margined">
+            <div class="col-md-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="clickable panel-title panel-collapsed">Оперативная информация о расходовании БСО (временных свидетельств)</h3>
+                        <span class="pull-right"><i class="glyphicon glyphicon-chevron-up"></i></span>
+                    </div>
+                    <div class="panel-body" style="display: none;">
+                        <div class="row margined">
+                            @Html.Partial("_BSOOperativeInformation", Model.BSOOperativeInformation)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row margined">
+            <div class="col-md-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="clickable panel-title panel-collapsed">Отчет (годовой) по движению бланков временных свидетельств</h3>
+                        <span class="pull-right"><i class="glyphicon glyphicon-chevron-up"></i></span>
+                    </div>
+                    <div class="panel-body" style="display: none;">
+                        <div class="row margined">
+                            @Html.Partial("_BSOMoveReportYear", Model.BSOMoveReportYear)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="container">
+    <div class="row margined">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="clickable panel-title panel-collapsed">Отчет по движению (статусам) временных свидетельств</h3>
+                    <span class="pull-right"><i class="glyphicon glyphicon-chevron-up"></i></span>
+                </div>
+                <div class="panel-body" style="display: none;">
+                    <div class="row margined">
+                        @Html.Partial("_BSOReportForm10", Model.BSOReportForm10)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row margined">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="clickable panel-title panel-collapsed">Отчет по движению ВС с группировкой по пулам номеров БСО. Форма №10</h3>
+                    <span class="pull-right"><i class="glyphicon glyphicon-chevron-up"></i></span>
+                </div>
+                <div class="panel-body" style="display: none;">
+                    <div class="row margined">
+                        @Html.Partial("_BSOReportForm10Full", Model.BSOReportForm10Full)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (User.IsInRole(OMInsurance.Entities.Core.Role.Administrator.Name))
+{
+    <div class="container">
+        <div class="row margined">
+            <div class="col-md-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="clickable panel-title panel-collapsed">Отчет по отправленным SMS сообщениям</h3>
+                        <span class="pull-right"><i class="glyphicon glyphicon-chevron-up"></i></span>
+                    </div>
+                    <div class="panel-body" style="display: none;">
+                        <div class="row margined">
+                            @Html.Partial("_SMSBaseReport", Model.SMSBaseReport)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="container">
+    <div class="row margined">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="clickable panel-title panel-collapsed">Заявки и наличие СНИЛС</h3>
+                    <span class="pull-right"><i class="glyphicon glyphicon-chevron-up"></i></span>
+                </div>
+                <div class="panel-body" style="display: none;">
+                    <div class="row margined">
+                        @Html.Partial("_SNILSReport", Model.SNILSReport)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

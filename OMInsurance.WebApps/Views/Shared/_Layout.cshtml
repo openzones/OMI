@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - МСК Уралсиб</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/jquery.multiselect.css" rel="stylesheet" />
+    <link href="~/Content/Site.css?ver=17112015" rel="stylesheet" />
+    <script src="~/Scripts/jquery-2.1.3.js"></script>
+    <script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+    <script src="~/Scripts/jquery.form.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/js/Jquery.validate.custom.js"></script>
+    <script src="~/Scripts/MicrosoftAjax.js"></script>
+    <script src="~/Scripts/MicrosoftMvcAjax.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.maskedinput.min.js?ver=20042016"></script>
+    <script src="~/Scripts/jquery.multiselect.js"></script>
+    <script src="~/Scripts/js/Validation.js?ver=17112015"></script>
+    <script src="~/Scripts/js/PanelCollapsed.js?ver=17112015"></script>
+    <script src="~/Scripts/js/UnobtrisiveValidationForPartials.js?ver=17112015"></script>
+    <script src="~/Scripts/js/Document.js?ver=20042016"></script>
+    <script src="~/Scripts/js/Address.js?ver=18032016"></script>
+    <script src="~/Scripts/js/Representative.js?ver=17112015"></script>
+    <script src="~/Scripts/js/Policy.js?ver=17122015"></script>
+    <script src="~/Scripts/js/datepicker-ru.js?ver=17112015"></script>
+    <script src="~/Scripts/js/PartialProcessor.js?ver=17112015"></script>
+    <script src="~/Scripts/js/FileProcessor.js?ver=24032016"></script>
+    <script src="~/Scripts/js/FundResponseProcessor.js?ver=14072016"></script>
+    <script src="~/Scripts/js/Accordion.js?ver=17112015"></script>
+    <script src="~/Scripts/js/Account.js?ver=17112015"></script>
+    <script src="~/Scripts/js/Init.js?ver=24122020"></script>
+    <script src="~/Scripts/js/DisplaySettings.js?ver=17112015"></script>
+</head>
+<body>
+    <header>
+    </header>
+    <div id="body">
+        <div class="content-wrapper">
+            <nav class="navbar uralsibNavBar navbar-default">
+                @OMHelpers.UralsibBorder()
+                <div class="container-fluid">
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li><img src="~/Content/images/logo.png" /></li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown">Обращения<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("Клиенты", "Index", "Client")</li>
+                                    <li>@Html.ActionLink("Обращения", "Actuals", "ClientVisit")</li>
+                                    <li>@Html.ActionLink("Заявки", "Index", "ClientVisit")</li>
+                                </ul>
+                            </li>
+                            <li>@Html.ActionLink("Сверки", "Index", "FundRequestProcessing",null, new { target = "_blank" })</li>
+                            <li>@Html.ActionLink("БСО", "Index", "BSO")</li>
+                            <li>@Html.ActionLink("Загрузить", "InputDBF", "DbfPackage")</li>
+                            <li>@Html.ActionLink("Отчеты", "Index", "PrintedForms")</li>
+                            @if (
+                                    User.IsInRole(OMInsurance.Entities.Core.Role.Administrator.Name)
+                                    || User.IsInRole(OMInsurance.Entities.Core.Role.OperatorSG.Name)
+                                 )
+                            {
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown">Сервисы<b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+
+                                        @if (User.IsInRole(OMInsurance.Entities.Core.Role.Administrator.Name)
+                                          || User.IsInRole(OMInsurance.Entities.Core.Role.OperatorSG.Name))
+                                        {
+                                            <li>@Html.ActionLink("Пользователи", "Index", "Account")</li>
+                                            <li>@Html.ActionLink("Выгрузки", "Index", "DbfPackage")</li>
+                                        }
+
+                                        @if (User.IsInRole(OMInsurance.Entities.Core.Role.Administrator.Name))
+                                        {
+                                            <li>@Html.ActionLink("SMS оповещение", "Index", "SMS")</li>
+                                            <li>@Html.ActionLink("Проверки", "Index", "Check")</li>
+                                            <li>@Html.ActionLink("Справочники", "Index", "Reference")</li>
+                                        }
+                                    </ul>
+                                </li>
+                            }
+                            @*<li>@Html.ActionLink("Помощник", "Help", "Account")</li>*@
+                            <li>
+                                <a href="@Url.Action("Help", "Account")" target="_blank" class="btn btn-primary">
+                                    <span class="glyphicon glyphicon-question-sign" />
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="margined pull-right">
+                            @*<span class="whiteText">@User.Identity.Name</span>*@
+                            <span>@Html.ActionLink(User.Identity.Name, "UserAccount", "Account")</span>
+                            <span>@Html.ActionLink("Выйти", "Logout", "Account")</span>
+                            <img height="40" src="~/Content/images/heart.png" />
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <section class="container-fluid content-wrapper main-content clear-fix">
+                @RenderBody()
+            </section>
+        </div>
+    </div>
+    <footer>
+        @DateTime.Now.Year - OMInsurance
+    </footer>
+    <div class="loadingOverlay"></div>
+</body>
+</html>

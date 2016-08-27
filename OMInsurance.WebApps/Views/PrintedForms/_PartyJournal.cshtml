@@ -1,0 +1,34 @@
+﻿@model OMInsurance.WebApps.Models.PrintedForms.PartyJournalModel
+@using OMInsurance.WebApps.Helpers
+@using(@Html.BeginForm("PolicyExtraitionSignatureList", "PrintedForms"))
+{
+    <div class="margined row">
+        <div class="col-md-2">
+            @Html.LabelFor(model => model.PartyNumber)
+        </div>
+        <div class="col-md-3">
+            @Html.TextBoxFor(model => model.PartyNumber, new { @class = "form-control" })
+        </div>
+        <div class="col-md-2">
+            @Html.LabelFor(model => model.DeliveryCenterId)
+        </div>
+        <div class="col-md-3">
+            @Html.DropDownListFor(model => model.DeliveryCenterId, Model.DeliveryCenters, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="margined row">
+        <div class="col-md-2">
+            @Html.DisplayNameFor(model => model.DeliveryPointId)
+        </div>
+        <div class="col-md-3">
+            @Html.DropDownListFor(model => model.DeliveryPointId, Model.DeliveryPoints, new { @class = "form-control" })
+        </div>
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-3">
+            <input class="btn btn-default"
+                type="submit"
+                value="Печать" />
+        </div>
+    </div>
+}

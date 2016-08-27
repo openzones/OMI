@@ -1,0 +1,68 @@
+﻿@model OMInsurance.WebApps.Models.ClientVersionEditModel
+<div class="row margined">
+    <div class="col-md-3">
+        @Html.LabelFor(m => m.Lastname)
+        <div>
+            @Html.DisplayFor(m => m.Lastname)
+        </div>
+        @Html.LabelFor(m => m.Firstname)
+        <div>
+            @Html.DisplayFor(m => m.Firstname)
+        </div>
+        @Html.LabelFor(m => m.Secondname)
+        <div>
+            @Html.DisplayFor(m => m.Secondname)
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div>
+            @Html.LabelFor(m => m.Sex)
+        </div>
+        <div>
+            @if (Model.Sex == "1")
+            {
+                <div>Мужской</div>
+            }
+            @if (Model.Sex == "2")
+            {
+                <div>Женский</div>
+            }
+        </div>
+        @Html.LabelFor(m => m.Birthday)
+        <div>
+            @Html.DisplayFor(m => m.Birthday)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Citizenship)
+        </div>
+        <div>
+            @Html.DropDownListFor(model => model.Citizenship,
+                (IEnumerable<SelectListItem>)ViewData[OMInsurance.Entities.Core.Constants.CitizenshipRef], new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div>
+            @Html.LabelFor(m => m.Birthplace)
+        </div>
+        <div>
+            @Html.DisplayFor(m => m.Birthplace)
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div>
+            @Html.LabelFor(m => m.SNILS)
+        </div>
+        <div>
+            @Html.DisplayFor(m => m.SNILS)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Category)
+        </div>
+        <div>
+            @Html.DropDownListFor(model => model.Category,
+                (IEnumerable<SelectListItem>)ViewData[OMInsurance.Entities.Core.Constants.ClientCategoryRef], new { @class = "form-control" })
+
+        </div>
+    </div>
+</div>
+

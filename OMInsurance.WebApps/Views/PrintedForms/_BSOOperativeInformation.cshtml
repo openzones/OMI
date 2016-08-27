@@ -1,0 +1,21 @@
+﻿@model OMInsurance.WebApps.Models.PrintedForms.BSOOperativeInformationModel
+@using OMInsurance.WebApps.Helpers
+@using (@Html.BeginForm("GetBSOOperativeInformation", "PrintedForms"))
+{
+    <div class="margined row">
+        <div class="col-md-2">
+            @Html.LabelFor(model => Model.Date)
+        </div>
+        <div class="col-md-3">
+            @Html.TextBoxFor(model => Model.Date, new { @class = "form-control", @readonly = "readonly" })
+            @Html.ValidationMessageFor(model => Model.Date)
+        </div>
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-3">
+            <input class="btn btn-default"
+                   type="submit"
+                   value="Печать" />
+        </div>
+    </div>
+}

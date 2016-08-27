@@ -1,0 +1,59 @@
+﻿@model OMInsurance.WebApps.Models.PrintedForms.SNILSReportModel
+@using OMInsurance.WebApps.Helpers
+@using (@Html.BeginForm("SNILSReport", "PrintedForms"))
+{
+    <div class="margined row">
+        <div class="col-md-2">
+            @Html.LabelFor(model => Model.DateSnilsFrom)
+        </div>
+        <div class="col-md-3">
+            @Html.EditorFor(model => Model.DateSnilsFrom, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => Model.DateSnilsFrom)
+        </div>
+        <div class="col-md-2">
+            @Html.LabelFor(model => model.DeliveryPointIds)
+        </div>
+        <div class="col-md-3">
+            @if (Model.DeliveryPoints.Count() > 0)
+            {
+                @Html.ListBoxFor(model => model.DeliveryPointIds, Model.DeliveryPoints, new { @class = "form-control multiselect" })
+            }
+            else
+            {
+                <div class="alert alert-info">
+                    Нет доступных точек для формирования отчета
+                </div>
+            }
+        </div>
+    </div>
+    <div class="margined row">
+        <div class="col-md-2">
+            @Html.LabelFor(model => Model.DateSnilsTo)
+        </div>
+        <div class="col-md-3">
+            @Html.EditorFor(model => Model.DateSnilsTo, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => Model.DateSnilsTo)
+        </div>
+        <div class="col-md-2">
+            @Html.LabelFor(model => Model.IsSnilsNotEmpty)
+        </div>
+        <div class="col-md-2" >
+            <div>
+                @Html.DropDownListFor(model => model.IsSnilsNotEmpty, new List<SelectListItem>()
+                                                { new SelectListItem(){ Text="Все СНИЛС", Value="" },
+                                                  new SelectListItem(){ Text="СНИЛС не заполнено", Value="false" },
+                                                  new SelectListItem(){ Text="СНИЛС заполнено", Value="true" }}, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-3">
+            @if (Model.DeliveryPoints.Count() > 0)
+            {
+                <input class="btn btn-default" type="submit" value="Печать" />
+            }
+            else
+            {
+                <input class="btn btn-default" type="submit" disabled="disabled" value="Печать" />
+            }
+        </div>
+    </div>
+}

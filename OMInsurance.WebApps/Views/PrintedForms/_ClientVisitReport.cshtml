@@ -1,0 +1,30 @@
+﻿@model OMInsurance.WebApps.Models.PrintedForms.ClientVisitReportModel
+@using OMInsurance.WebApps.Helpers
+@using (@Html.BeginForm("ClientVisitReport", "PrintedForms"))
+{
+    <div class="margined row">
+        <div class="col-md-2">
+            @Html.LabelFor(model => Model.CVDateFrom)
+        </div>
+        <div class="col-md-3">
+            @Html.EditorFor(model => Model.CVDateFrom, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => Model.CVDateFrom)
+        </div>
+    </div>
+    <div class="margined row">
+        <div class="col-md-2">
+            @Html.LabelFor(model => Model.CVDateTo)
+        </div>
+        <div class="col-md-3">
+            @Html.EditorFor(model => Model.CVDateTo, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => Model.CVDateTo)
+        </div>
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-3">
+            <input class="btn btn-default"
+                   type="submit"
+                   value="Печать" />
+        </div>
+    </div>
+}

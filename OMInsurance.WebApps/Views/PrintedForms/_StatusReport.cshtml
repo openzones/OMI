@@ -1,0 +1,34 @@
+﻿@model OMInsurance.WebApps.Models.PrintedForms.StatusReportModel
+@using OMInsurance.WebApps.Helpers
+@using (@Html.BeginForm("StatusReport", "PrintedForms"))
+{
+    <div class="margined row">
+        <div class="col-md-2">
+            @Html.LabelFor(model => Model.StatusDateFrom)
+        </div>
+        <div class="col-md-3">
+            @Html.EditorFor(model => Model.StatusDateFrom, new { @class = "form-control" })
+        </div>
+        <div class="col-md-2">
+            @Html.LabelFor(model => model.StatusIds)
+        </div>
+        <div class="col-md-3">
+            @Html.ListBoxFor(model => model.StatusIds, Model.ClientVisitStatuses, new { @class = "form-control multiselect" })
+        </div>
+    </div>
+    <div class="margined row">
+        <div class="col-md-2">
+            @Html.LabelFor(model => Model.StatusDateTo)
+        </div>
+        <div class="col-md-3">
+            @Html.EditorFor(model => Model.StatusDateTo, new { @class = "form-control" })
+        </div>
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-3">
+            <input class="btn btn-default"
+                   type="submit"
+                   value="Печать" />
+        </div>
+    </div>
+}

@@ -1,0 +1,34 @@
+﻿@model OMInsurance.WebApps.Models.PrintedForms.ScenarioForm2Model
+@using OMInsurance.WebApps.Helpers
+@using (@Html.BeginForm("ScenarioForm2", "PrintedForms"))
+{
+    <div class="margined row">
+        Подсчет за полный месяц займет 5-10 минут
+        <br /><br />
+    </div>
+    <div class="margined row">
+        <div class="col-md-1">
+            @Html.LabelFor(model => Model.MonthID)
+        </div>
+        <div class="col-md-2">
+            @Html.DropDownListFor(model => model.MonthID, Model.Months, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => Model.MonthID)
+        </div>
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-1">
+            @Html.LabelFor(model => Model.Year)
+        </div>
+        <div class="col-md-2">
+            @Html.DropDownListFor(model => model.Year, Model.Years, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => Model.Year)
+        </div>
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-3">
+            <input class="btn btn-default"
+                   type="submit"
+                   value="Печать" />
+        </div>
+    </div>
+}

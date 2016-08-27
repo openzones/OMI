@@ -1,0 +1,30 @@
+﻿@model OMInsurance.WebApps.Models.PrintedForms.BSOFailForm13Model
+@using OMInsurance.WebApps.Helpers
+@using (@Html.BeginForm("GetBSOFailForm13", "PrintedForms"))
+{
+    <div class="margined row">
+        <div class="col-md-2">
+            @Html.LabelFor(model => Model.DateFrom)
+        </div>
+        <div class="col-md-3">
+            @Html.EditorFor(model => Model.DateFrom, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => Model.DateFrom)
+        </div>
+    </div>
+    <div class="margined row">
+        <div class="col-md-2">
+            @Html.LabelFor(model => Model.DateTo)
+        </div>
+        <div class="col-md-3">
+            @Html.EditorFor(model => Model.DateTo, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => Model.DateTo)
+        </div>
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-3">
+            <input class="btn btn-default"
+                   type="submit"
+                   value="Печать" />
+        </div>
+    </div>
+}

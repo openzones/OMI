@@ -1,0 +1,50 @@
+﻿@model OMInsurance.WebApps.Models.PrintedForms.BSOReportForm10Model
+@using OMInsurance.WebApps.Helpers
+@using (@Html.BeginForm("GetBSOReportForm10", "PrintedForms"))
+{
+    <div class="margined row">
+        <div class="col-md-2">
+            @Html.LabelFor(model => Model.DateForm10From)
+        </div>
+        <div class="col-md-3">
+            @Html.EditorFor(model => Model.DateForm10From, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => Model.DateForm10From)
+        </div>
+        <div class="col-md-2">
+            @Html.LabelFor(model => model.DeliveryPointIds)
+        </div>
+        <div class="col-md-3">
+            @if (Model.DeliveryPoints.Count() > 0)
+            {
+                @Html.ListBoxFor(model => model.DeliveryPointIds, Model.DeliveryPoints, new { @class = "form-control multiselect" })
+            }
+            else
+            {
+                <div class="alert alert-info">
+                    Нет доступных точек для формирования отчета
+                </div>
+            }
+        </div>
+    </div>
+    <div class="margined row">
+        <div class="col-md-2">
+            @Html.LabelFor(model => Model.DateForm10To)
+        </div>
+        <div class="col-md-3">
+            @Html.EditorFor(model => Model.DateForm10To, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => Model.DateForm10To)
+        </div>
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-3">
+            @if (Model.DeliveryPoints.Count() > 0)
+            {
+                <input class="btn btn-default" type="submit" value="Печать" />
+            }
+            else
+            {
+                <input class="btn btn-default" type="submit" disabled ="disabled" value="Печать" />
+            }
+        </div>
+    </div>
+}
