@@ -1,0 +1,63 @@
+﻿@helper ActionLinkIcon(System.Web.Mvc.UrlHelper Url, string action, string controller, long Id, string text, string icon, bool isBlank = false)
+{
+    if (isBlank)
+    {
+        <a href="@Url.Action(action, controller, new { id = Id })" target="_blank" class="btn-default">
+            <span class="glyphicon @icon" />@text
+        </a>
+    }
+    else
+    {
+        <a href="@Url.Action(action, controller, new { id = Id })" class="btn-default">
+            <span class="glyphicon @icon" />@text
+        </a>
+    }
+}
+
+@helper UralsibBorder()
+{
+    <div class="uralsibBorder"></div>
+}
+
+@helper Pagination(
+string id,
+int pageNumber,
+int pageSize,
+int totalCount)
+{
+    <input name="@id" id="@id" type="hidden" onchange="this.form.submit()"/>
+    <script type="text/javascript">
+        function goToPage(pageNumber) {
+            $(function () {
+                $("input[id='@id']").val(pageNumber);
+                document.forms[0].submit();
+            });
+        }
+    </script>
+            int maxPage = totalCount / pageSize + (totalCount % pageSize == 0 ? 0 : 1);
+            List<SelectListItem> pages = new List<SelectListItem>();
+
+            pages.Add(new SelectListItem() { Text = "<<", Value = "1" });
+            pages.Add(new SelectListItem() { Text = "<", Value = (Math.Max(pageNumber - 1, 1)).ToString() });
+            for (int i = Math.Max(pageNumber - 1, 1); i <= Math.Min(pageNumber + 2, maxPage); i++)
+            {
+                pages.Add(new SelectListItem() { Text = i.ToString(), Value = i.ToString() });
+            }
+            pages.Add(new SelectListItem() { Text = ">", Value = (Math.Min(pageNumber + 1, maxPage)).ToString() });
+            pages.Add(new SelectListItem() { Text = ">>", Value = maxPage.ToString() });
+    <nav>
+        <ul class="pagination">
+            @foreach (var item in pages)
+            {
+                if (item.Value == pageNumber.ToString())
+                {
+                <li class="active"><a onclick="goToPage(@item.Value)">@item.Text</a></li>
+                }
+                else
+                {
+                <li><a onclick="goToPage(@item.Value)">@item.Text</a></li>
+                }
+            }
+        </ul>
+    </nav>
+}
