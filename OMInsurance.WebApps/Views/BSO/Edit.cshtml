@@ -1,0 +1,79 @@
+﻿@model OMInsurance.WebApps.Models.BSOSaveDataModel
+@if (Model.FlagPrintReport)
+{
+<div class="container">
+    <div class="row margined">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="clickable panel-title">Требование-накладная</h3>
+                    <span class="pull-right"><i class="glyphicon glyphicon-chevron-up"></i></span>
+                </div>
+                <div class="panel-body collapse in">
+                    <div class="container">
+                        @using (@Html.BeginForm("GetBSOInvoice", "PrintedForms"))
+                        {
+                            @Html.HiddenFor(m => m.DeliveryPointId);
+                            <div class="margined row">
+                                <div class="col-md-2">
+                                    @Html.LabelFor(model => Model.TemporaryPolicyNumber)
+                                </div>
+                                <div class="col-md-3">
+                                    @Html.HiddenFor(m => m.TemporaryPolicyNumber)
+                                    @Html.TextBoxFor(model => Model.TemporaryPolicyNumber, new { @class = "form-control", maxlength = "9", disabled = "disabled" })
+                                </div>
+                                <div class="col-md-3">
+                                    <input class="btn btn-default"
+                                            type="submit"
+                                            value="Печать накладной" />
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}
+<div id="clientVisitContainer">
+@using (Ajax.BeginForm("Edit", "BSO",
+                    new AjaxOptions
+                    {
+                        HttpMethod = "POST",
+                        UpdateTargetId = "clientVisitContainer",
+                        InsertionMode = InsertionMode.Replace,
+                    },
+                    new { id = string.Format("clientVisitForm{0}", Model.Id) }))
+
+    {
+        @Html.Partial("_EditBSO", Model)
+    <div class="row margined">
+        <div class="col-md-12">
+            @if (Model.IsSuccessfullySaved.HasValue)
+                {
+                    if (!Model.IsSuccessfullySaved.Value)
+                    {
+                    @Html.Partial("_ErrorMessage", "БСО не сохранено")
+                }
+                else
+                {
+                    @Html.Partial("_Message", "БСО успешно изменено. При необходимости обновите страницу.")
+                }
+            }
+        </div>
+    </div>
+
+}
+</div>
+
+<script>$.validator.unobtrusive.addValidation("#@string.Format("clientVisitForm{0}", Model.Id)")</script>
+@section Scripts {
+    <script>
+        $(document).ready(function ()
+        {
+            $('#projectEditModal').modal('false');
+            $('#projectEditModal').modal('show');
+        });
+    </script>
+}

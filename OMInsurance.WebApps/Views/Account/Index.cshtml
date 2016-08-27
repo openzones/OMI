@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "Пользователи";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="margined row" id="accountControl">
+    <div class="col-md-12">
+    </div>
+    <div class="col-md-4">
+        <h3>Выберите пользователя (ФИО)
+        </h3>
+        <input type="text" class="form-control fullnameAutocomplete" />
+    </div>
+    <div class="col-md-12">
+        @Ajax.ActionLink("Добавить нового пользователя", "Edit", 
+        new AjaxOptions(){ 
+            HttpMethod = "GET", 
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "editUser"})
+        <div id="editUser">
+      
+        </div>
+    </div>
+    <script type="text/javascript">
+        AccountProcessor.bind('accountControl');
+    </script>
+</div>

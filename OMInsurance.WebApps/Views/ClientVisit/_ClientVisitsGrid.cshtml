@@ -1,0 +1,111 @@
+﻿@model IEnumerable<OMInsurance.WebApps.Models.ClientVisitInfoModel>
+<table class="table table-striped">
+    <tr>
+        <th>!
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lastname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Firstname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Secondname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sex)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Birthday)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Scenario)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TemporaryPolicyNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StatusDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PolicySeries)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PolicyNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UnifiedPolicyNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PolicyNumberDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PolicyParty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td style="width: 3%">
+                @Html.CheckBoxFor(model => item.IsDifficultCase,
+                    new
+                    {
+                        onchange = string.Format("FundResponseProcessor.setDifficultCase({0}, this)", item.Id),
+                        @class = "setDifficultCaseCheckBox",
+                    })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lastname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Firstname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Secondname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sex)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Birthday)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Scenario.Code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TemporaryPolicyNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StatusDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PolicySeries)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PolicyNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnifiedPolicyNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PolicyNumberDate)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.PolicyParty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status.Name)
+            </td>
+            <td>
+                <a href="@Url.Action("Details", "ClientVisit", new { id = item.Id })" target = "_blank" class="btn-default">
+                    <span class="glyphicon glyphicon-pencil" />
+                </a>
+            </td>
+        </tr>
+    }
+</table>

@@ -1,0 +1,267 @@
+﻿@model OMInsurance.WebApps.Models.ClientVisitListModel
+@{
+    ViewBag.Title = "Обращения";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-md-12">
+        @Html.ActionLink("Добавить обращение для нового клиента", "Create", "ClientVisit")
+    </div>
+</div>
+
+@using (Html.BeginForm("Actuals", "ClientVisit", FormMethod.Post, new { id = "ClientVisitFindForm" }))
+{
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => Model.SearchCriteriaModel.IsActualInVisitGroup)
+    <div class="row search-panel col-md-12">
+        <div class="row margined">
+            <div class="col-md-11">
+                <h4>Параметры поиска обращений</h4>
+            </div>
+            <div class="col-md-1">
+                <button type="button" href="#searchFields" class="toggle btn btn-default" aria-label="Left Align">
+                    <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>
+                </button>
+            </div>
+        </div>
+
+        <div id="searchFields" class="container">
+            <div class="row margined">
+                <div class="form-group-md">
+                    <div class="col-md-1" style="padding-top:5px;">
+                        @Html.LabelFor(model => Model.SearchCriteriaModel.Lastname)
+                    </div>
+                    <div class="col-md-2" style="padding-left:1px;padding-right:1px;">
+                        @Html.TextBoxFor(model => Model.SearchCriteriaModel.Lastname, new { @class = "form-control", tabindex = "1" })
+                        @Html.ValidationMessageFor(model => Model.SearchCriteriaModel.Lastname)
+                    </div>
+                    <div class="col-md-1" style="padding-top:5px;left:20px;">
+                        @Html.Label("Полис")
+                    </div>
+                    <div class="col-md-2" style="padding-left:1px;padding-right:1px;">
+                        @Html.TextBoxFor(model => Model.SearchCriteriaModel.PolicyNumber, new { @class = "form-control", tabindex = "5", @title = "номер полиса без серии" })
+                        @Html.ValidationMessageFor(model => Model.SearchCriteriaModel.PolicyNumber)
+                    </div>
+                    <div class="col-md-1" style="padding-top:5px;left:20px;">
+                        @Html.LabelFor(model => Model.SearchCriteriaModel.ScenarioIds)
+                    </div>
+                    <div class="col-md-4">
+                        <div>
+                            @Html.ListBoxFor(model => model.SearchCriteriaModel.ScenarioIds,
+                        Model.Scenaries, new { @class = "form-control multiselect", tabindex = "9" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row margined">
+                <div class="form-group-md">
+                    <div class="col-md-1" style="padding-top:5px;">
+                        @Html.LabelFor(model => Model.SearchCriteriaModel.Firstname)
+                    </div>
+                    <div class="col-md-2" style="padding-left:1px;padding-right:1px;">
+                        @Html.TextBoxFor(model => Model.SearchCriteriaModel.Firstname, new { @class = "form-control", tabindex = "2" })
+                        @Html.ValidationMessageFor(model => Model.SearchCriteriaModel.Firstname)
+                    </div>
+                    <div class="col-md-1" style="padding-left:1px;padding-right:1px;padding-top:5px;left:13px;">
+                        @Html.Label("Дата полиса")
+                    </div>
+                    <div class="col-md-1" style="padding-left:1px;padding-right:1px;">
+                        @Html.EditorFor(model => Model.SearchCriteriaModel.PolicyDateFrom, new { @class = "form-control", tabindex = "7" })
+                        @Html.ValidationMessageFor(model => Model.SearchCriteriaModel.PolicyDateFrom)
+                    </div>
+                    <div class="col-md-1" style="padding-left:1px;padding-right:1px;">
+                        @Html.EditorFor(model => Model.SearchCriteriaModel.PolicyDateTo, new { @class = "form-control", tabindex = "8" })
+                        @Html.ValidationMessageFor(model => Model.SearchCriteriaModel.PolicyDateTo)
+                    </div>
+                    <div class="col-md-1" style="padding-top:5px;left:20px;">
+                        @Html.LabelFor(model => Model.SearchCriteriaModel.UserId)
+                    </div>
+                    <div class="col-md-4">
+                        <div>
+                            @Html.DropDownListFor(model => model.SearchCriteriaModel.UserId,
+                        Model.UserS, new { @class = "form-control", tabindex = "19" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row margined">
+                <div class="form-group-md">
+                    <div class="col-md-1" style="padding-top:5px;">
+                        @Html.LabelFor(model => Model.SearchCriteriaModel.Secondname)
+                    </div>
+                    <div class="col-md-2" style="padding-left:1px;padding-right:1px;">
+                        @Html.TextBoxFor(model => Model.SearchCriteriaModel.Secondname, new { @class = "form-control", tabindex = "3" })
+                        @Html.ValidationMessageFor(model => Model.SearchCriteriaModel.Secondname)
+                    </div>
+                    <div class="col-md-1" style="padding-left:1px;padding-right:1px;padding-top:5px;left:5px;">
+                        @Html.Label("Дата периода")
+                    </div>
+                    <div class="col-md-1" style="padding-left:1px;padding-right:1px;">
+                        @Html.EditorFor(model => Model.SearchCriteriaModel.UpdateDateFrom, new { @class = "form-control", tabindex = "9" })
+                        @Html.ValidationMessageFor(model => Model.SearchCriteriaModel.UpdateDateFrom)
+                    </div>
+                    <div class="col-md-1" style="padding-left:1px;padding-right:1px;">
+                        @Html.EditorFor(model => Model.SearchCriteriaModel.UpdateDateTo, new { @class = "form-control", tabindex = "10" })
+                        @Html.ValidationMessageFor(model => Model.SearchCriteriaModel.UpdateDateTo)
+                    </div>
+                    <div class="col-md-1" style="padding-top:5px;left:20px;">
+                        @Html.LabelFor(model => Model.SearchCriteriaModel.DeliveryPointIds)
+                    </div>
+                    <div class="col-md-4">
+                        <div>
+                            @Html.ListBoxFor(model => model.SearchCriteriaModel.DeliveryPointIds,
+                        Model.DeliveryPoints, new { @class = "form-control multiselect", tabindex = "12" })
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row margined">
+                <div class="form-group-md">
+                    <div class="col-md-1" style="padding-right:0px;padding-top:5px;">
+                        @Html.LabelFor(model => Model.SearchCriteriaModel.Birthday)
+                    </div>
+                    <div class="col-md-2" style="padding-left:1px;padding-right:1px;">
+                        @Html.EditorFor(model => Model.SearchCriteriaModel.Birthday, new { @class = "form-control", tabindex = "4" })
+                        @Html.ValidationMessageFor(model => Model.SearchCriteriaModel.Birthday)
+                    </div>
+                    <div class="col-md-1" style="padding-top:5px;left:30px;">
+                        @Html.LabelFor(model => Model.SearchCriteriaModel.IsTemporaryPolicyNumberNotEmpty)
+                    </div>
+                    <div class="col-md-2" style="padding-left:1px;padding-right:1px;">
+                        <div>
+                            @Html.DropDownListFor(model => model.SearchCriteriaModel.IsTemporaryPolicyNumberNotEmpty, new List<SelectListItem>()
+                                                { new SelectListItem(){ Text="Все ВС", Value="" },
+                                                  new SelectListItem(){ Text="ВС не заполнено", Value="false" },
+                                                  new SelectListItem(){ Text="ВС заполнено", Value="true" }}, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-md-1" style="padding-top:5px;left:20px;">
+                        @Html.LabelFor(model => Model.SearchCriteriaModel.DeliveryCenterIds)
+                    </div>
+                    <div class="col-md-4">
+                        <div>
+                            @Html.ListBoxFor(model => model.SearchCriteriaModel.DeliveryCenterIds,
+                        Model.DeliveryCenters, new { @class = "form-control multiselect", tabindex = "12" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row margined">
+                <div class="form-group-md">
+                    <div class="col-md-1" style="padding-top:5px;">
+                        @Html.LabelFor(model => Model.SearchCriteriaModel.StatusIds)
+                    </div>
+                    <div class="col-md-2" style="padding-left:1px;padding-right:1px;">
+                        <div>
+                            @Html.ListBoxFor(model => model.SearchCriteriaModel.StatusIds,
+                        Model.ClientVisitStatuses, new { @class = "form-control multiselect", tabindex = "11" })
+                        </div>
+                    </div>
+                    <div class="col-md-1" style="padding-top:5px;left:20px;">
+                        @Html.LabelFor(model => Model.SearchCriteriaModel.TemporaryPolicyNumber)
+                    </div>
+                    <div class="col-md-2" style="padding-left:1px;padding-right:1px;">
+                        @Html.TextBoxFor(model => Model.SearchCriteriaModel.TemporaryPolicyNumber, new { @class = "form-control", maxlength = "9", tabindex = "15" })
+                        @Html.ValidationMessageFor(model => Model.SearchCriteriaModel.TemporaryPolicyNumber)
+                    </div>
+                    <div class="col-md-1" style="padding-right:1px;padding-top:5px;left:20px;">
+                        @Html.LabelFor(model => Model.SearchCriteriaModel.PartyNumber)
+                    </div>
+                    <div class="col-md-1">
+                        @Html.TextBoxFor(model => Model.SearchCriteriaModel.PartyNumber, new { @class = "form-control", tabindex = "18" })
+                        @Html.ValidationMessageFor(model => Model.SearchCriteriaModel.PartyNumber)
+                    </div>
+                    <div class="col-md-1">
+                    </div>
+                    <div class="col-md-2" style="padding-top:5px;right:10px;">
+                        @Html.LabelFor(model => Model.SearchCriteriaModel.IsReadyToFundSubmitRequest)
+                    </div>
+                    <div class="col-md-1" style="padding-top:5px;right:40px;">
+                        <div>
+                            @Html.CheckBoxFor(model => model.SearchCriteriaModel.IsReadyToFundSubmitRequest)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row margined">
+                <div class="form-group-md">
+                    <div class="col-sm-1" style="padding-left:1px;padding-right:1px;padding-top:5px;left:11px;">
+                        @Html.Label("Дата статуса")
+                    </div>
+                    <div class="col-md-1" style="padding-left:1px;padding-right:1px;">
+                        @Html.EditorFor(model => Model.SearchCriteriaModel.StatusDateFrom, new { @class = "form-control", tabindex = "13" })
+                        @Html.ValidationMessageFor(model => Model.SearchCriteriaModel.StatusDateFrom)
+                    </div>
+                    <div class="col-sm-1" style="padding-left:1px;padding-right:1px;">
+                        @Html.EditorFor(model => Model.SearchCriteriaModel.StatusDateTo, new { @class = "form-control", tabindex = "14" })
+                        @Html.ValidationMessageFor(model => Model.SearchCriteriaModel.StatusDateTo)
+                    </div>
+                    <div class="col-md-1" style="padding-top:5px;left:10px;">
+                        @Html.Label("Дата ВС")
+                    </div>
+                    <div class="col-md-1" style="padding-left:1px;padding-right:1px;">
+                        @Html.EditorFor(model => Model.SearchCriteriaModel.TemporaryPolicyDateFrom, new { @class = "form-control", tabindex = "16" })
+                        @Html.ValidationMessageFor(model => Model.SearchCriteriaModel.TemporaryPolicyDateFrom)
+                    </div>
+                    <div class="col-md-1" style="padding-left:1px;padding-right:1px;">
+                        @Html.EditorFor(model => Model.SearchCriteriaModel.TemporaryPolicyDateTo, new { @class = "form-control", tabindex = "17" })
+                        @Html.ValidationMessageFor(model => Model.SearchCriteriaModel.TemporaryPolicyDateTo)
+                    </div>
+                    <div class="col-md-1" style="padding-top:5px;">
+                        @Html.LabelFor(model => Model.SearchCriteriaModel.IsDifficultCase)
+                    </div>
+                    <div class="col-md-1" style="padding-top:5px;left:24px;">
+                        @Html.CheckBoxFor(model => Model.SearchCriteriaModel.IsDifficultCase)
+                    </div>
+                    <div class="col-md-1" style="padding-top:5px;">
+                        @Html.LabelFor(model => Model.PageSize)
+                    </div>
+                    <div class="col-md-1">
+                        @Html.DropDownListFor(model => model.PageSize,
+                    new List<SelectListItem>()
+                    {
+                        new SelectListItem() {  Value = "10", Text = "10", Selected = true } ,
+                        new SelectListItem() {  Value = "25", Text = "25" } ,
+                        new SelectListItem() {  Value = "50", Text = "50" }
+                    }, new { @class = "form-control", tabindex = "20" })
+                    </div>
+                    <div class="col-md-1" style="right:20px;">
+                        <div class="btn-group pull" role="group">
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Выгрузки
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a onclick='PartialProcessor.getFileWithParameters("/DbfPackage/GetReport/", "ClientVisitFindForm")' title="Выгрузить в DBF" class="btn">Выгрузить в DBF</a>
+                                </li>
+                                <li>
+                                    <a onclick='PartialProcessor.getFileWithParameters("/DbfPackage/FundSubmitRequest_Get/", "ClientVisitFindForm")' title="Посылка в фонд" class="btn ">Посылка в фонд</a>
+                                </li>
+                                <li>
+                                    <a onclick='PartialProcessor.getFileWithParameters("/DbfPackage/GetFullRequestPackage/", "ClientVisitFindForm")' title="Пакет сверок" class="btn">Пакет сверок</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <input type="submit" value="Найти" class="btn pull-right btn-primary" tabindex="21" style="padding-left:20px;padding-right:20px;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row margined">
+        <div class="col-md-12">
+            <div>
+                @Html.Partial("_ClientVisitsGrid", Model.Items)
+            </div>
+        </div>
+    </div>
+    @OMHelpers.Pagination("PageNumber", Model.PageNumber, Model.PageSize, Model.TotalCount)
+}
+<div class="row margined">
+    <div class="col-md-2">
+        @Html.LabelFor(model => Model.TotalCount): @Html.DisplayTextFor(model => Model.TotalCount)
+    </div>
+</div>

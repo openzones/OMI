@@ -1,0 +1,76 @@
+﻿@model IEnumerable < OMInsurance.WebApps.Models.ClientPretensionModel>
+@if (Model.Count() > 0)
+{
+    <table class="table table-striped">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Generator)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DATE_IN)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LPU_ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.M_mo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.M_nakt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.M_dakt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserFIO)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreateDate)
+            </th>
+            <th>
+            </th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Generator)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DATE_IN)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LPU_ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.M_mo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.M_nakt)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.M_dakt)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserFIO)
+                </td>
+                <td>
+                    @Html.DisplayTextFor(modelItem => item.CreateDate)
+                </td>
+                <td>
+                    @*@Html.ActionLink("->", "ClientPretensionGetByGenerator", "Client",new { @clientId = item.ClientId, @generator = item.Generator },null)*@
+                    <a href="@Url.Action("Pretension", "Client", new { @clientId = item.ClientId, @gen = item.Generator })" target="_blank" class="btn-default">
+                        <span class="glyphicon glyphicon-pencil" />
+                    </a>
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <div class="col-md-12">
+        Записи отсутствуют<br />
+    </div>
+}
+

@@ -1,0 +1,45 @@
+﻿@model OMInsurance.WebApps.Models.UploadRegionExcelModel
+@{
+    ViewBag.Title = "Загрузка Excel";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Загрузка данных (полисов) из регионов</h2>
+@Html.ActionLink("Скачать шаблон загрузки данных из регионов", "GetFileFromAppData", "File", new { @filename = "DefaultFormatRegion.xls" }, null)
+<br>
+
+@using (@Html.BeginForm("UploadRegionExcel", "DbfPackage"))
+{
+    <div class="margined row">
+        <div class="col-md-6">
+            <table class="table table-striped">
+                <tr>
+                    <td>
+                        <input id="UploadRegionExcel" class="btn btn-default" type="file" value="loadFile" />
+                    </td>
+                    <td>
+                        <input class="btn btn-default" id="uploadFileName"
+                               type="button"
+                               onclick="FileProcessor.uploadDbf('UploadRegionExcel', '/DbfPackage/UploadRegionExcel', 'report', 'UploadRegionExcelParameters')"
+                               value="Загрузить файл" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+   </div>
+}
+
+<div class="row" id="report">
+</div>
+<div class="margined row">
+    <div class="col-md-6">
+        <div>
+            @if (Model.Messages.Count > 0)
+            {
+                foreach (string message in Model.Messages)
+                {
+                    @Html.Partial("_Message", message);
+                }
+            }
+        </div>
+    </div>
+</div>

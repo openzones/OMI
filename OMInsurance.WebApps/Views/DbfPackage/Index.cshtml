@@ -1,0 +1,106 @@
+﻿@model OMInsurance.WebApps.Models.ClientVisitListModel
+@{
+    ViewBag.Title = "Выгрузки";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("Index", "DbfPackage", FormMethod.Post, new { id = "ClientVisitFindForm" }))
+{
+    @Html.ValidationSummary(true)
+    <div class="row search-panel">
+        <h3>Сформировать выгрузку</h3>
+        <div class="container">
+            <div class="row margined">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => Model.SearchCriteriaModel.UpdateDateFrom)
+                </div>
+                <div class="col-md-2">
+                    @Html.EditorFor(model => Model.SearchCriteriaModel.UpdateDateFrom)
+                </div>
+                <div class="col-md-2">
+                    @Html.LabelFor(model => Model.SearchCriteriaModel.UpdateDateTo)
+                </div>
+                <div class="col-md-2">
+                    @Html.EditorFor(model => Model.SearchCriteriaModel.UpdateDateTo)
+                </div>
+                <div class="col-md-1">
+                    @Html.LabelFor(model => Model.SearchCriteriaModel.StatusIds)
+                </div>
+                <div class="col-md-3">
+                    <div>
+                        @Html.ListBoxFor(model => model.SearchCriteriaModel.StatusIds,
+                        Model.ClientVisitStatuses, new { @class = "form-control multiselect" })
+                    </div>
+                </div>
+            </div>
+            <div class="row margined">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => Model.SearchCriteriaModel.DeliveryCenterIds)
+                </div>
+                <div class="col-md-2">
+                    <div>
+                        @Html.ListBoxFor(model => model.SearchCriteriaModel.DeliveryCenterIds,
+                        Model.DeliveryCenters, new { @class = "form-control multiselect" })
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    @Html.LabelFor(model => Model.PageSize)
+                </div>
+                <div class="col-md-2">
+                    @Html.DropDownListFor(model => model.PageSize,
+                    new List<SelectListItem>()
+                    {   
+                        new SelectListItem() {  Value = "10", Text = "10", Selected = true } ,
+                        new SelectListItem() {  Value = "25", Text = "25" } ,
+                        new SelectListItem() {  Value = "50", Text = "50" }
+                    }, new { @class = "form-control", })
+                </div>
+                <div class="col-md-2">
+                    @if (Model.IsDbfDownloadAvailable.HasValue && Model.IsDbfDownloadAvailable.Value)
+                    {
+                        <input type="button" onclick='PartialProcessor.submitForm("/DbfPackage/GetFullRequestPackage/", "ClientVisitFindForm")' value="Пакет сверок" class="btn btn-primary" />
+                    }
+                </div>
+                <div class="col-md-2">
+                    @if (Model.IsDbfDownloadAvailable.HasValue && Model.IsDbfDownloadAvailable.Value)
+                    {
+                        <input type="button" onclick='PartialProcessor.submitForm("/DbfPackage/GetReport/", "ClientVisitFindForm")' value="Выгрузить в DBF" class="btn btn-primary" />
+                    }
+                    </div>
+            </div>
+            <div class="row margined">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => Model.SearchCriteriaModel.IsReadyToFundSubmitRequest)
+                </div>
+                <div class="col-md-2">
+                    <div>
+                        @Html.CheckBoxFor(model => model.SearchCriteriaModel.IsReadyToFundSubmitRequest)
+                    </div>
+                </div>
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-2">
+                    @if (Model.IsDbfDownloadAvailable.HasValue && Model.IsDbfDownloadAvailable.Value)
+                    {
+                        <input type="button" onclick='PartialProcessor.submitForm("/DbfPackage/FundSubmitRequest_Get/", "ClientVisitFindForm")' value="Посылка в фонд" class="btn btn-primary" />
+                    }
+                </div>
+                <div class="col-md-2">
+                    <input type="button" onclick='PartialProcessor.submitForm("/DbfPackage/Index/", "ClientVisitFindForm")' value="Посмотреть" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row margined">
+        <div class="col-md-12">
+            <div>
+                @Html.Partial("~/Views/ClientVisit/_ClientVisitsGrid.cshtml ", Model.Items)
+            </div>
+        </div>
+    </div>
+    @OMHelpers.Pagination("PageNumber", Model.PageNumber, Model.PageSize, Model.TotalCount)
+}
+<div class="row margined">
+    <div class="col-md-2">
+        @Html.LabelFor(model => Model.TotalCount): @Html.DisplayTextFor(model => Model.TotalCount)
+    </div>
+</div>

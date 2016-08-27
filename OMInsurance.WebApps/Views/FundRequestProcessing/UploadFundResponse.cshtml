@@ -1,0 +1,78 @@
+﻿@{
+    ViewBag.Title = "Загрузка DBF из фонда";
+    Layout = "~/Views/Shared/_LayoutWide.cshtml";
+}
+<h4>Загрузка сверок</h4>
+<form id="FundRequestProcessingForm">
+    <div class="row">
+        <div class="col-md-2">
+            @Html.CheckBox("runScenario")
+            Запускать сценарии
+        </div>
+        </div>
+    <div class="row">
+        <div class="col-md-4">
+            <input id="FundRequestProcessing" class="btn btn-default" type="file" />
+        </div>
+        <div class="col-md-4">
+            <input class="btn btn-default" id="uploadFileName"
+                type="button"
+                onclick="FileProcessor.uploadDbf('FundRequestProcessing', '/FundRequestProcessing/UploadFundResponse', 'report', 'FundRequestProcessingForm')"
+                value="Загрузить DBF" />
+        </div>
+    </div>
+</form>
+<h4>Загрузка ответов фонда</h4>
+<div class="row">
+    <div class="col-md-4">
+        <input id="UploadSubmitFundResponseFile" class="btn btn-default" type="file" />
+    </div>
+
+    <div class="col-md-8">
+        <input class="btn btn-default" id="uploadSubmitFundResponseBtn"
+            type="button"
+            onclick="FileProcessor.uploadDbf('UploadSubmitFundResponseFile', '/FundRequestProcessing/UploadSubmitFundResponse', 'report')"
+            value="Загрузить DBF" />
+    </div>
+</div>
+<h4>Загрузка подтверждающих сверок</h4>
+<div class="row">
+    <div class="col-md-4">
+        <input id="uploadSecondStepReconciliationPack" class="btn btn-default" type="file" />
+    </div>
+
+    <div class="col-md-8">
+        <input class="btn btn-default" id="uploadSecondStepReconciliationPackBtn"
+            type="button"
+            onclick="FileProcessor.uploadDbf('uploadSecondStepReconciliationPack', '/FundRequestProcessing/Upload_SecondStepReconciliationPack', 'report')"
+            value="Загрузить DBF" />
+    </div>
+</div>
+@if (User.IsInRole(OMInsurance.Entities.Core.Role.Administrator.Name))
+{
+    <div class="blueLine"></div>
+    <h4>Загрузка сверок, объединенная логика (тестовый режим)</h4>
+    <form id="FundRequestProcessingUnionForm">
+        <div class="row">
+            <div class="col-md-2">
+                @Html.CheckBox("runScenario")
+                Запускать сценарии
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <input id="FundRequestProcessingUnion" class="btn btn-default" type="file" />
+            </div>
+            <div class="col-md-4">
+                <input class="btn btn-default" id="FundRequestProcessingUnionBtn"
+                       type="button"
+                       onclick="FileProcessor.uploadDbf('FundRequestProcessingUnion', '/FundRequestProcessing/UploadFundResponseUnion', 'report', 'FundRequestProcessingUnionForm')"
+                       value="Загрузить DBF" />
+            </div>
+        </div>
+    </form>
+}
+<div class="row">
+    <div class="col-md-12" id="report">
+    </div>
+</div>

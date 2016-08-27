@@ -1,0 +1,119 @@
+﻿@model OMInsurance.WebApps.Models.BaseCheckClientModel
+@{
+    ViewBag.Title = "Результаты слияния клиентов";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="margined row">
+    <div class="col-md-6">
+        <h2>Результаты слияния клиентов</h2>
+    </div>
+</div>
+<div class="margined row">
+    <div class="col-md-3">
+        @if (@Model.CountMerge > 100)
+        {
+            <div>
+                Всего объединено: @Model.ListCheckClientModel.Count
+            </div>
+            <div>
+                (показ. только первые 100 клиентов)
+            </div>
+        }
+        else
+        {
+            <div>
+                Всего объединено: @Model.ListCheckClientModel.Count
+            </div>
+        }
+    </div>
+    <div class="col-md-6">
+        Проверка по:
+        @if (Model.SearchCheckClient.IsLastname)
+        {
+            <div>
+                @Html.DisplayNameFor(m => m.SearchCheckClient.IsLastname)
+            </div>
+        }
+        @if (Model.SearchCheckClient.IsFirstname)
+        {
+            <div>
+                @Html.DisplayNameFor(m => m.SearchCheckClient.IsFirstname)
+            </div>
+        }
+        @if (Model.SearchCheckClient.IsSecondname)
+        {
+            <div>
+                @Html.DisplayNameFor(m => m.SearchCheckClient.IsSecondname)
+            </div>
+        }
+        @if (Model.SearchCheckClient.IsSex)
+        {
+            <div>
+                @Html.DisplayNameFor(m => m.SearchCheckClient.IsSex)
+            </div>
+        }
+        @if (Model.SearchCheckClient.IsBirthday)
+        {
+            <div>
+                @Html.DisplayNameFor(m => m.SearchCheckClient.IsBirthday)
+            </div>
+        }
+
+        @if (Model.SearchCheckClient.IsPolicySeries)
+        {
+            <div>
+                @Html.DisplayNameFor(m => m.SearchCheckClient.IsPolicySeries)
+            </div>
+        }
+        @if (Model.SearchCheckClient.IsPolicyNumber)
+        {
+            <div>
+                @Html.DisplayNameFor(m => m.SearchCheckClient.IsPolicyNumber)
+            </div>
+        }
+        @if (Model.SearchCheckClient.IsUnifiedPolicyNumber)
+        {
+            <div>
+                @Html.DisplayNameFor(m => m.SearchCheckClient.IsUnifiedPolicyNumber)
+            </div>
+        }
+        @if (Model.SearchCheckClient.IsDocumentSeries)
+        {
+            <div>
+                @Html.DisplayNameFor(m => m.SearchCheckClient.IsDocumentSeries)
+            </div>
+        }
+        @if (Model.SearchCheckClient.IsDocumentNumber)
+        {
+            <div>
+                @Html.DisplayNameFor(m => m.SearchCheckClient.IsDocumentNumber)
+            </div>
+        }
+    </div>
+    <div class="col-md-3">
+        @using (@Html.BeginForm("BaseCheckClient", "Check", FormMethod.Post))
+        {
+            @Html.HiddenFor(m => m.SearchCheckClient.IsLastname)
+            @Html.HiddenFor(m => m.SearchCheckClient.IsFirstname)
+            @Html.HiddenFor(m => m.SearchCheckClient.IsSecondname)
+            @Html.HiddenFor(m => m.SearchCheckClient.IsSex)
+            @Html.HiddenFor(m => m.SearchCheckClient.IsBirthday)
+            @Html.HiddenFor(m => m.SearchCheckClient.IsPolicySeries)
+            @Html.HiddenFor(m => m.SearchCheckClient.IsPolicyNumber)
+            @Html.HiddenFor(m => m.SearchCheckClient.IsUnifiedPolicyNumber)
+            @Html.HiddenFor(m => m.SearchCheckClient.IsDocumentSeries)
+            @Html.HiddenFor(m => m.SearchCheckClient.IsDocumentNumber)
+
+            <div class="col-md-3">
+                <input class="btn btn-default"
+                       type="submit"
+                       value="Вернуться" />
+            </div>
+        }
+    </div>
+</div>
+<div class="row margined">
+    @Html.Partial("_BaseCheckClient", Model)
+</div>

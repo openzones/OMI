@@ -1,0 +1,290 @@
+﻿@model OMInsurance.WebApps.Models.BaseCheckClientModel
+@{
+    ViewBag.Title = "Дубликаты клиентов";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="margined row">
+    <div class="col-md-6">
+        <h2>Возможные дубликаты клиентов</h2>
+    </div>
+</div>
+
+@using (@Html.BeginForm("BaseCheckClient", "Check", FormMethod.Post))
+{
+    <div class="margined row">
+        <div class="col-md-7">
+            <div class="checkbox-inline">
+                @Html.CheckBoxFor(model => model.SearchCheckClient.IsLastname)
+                @Html.LabelFor(model => Model.SearchCheckClient.IsLastname)
+            </div>
+            <div class="checkbox-inline">
+                @Html.CheckBoxFor(model => model.SearchCheckClient.IsFirstname)
+                @Html.LabelFor(model => Model.SearchCheckClient.IsFirstname)
+            </div>
+            <div class="checkbox-inline">
+                @Html.CheckBoxFor(model => model.SearchCheckClient.IsSecondname)
+                @Html.LabelFor(model => Model.SearchCheckClient.IsSecondname)
+            </div>
+            <div class="checkbox-inline">
+                @Html.CheckBoxFor(model => model.SearchCheckClient.IsBirthday)
+                @Html.LabelFor(model => Model.SearchCheckClient.IsBirthday)
+            </div>
+            <div class="checkbox-inline">
+                @Html.CheckBoxFor(model => model.SearchCheckClient.IsSex)
+                @Html.LabelFor(model => Model.SearchCheckClient.IsSex)
+            </div>
+        </div>
+        <div class="col-md-2">
+            @Html.ActionLink("Сбросить всё", "ResetCheckClient", "Check")
+        </div>
+        <div class="col-md-2 form-inline"  style="margin-left:15px;">
+            @Html.DisplayNameFor(model => Model.PageSize)
+            @Html.DropDownListFor(model => model.PageSize,
+                            new List<SelectListItem>()
+                                {
+                                    new SelectListItem() {  Value = "100", Text = "100", Selected = true },
+                                    new SelectListItem() {  Value = "250", Text = "250" },
+                                    new SelectListItem() {  Value = "500", Text = "500" },
+                                    new SelectListItem() {  Value = "1000", Text = "1000" }
+                                }, new { @class = "form-control" })
+        </div>
+
+    </div>
+    <div class="margined row">
+        <div class="col-md-7">
+            <div class="checkbox-inline">
+                @Html.CheckBoxFor(model => model.SearchCheckClient.IsPolicySeries)
+                @Html.LabelFor(model => Model.SearchCheckClient.IsPolicySeries)
+            </div>
+            <div class="checkbox-inline">
+                @Html.CheckBoxFor(model => model.SearchCheckClient.IsPolicyNumber)
+                @Html.LabelFor(model => Model.SearchCheckClient.IsPolicyNumber)
+            </div>
+            <div class="checkbox-inline">
+                @Html.CheckBoxFor(model => model.SearchCheckClient.IsUnifiedPolicyNumber)
+                @Html.LabelFor(model => Model.SearchCheckClient.IsUnifiedPolicyNumber)
+            </div>
+            <div class="checkbox-inline">
+                @Html.CheckBoxFor(model => model.SearchCheckClient.IsDocumentSeries)
+                @Html.LabelFor(model => Model.SearchCheckClient.IsDocumentSeries)
+            </div>
+            <div class="checkbox-inline">
+                @Html.CheckBoxFor(model => model.SearchCheckClient.IsDocumentNumber)
+                @Html.LabelFor(model => Model.SearchCheckClient.IsDocumentNumber)
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="checkbox-inline" >
+                @Html.CheckBoxFor(model => Model.IsHideClientId)
+                @Html.LabelFor(model => Model.IsHideClientId)
+            </div>
+        </div>
+        <div class="col-md-2">
+            <input class="btn btn-default"
+                   type="submit"
+                   value="Фильтровать" />
+        </div>
+    </div>
+    <br />
+    <div class="margined row">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="clickable panel-title panel-collapsed">Набор колонок для отображения</h3>
+            </div>
+            <div class="panel-body" style="display: none;">
+                <div class="col-md-8">
+                    <div class="checkbox-inline">
+                        @Html.CheckBoxFor(model => model.ViewColumn.IsId)
+                        @Html.LabelFor(model => Model.ViewColumn.IsId)
+                    </div>
+                    <div class="checkbox-inline">
+                        @Html.CheckBoxFor(model => model.ViewColumn.IsLastname)
+                        @Html.LabelFor(model => Model.ViewColumn.IsLastname)
+                    </div>
+                    <div class="checkbox-inline">
+                        @Html.CheckBoxFor(model => model.ViewColumn.IsFirstname)
+                        @Html.LabelFor(model => Model.ViewColumn.IsFirstname)
+                    </div>
+                    <div class="checkbox-inline">
+                        @Html.CheckBoxFor(model => model.ViewColumn.IsSecondname)
+                        @Html.LabelFor(model => Model.ViewColumn.IsSecondname)
+                    </div>
+                    <div class="checkbox-inline">
+                        @Html.CheckBoxFor(model => model.ViewColumn.IsBirthday)
+                        @Html.LabelFor(model => Model.ViewColumn.IsBirthday)
+                    </div>
+                    <div class="checkbox-inline">
+                        @Html.CheckBoxFor(model => model.ViewColumn.IsSex)
+                        @Html.LabelFor(model => Model.ViewColumn.IsSex)
+                    </div>
+                    <div class="checkbox-inline">
+                        @Html.CheckBoxFor(model => model.ViewColumn.IsPhone)
+                        @Html.LabelFor(model => Model.ViewColumn.IsPhone)
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="checkbox-inline">
+                        @Html.CheckBoxFor(model => model.ViewColumn.IsPolicySeries)
+                        @Html.LabelFor(model => Model.ViewColumn.IsPolicySeries)
+                    </div>
+                    <div class="checkbox-inline">
+                        @Html.CheckBoxFor(model => model.ViewColumn.IsPolicyNumber)
+                        @Html.LabelFor(model => Model.ViewColumn.IsPolicyNumber)
+                    </div>
+                    <div class="checkbox-inline">
+                        @Html.CheckBoxFor(model => model.ViewColumn.IsUnifiedPolicyNumber)
+                        @Html.LabelFor(model => Model.ViewColumn.IsUnifiedPolicyNumber)
+                    </div>
+                    <div class="checkbox-inline">
+                        @Html.CheckBoxFor(model => model.ViewColumn.IsSNILS)
+                        @Html.LabelFor(model => Model.ViewColumn.IsSNILS)
+                    </div>
+
+                </div>
+                <div class="col-md-7">
+                    <div class="checkbox-inline">
+                        @Html.CheckBoxFor(model => model.ViewColumn.IsDocumentSeries)
+                        @Html.LabelFor(model => Model.ViewColumn.IsDocumentSeries)
+                    </div>
+                    <div class="checkbox-inline">
+                        @Html.CheckBoxFor(model => model.ViewColumn.IsDocumentNumber)
+                        @Html.LabelFor(model => Model.ViewColumn.IsDocumentNumber)
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="checkbox-inline">
+                        @Html.CheckBoxFor(model => model.ViewColumn.IsTemporaryPolicyNumber)
+                        @Html.LabelFor(model => Model.ViewColumn.IsTemporaryPolicyNumber)
+                    </div>
+                    <div class="checkbox-inline">
+                        @Html.CheckBoxFor(model => model.ViewColumn.IsTemporaryPolicyDate)
+                        @Html.LabelFor(model => Model.ViewColumn.IsTemporaryPolicyDate)
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="checkbox-inline">
+                        @Html.CheckBoxFor(model => model.ViewColumn.IsLivingFullAddressString)
+                        @Html.LabelFor(model => Model.ViewColumn.IsLivingFullAddressString)
+                    </div>
+                    <div class="checkbox-inline">
+                        @Html.CheckBoxFor(model => model.ViewColumn.IsOfficialFullAddressString)
+                        @Html.LabelFor(model => Model.ViewColumn.IsOfficialFullAddressString)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="margined row">
+    @using (@Html.BeginForm("MassMergeClients", "Check"))
+    {
+        @Html.HiddenFor(m => m.IsHideClientId)
+        @Html.HiddenFor(m => m.SearchCheckClient.IsLastname)
+        @Html.HiddenFor(m => m.SearchCheckClient.IsFirstname)
+        @Html.HiddenFor(m => m.SearchCheckClient.IsSecondname)
+        @Html.HiddenFor(m => m.SearchCheckClient.IsSex)
+        @Html.HiddenFor(m => m.SearchCheckClient.IsBirthday)
+        @Html.HiddenFor(m => m.SearchCheckClient.IsPolicySeries)
+        @Html.HiddenFor(m => m.SearchCheckClient.IsPolicyNumber)
+        @Html.HiddenFor(m => m.SearchCheckClient.IsUnifiedPolicyNumber)
+        @Html.HiddenFor(m => m.SearchCheckClient.IsDocumentSeries)
+        @Html.HiddenFor(m => m.SearchCheckClient.IsDocumentNumber)
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="clickable panel-title panel-collapsed">Массовое объединение клиентов</h3>
+            </div>
+            <div class="panel-body" style="display: none;">
+                <div class="col-md-2">
+                    @Html.DisplayNameFor(model => Model.CountMerge)
+                </div>
+                <div class="col-md-2">
+                    @Html.DropDownListFor(model => model.CountMerge,
+                            new List<SelectListItem>()
+                                {
+                                    new SelectListItem() {  Value = "1", Text = "1", Selected = true } ,
+                                    new SelectListItem() {  Value = "5", Text = "5" } ,
+                                    new SelectListItem() {  Value = "10", Text = "10" } ,
+                                    new SelectListItem() {  Value = "25", Text = "25" } ,
+                                    new SelectListItem() {  Value = "50", Text = "50" } ,
+                                    new SelectListItem() {  Value = "100", Text = "100" } ,
+                                    new SelectListItem() {  Value = "500", Text = "500" } ,
+                                    new SelectListItem() {  Value = "1000", Text = "1000" } ,
+                                    new SelectListItem() {  Value = Model.CountDublicate.ToString(), Text = "Все " + Model.CountDublicate.ToString() } ,
+                                }, new { @class = "form-control" })
+                </div>
+                <div class="col-md-2">
+                    <input class="btn btn-default"
+                           type="submit"
+                           value="Объединить" />
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="margined row">
+    <div class="col-md-4">
+        @if (Model.CountRow > 100)
+        {
+            <div>
+                Всего возможных дубликатов: @Model.CountDublicate
+            </div>
+            <div>
+                Всего записей (показ. первые @Model.PageSize): @Model.CountRow
+            </div>
+        }
+        else
+        {
+            <div>
+                Всего найдено дубликатов: @Model.CountDublicate
+            </div>
+            <div>
+                Всего записей: @Model.CountRow
+            </div>
+        }
+    </div>
+    <div class="col-md-6">
+
+    </div>
+    @using (@Html.BeginForm("CheckClient", "PrintedForms", new { Model.CountDublicate }))
+    {
+        @Html.HiddenFor(m => m.SearchCheckClient.IsLastname)
+        @Html.HiddenFor(m => m.SearchCheckClient.IsFirstname)
+        @Html.HiddenFor(m => m.SearchCheckClient.IsSecondname)
+        @Html.HiddenFor(m => m.SearchCheckClient.IsSex)
+        @Html.HiddenFor(m => m.SearchCheckClient.IsBirthday)
+        @Html.HiddenFor(m => m.SearchCheckClient.IsPolicySeries)
+        @Html.HiddenFor(m => m.SearchCheckClient.IsPolicyNumber)
+        @Html.HiddenFor(m => m.SearchCheckClient.IsUnifiedPolicyNumber)
+        @Html.HiddenFor(m => m.SearchCheckClient.IsDocumentSeries)
+        @Html.HiddenFor(m => m.SearchCheckClient.IsDocumentNumber)
+
+        @Html.HiddenFor(m => m.ViewColumn.IsId)
+        @Html.HiddenFor(m => m.ViewColumn.IsLastname)
+        @Html.HiddenFor(m => m.ViewColumn.IsFirstname)
+        @Html.HiddenFor(m => m.ViewColumn.IsSecondname)
+        @Html.HiddenFor(m => m.ViewColumn.IsSex)
+        @Html.HiddenFor(m => m.ViewColumn.IsBirthday)
+        @Html.HiddenFor(m => m.ViewColumn.IsPolicySeries)
+        @Html.HiddenFor(m => m.ViewColumn.IsPolicyNumber)
+        @Html.HiddenFor(m => m.ViewColumn.IsUnifiedPolicyNumber)
+        @Html.HiddenFor(m => m.ViewColumn.IsDocumentSeries)
+        @Html.HiddenFor(m => m.ViewColumn.IsDocumentNumber)
+        @Html.HiddenFor(m => m.ViewColumn.IsLivingFullAddressString)
+        @Html.HiddenFor(m => m.ViewColumn.IsOfficialFullAddressString)
+        @Html.HiddenFor(m => m.ViewColumn.IsTemporaryPolicyNumber)
+        @Html.HiddenFor(m => m.ViewColumn.IsTemporaryPolicyDate)
+        @Html.HiddenFor(m => m.ViewColumn.IsSNILS)
+        @Html.HiddenFor(m => m.ViewColumn.IsPhone)
+        <div class="col-md-2">
+            <input class="btn btn-default"
+                   type="submit"
+                   value="Печать отчета" />
+        </div>
+    }
+</div>
+
+<div class="row margined">
+    @Html.Partial("_BaseCheckClient", Model)
+</div>

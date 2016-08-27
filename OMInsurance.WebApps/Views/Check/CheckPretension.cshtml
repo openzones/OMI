@@ -1,0 +1,78 @@
+﻿@model OMInsurance.WebApps.Models.BaseCheckPretensionModel
+@{
+    ViewBag.Title = "CheckPretension";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="margined row">
+    <div class="col-md-6">
+        <h2>Журнал претензий</h2>
+    </div>
+</div>
+
+@using (@Html.BeginForm("CheckPretension", "Check", FormMethod.Post))
+{
+
+    <div class="row search-panel">
+        <h4>Параметры поиска</h4>
+        <div class="container">
+            <div class="row margined">
+                <div class="form-group-md">
+                    <div class="col-md-2">
+                        @Html.LabelFor(model => Model.Search.M_daktFrom)
+                        @Html.EditorFor(model => Model.Search.M_daktFrom, new { @class = "form-control", tabindex = "1" })
+                        @Html.ValidationMessageFor(model => Model.Search.M_daktFrom)
+                    </div>
+                    <div class="col-md-2">
+                        @Html.LabelFor(model => Model.Search.M_daktTo)
+                        @Html.EditorFor(model => Model.Search.M_daktTo, new { @class = "form-control", tabindex = "2" })
+                        @Html.ValidationMessageFor(model => Model.Search.M_daktTo)
+                    </div>
+                    <div class="col-md-2">
+                        @Html.LabelFor(model => Model.Search.CreateDateFrom)
+                        @Html.EditorFor(model => Model.Search.CreateDateFrom, new { @class = "form-control", tabindex = "1" })
+                        @Html.ValidationMessageFor(model => Model.Search.CreateDateFrom)
+                    </div>
+                    <div class="col-md-2">
+                        @Html.LabelFor(model => Model.Search.CreateDateTo)
+                        @Html.EditorFor(model => Model.Search.CreateDateTo, new { @class = "form-control", tabindex = "2" })
+                        @Html.ValidationMessageFor(model => Model.Search.CreateDateTo)
+                    </div>
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => Model.Search.UserId)
+                        @Html.DropDownListFor(model => model.Search.UserId,
+                                    Model.listUsers, new { @class = "form-control", tabindex = "4" })
+                    </div>
+                </div>
+            </div>
+            <div class="margined row">
+                <div class="form-group-md">
+                    <div class="col-md-8">
+
+                    </div>
+                    <div class="col-md-2 form-inline media-right">
+                        <div> &nbsp;</div>
+                        @Html.DisplayNameFor(model => Model.PageSize)
+                        @Html.DropDownListFor(model => model.PageSize,
+                            new List<SelectListItem>()
+                                {
+                                    new SelectListItem() {  Value = "100", Text = "100", Selected = true } ,
+                                    new SelectListItem() {  Value = "250", Text = "250" } ,
+                                    new SelectListItem() {  Value = "500", Text = "500" }
+                                }, new { @class = "form-control", tabindex = "5" })
+                    </div>
+                    <div class="col-md-1">
+                        <div> &nbsp;</div>
+                        <input type="submit" value="Найти" class="btn pull-right btn-primary" tabindex="6" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="row margined">
+    @Html.Partial("_CheckPretension", Model.ListClientPretensionModel)
+</div>
+
+

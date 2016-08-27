@@ -1,0 +1,115 @@
+﻿@{
+    ViewBag.Title = "Создание БСО вручную";
+    Layout = "~/Views/Shared/_LayoutBSO.cshtml";
+}
+@model OMInsurance.WebApps.Models.BSOCreateModel
+@if (Model.FailMessages.Count > 0)
+{
+    <div class="row margined">
+        <div class="col-md-12">
+            <div class="alert alert-danger" role="alert">
+                @foreach (var message in Model.FailMessages)
+                {
+                    <span>@message<br /></span>
+                }
+            </div>
+        </div>
+    </div>
+}
+@if (Model.GoodMessages.Count > 0)
+{
+    <div class="row margined">
+        <div class="col-md-12">
+            <div class="alert alert-info" role="alert">
+                @foreach (var message in Model.GoodMessages)
+                {
+                    <span>@message<br /></span>
+                }
+            </div>
+        </div>
+    </div>
+}
+
+<div id="clientVisitContainer">
+    @using (Html.BeginForm("CreateBSO", "BSO", FormMethod.Post))
+    {
+
+        <div class="container" id="clientVisitData">
+            <div class="row margined">
+                <div class="col-md-11">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="clickable panel-title panel-collapsed">Добавление новых БСО</h3>
+                            <span class="pull-right"><i class="glyphicon glyphicon-chevron-up"></i></span>
+                        </div>
+                        <div class="panel-body collapse in">
+                            <div class="container">
+                                <div class="row margined">
+                                    <div class="form-group-md">
+                                        <div class="col-md-2">
+                                            @Html.DisplayNameFor(model => Model.TemporaryPolicyNumber)
+                                            @Html.TextBoxFor(model => Model.TemporaryPolicyNumber, new { @class = "form-control", maxlength = "9" })
+                                            @Html.ValidationMessageFor(model => Model.TemporaryPolicyNumber)
+                                        </div>
+                                        <div class="col-md-3">
+                                            @Html.DisplayNameFor(model => Model.StatusId)
+                                            @Html.DropDownListFor(model => model.StatusId, Model.listBSOStatuses, new { @class = "form-control" })
+                                        </div>
+
+                                    </div>
+                                    </div>
+                                    <div class="row margined">
+                                        <div class="form-group-md">
+                                            <div class="col-md-2">
+                                                @Html.DisplayNameFor(model => Model.TemporaryPolicyNumberTo)
+                                                @Html.TextBoxFor(model => Model.TemporaryPolicyNumberTo, new { @class = "form-control", maxlength = "9" })
+                                                @Html.ValidationMessageFor(model => Model.TemporaryPolicyNumberTo)
+                                            </div>
+                                            <div class="col-md-3">
+                                                @Html.DisplayNameFor(model => Model.DeliveryCenterId) (автомат. определение)
+                                                @Html.DropDownListFor(model => model.DeliveryCenterId, Model.DeliveryCenters, new { @class = "form-control", disabled = "disabled" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row margined">
+                                        <div class="form-group-md">
+                                            <div class="col-md-2">
+                                                @Html.DisplayNameFor(model => Model.PolicyPartyNumber)
+                                                @Html.TextBoxFor(model => Model.PolicyPartyNumber, new { @class = "form-control", maxlength = "3" })
+                                                @Html.ValidationMessageFor(model => Model.PolicyPartyNumber)
+                                            </div>
+                                            <div class="col-md-3">
+                                                @Html.DisplayNameFor(model => Model.DeliveryPointId)
+                                                @Html.DropDownListFor(model => model.DeliveryPointId, Model.DeliveryPoints, new { @class = "form-control"})
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row margined">
+                                        <div class="col-md-2">
+                                            @Html.DisplayNameFor(model => Model.StatusDate)
+                                            @Html.EditorFor(model => Model.StatusDate, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => Model.StatusDate)
+                                        </div>
+                                        <div class="col-md-3">
+                                            @Html.DisplayNameFor(model => Model.Comment)
+                                            @Html.TextAreaFor(model => Model.Comment, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => Model.Comment)
+                                        </div>
+                                    </div>
+                                    <div class="row margined">
+                                        <div class="col-md-2">
+                                            <div class="pull-left">
+                                                <button class="btn btn-primary">
+                                                    Сохранить
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    }
+</div>

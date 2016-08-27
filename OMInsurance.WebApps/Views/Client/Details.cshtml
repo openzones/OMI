@@ -1,0 +1,165 @@
+﻿@{
+    ViewBag.Title = string.Format("{0} {1} {2}", Model.ActualVersion.Lastname, Model.ActualVersion.Firstname, Model.ActualVersion.Secondname ?? string.Empty);
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model OMInsurance.WebApps.Models.ClientModel
+<div>
+    ID: @Model.Id @Html.Label(string.Format("{0} {1} {2}", Model.ActualVersion.Lastname, Model.ActualVersion.Firstname, Model.ActualVersion.Secondname ?? string.Empty))
+</div>
+@if (Model.IsMergeOperationsAvailable)
+{
+    <div class="margined row">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="clickable panel-title panel-collapsed">Операции с клиентом</h3>
+            </div>
+            <div class="panel-body" style="display: none;">
+                @using (Ajax.BeginForm(
+            "MergeConfirmation", new { id = Model.Id },
+            new AjaxOptions() { UpdateTargetId = "MergeConfirmation", InsertionMode = InsertionMode.ReplaceWith }))
+                {
+                    <div class="row margined">
+                        <div class="col-md-2">Объединить с клиентом</div>
+                        <div class="col-md-2">@Html.TextBox("DestinationClientId", string.Empty, new { @class = "form-control" })</div>
+                        <div class="col-md-2">
+                            <input type="submit" class="btn" value="Объединить" />
+                        </div>
+                    </div>
+                }
+                <div class="row margined" id="MergeConfirmation">
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<div class="margined row">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="clickable panel-title panel-collapsed">История клиента</h3>
+        </div>
+        <div class="panel-body" style="display: none;">
+            @Html.Partial("_ClientVersionGrid", Model.Versions)
+            История оповещений клиента
+            @Html.Partial("_ClientSms", Model.listSmsModel)
+        </div>
+    </div>
+</div>
+<div class="margined row">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="clickable panel-title panel-collapsed">Номерник и претензии</h3>
+        </div>
+        <div class="panel-body" style="display: none;">
+            <div>
+                @Ajax.ActionLink("История номерника", "ClientNomernikNOMP", "Client",
+                        new { @id = Model.ActualVersion.Id },
+                        new AjaxOptions() { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = string.Format("nomp{0}", Model.ActualVersion.Id) })
+            </div>
+            <div id="@string.Format("nomp{0}", Model.ActualVersion.Id)">
+            </div>
+            <div>
+                @Ajax.ActionLink("История стоп-листа", "ClientNomernikSTOP", "Client",
+                        new { @id = Model.ActualVersion.Id },
+                        new AjaxOptions() { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = string.Format("stop{0}", Model.ActualVersion.Id) })
+            </div>
+            <div id="@string.Format("stop{0}", Model.ActualVersion.Id)">
+            </div>
+            <div>
+                @Ajax.ActionLink("Список претензий", "ClientPretensions", "Client",
+                        new { @id = Model.ActualVersion.Id },
+                        new AjaxOptions() { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = string.Format("pretension{0}", Model.ActualVersion.Id) })
+
+                <a href="@Url.Action("Pretension", "Client", new { @clientId = Model.Id, gen = 0 })" target="_blank" class="btn-default">
+                    [ Создать новую&nbsp;<span class="glyphicon glyphicon-pencil" />]
+                </a>
+            </div>
+            <div id="@string.Format("pretension{0}", Model.ActualVersion.Id)">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="margined row">
+    <div class="col-md-12">
+        @foreach (var visitGroup in Model.Visits.OrderBy(item => item.Key.TemporaryPolicyDate))
+        {
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="clickable panel-title panel-collapsed">Обращение @visitGroup.Key.Id &nbsp
+                        @visitGroup.Key.ClientFullname &nbsp
+                        Дата обращения: 
+                        @if (@visitGroup.Key.TemporaryPolicyDate.HasValue)
+                        {
+                            @visitGroup.Key.TemporaryPolicyDate.Value.ToShortDateString()} &nbsp
+                        Статус: @visitGroup.Key.Status &nbsp
+                        Дата статуса: @visitGroup.Key.StatusDate.ToShortDateString() &nbsp
+                    </h3>
+                </div>
+                <div class="panel-body" style="display: none;">
+                    @foreach (var li in visitGroup.Value)
+                    {
+                        <div class="accordion panel-group">
+                            <div class="accordion-section panel-default">
+                                <div class="panel-heading accordion-section-title">
+                                    <div class="panel-title accordion-toggle" data-toggle="collapse">
+                                        @string.Format("ID: {0}", li.Id)
+                                        @string.Format("{0} {1} {2}", li.Lastname ?? string.Empty, li.Firstname ?? string.Empty, li.Secondname ?? string.Empty)
+                                        @string.Format("ЕНП: {0}", li.UnifiedPolicyNumber)
+                                        @string.Format("Дата обращения: {0}",
+                                        li.TemporaryPolicyDate.HasValue
+                                        ? li.TemporaryPolicyDate.Value.ToShortDateString()
+                                        : string.Empty)
+                                        @string.Format("СНИЛС: {0}", li.SNILS)
+                                        @string.Format("Статус: {0}", li.Status.Name)
+                                    </div>
+                                </div>
+                                <div class="panel-collapse collapse in accordion-section-content" id="@string.Format("visit{0}", li.Id)" 
+                                    getUrl="@Url.Content("~/ClientVisit/Edit/" + li.Id)">
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div>
+                        @Ajax.ActionLink("История статусов", "ClienVisitGroupHistory", "ClientVisit",
+                        new { @id = visitGroup.Key.Id },
+                        new AjaxOptions() { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = string.Format("history{0}", visitGroup.Key.Id) })
+                        @Ajax.ActionLink("История общения с фондом", "FundFileHistoryGet", "FundRequestProcessing",
+                        new { @id = visitGroup.Key.Id },
+                        new AjaxOptions() { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = string.Format("historyFile{0}", visitGroup.Key.Id) })
+                        @if(Model.IsSplitOperationsAvailable)
+                        {
+                            @Html.ActionLink("Вынести обращение в отдельного клиента", "Clients_Split", "Client",
+                            new { @id = visitGroup.Key.Id }, new { @onclick = "return confirm('Вы уверены, что хотите вынести обращение в нового клиента?')"})
+                        }
+                    </div>
+                    <div id="@string.Format("history{0}", visitGroup.Key.Id)">
+                    </div>
+                    <div id="@string.Format("historyFile{0}", visitGroup.Key.Id)">
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<div class="row margined">
+    <div class="col-md-4">
+        <button class="btn btn-primary" 
+        onclick="PartialProcessor.getPartial('@Url.Content("~/ClientVisit/AddToClient/" + Model.Id)', 'AddVisitForm')" 
+        id="addVisitButton">
+            Добавить обращение</button>
+    </div>
+</div>
+<div class="row margined">
+    <div id="AddVisitForm"></div>
+</div>
+<div class="row margined">
+    <div class="col-md-12">
+        <br />
+    </div>
+</div>
+
+
+
+
+
+
+

@@ -1,0 +1,482 @@
+﻿@model OMInsurance.WebApps.Models.ClientPretensionModel
+@{
+    ViewBag.Title = "Претензия";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row margined">
+    <div class=" col-md-10">
+        <h3>Генерация данных для формирования документов</h3>
+    </div>
+    <div class="col-md-2">
+        <br />
+        <a href="@Url.Action("Details", "Client", new { id = Model.ClientId })">
+            <button type="button" class="btn btn-default">Вернуться в клиента</button>
+        </a>
+    </div>
+</div>
+
+
+@if (Model != null && Model.Generator > 0)
+{
+    using (@Html.BeginForm("Pretension", "Client", FormMethod.Post))
+    {
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.ClientId)
+        @Html.HiddenFor(model => model.DATE_IN)
+        @Html.HiddenFor(model => model.Generator)
+        @Html.HiddenFor(model => model.LPU_ID)
+        @Html.HiddenFor(model => model.MedicalCenterId)
+        @Html.HiddenFor(model => model.CreateDate)
+        @Html.HiddenFor(model => model.UserId)
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="clickable panel-title">Данные для посылок</h3>
+                <span class="pull-right"><i class="glyphicon glyphicon-chevron-up"></i></span>
+            </div>
+            <div class="panel-body collapse in">
+                <h4>Акт медико-экономической экспертизы (целевой).</h4>
+                <div class="row margined">
+                    <div class="col-md-4">
+                        @Html.DisplayNameFor(model => Model.M_nakt)
+                    </div>
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(model => Model.M_nakt, new { @class = "form-control", tabindex = "1" })
+                    </div>
+
+                </div>
+                <div class="row margined">
+                    <div class="col-md-4">
+                        1. Дата проведения экспертизы
+                    </div>
+                    <div class="col-md-2">
+                        @Html.EditorFor(model => Model.M_dakt, new { @class = "form-control", tabindex = "2" })
+                    </div>
+                </div>
+                <div class="row margined">
+                    <div class="col-md-4">
+                        2. Фамилия, имя, отчество специалиста-эксперта
+                    </div>
+                    <div class="col-md-3 form-inline">
+                        @Html.DropDownListFor(model => model.M_expert_Id, Model.M_expertS, new { @class = "form-control", tabindex = "3" })
+                        @if (User.IsInRole(OMInsurance.Entities.Core.Role.Administrator.Name))
+                    {
+                            <a href="@Url.Action("ClientPretensionExpert", "Reference",
+                            OMInsurance.WebApps.Models.ReferenceUniversalItemModel.ReferenceDisplayName = "Справочник")" target="_blank" class="btn-default">
+                                <span class="glyphicon glyphicon-pencil" />
+                            </a>
+                        }
+                    </div>
+                </div>
+                <div class="row margined">
+                    <div class="col-md-4">
+                        3. Наименование проверяющей организации
+                    </div>
+                    <div class="col-md-3">
+                        АО МСК "УралСиб"
+                    </div>
+                </div>
+                <div class="row margined">
+                    <div class="col-md-4">
+                        4. Наименование медицинской организации (+код)
+                    </div>
+                    <div class="col-md-3">
+                        @Html.TextBoxFor(model => Model.M_mo, new { @class = "form-control", tabindex = "4" })
+                    </div>
+                    <div class="col-md-1">
+                        @Html.TextBoxFor(model => Model.M_mcod, new { @class = "form-control", tabindex = "5" })
+                    </div>
+                </div>
+                <div class="row margined">
+                    <div class="col-md-4">
+                        5. Номер счета за медицинские услуги
+                    </div>
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(model => Model.M_period, new { @class = "form-control", tabindex = "6" })
+                    </div>
+                </div>
+                <div class="row margined">
+                    <div class="col-md-4">
+                        6. № документа обязательного медицинского страхования
+                    </div>
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(model => Model.M_snpol, new { @class = "form-control", tabindex = "7" })
+                    </div>
+                </div>
+                <div class="row margined">
+                    <div class="col-md-10">
+                        14. Дополнительно проверена следующая учетно-отчетная документация
+                        @Html.TextAreaFor(model => Model.M_fd, new { @class = "form-control", tabindex = "8" })
+                    </div>
+                </div>
+
+                <div class="row margined">
+                    <div class="col-md-10">
+                        Заключение специалиста-эксперта по обоснованности объемов медицинских услуг, предоставленных к оплате, и их соответствие записям в первичной медицинской и учетно-отчетной документации
+                        @Html.TextAreaFor(model => Model.M_nd1, new { @class = "form-control", tabindex = "9" })
+                    </div>
+                    <div class="col-md-2">
+                        <br />
+                        @Html.Label("Выберите")
+                        @Html.DropDownListFor(model => Model.IsConfirm, new List<SelectListItem>() {
+                                        new SelectListItem() { Text = "не выбрано", Value = "", Selected = true },
+                                        new SelectListItem() { Text = "не представлено", Value = "false" },
+                                        new SelectListItem() { Text = "представлено", Value = "true"} },
+                                        new { @class = "form-control", id = "select1" })
+                    </div>
+                </div>
+                <div class="row margined">
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => Model.M_nd2, new { @class = "form-control", tabindex = "10" })
+                    </div>
+                    <div class="col-md-2">
+                        @*@Html.Label("Выберите")*@
+                        @Html.DropDownListFor(model => Model.IsConfirm, new List<SelectListItem>() {
+                                        new SelectListItem() { Text = "не выбрано", Value = "", Selected = true },
+                                        new SelectListItem() { Text = "необоснованным", Value = "false" },
+                                        new SelectListItem() { Text = "обоснованным", Value = "true"} },
+                                        new { @class = "form-control", id = "select2", tabindex = "11" })
+                    </div>
+                </div>
+                <div class="row margined">
+                    <div class="col-md-3">
+                        @Html.DisplayNameFor(model => Model.M_osn230_Id)
+                    </div>
+                    <div class="col-md-3 form-inline">
+                        @if (Model.IsConfirm == true)
+                        {
+                            @Html.DropDownListFor(model => model.M_osn230_Id, Model.M_osn230, new { @class = "form-control", tabindex = "12", disabled = "disabled" })
+                            @Html.HiddenFor(model => model.M_osn230_Id)
+                        }
+                        else
+                        {
+                            @Html.DropDownListFor(model => model.M_osn230_Id, Model.M_osn230, new { @class = "form-control", tabindex = "12" })
+                        }
+                        @if (User.IsInRole(OMInsurance.Entities.Core.Role.Administrator.Name))
+                    {
+                            <a href="@Url.Action("Defect", "Reference",
+                            @OMInsurance.WebApps.Models.ReferenceUniversalItemModel.ReferenceDisplayName = "Справочник")" target="_blank" class="btn-default">
+                                <span class="glyphicon glyphicon-pencil" />
+                            </a>
+                        }
+                    </div>
+                </div>
+                <div class="row margined">
+                    <div class="col-md-3">
+                        @Html.DisplayNameFor(model => Model.M_straf)
+                    </div>
+                    <div class="col-md-2">
+                        @if (Model.IsConfirm == true)
+                        {
+                            @Html.TextBoxFor(model => Model.M_straf, new { @class = "form-control", tabindex = "13", disabled = "disabled" })
+                            @Html.HiddenFor(model => model.M_straf)
+                        }
+                        else
+                        {
+                            @Html.TextBoxFor(model => Model.M_straf, new { @class = "form-control", tabindex = "13" })
+                            @Html.ValidationMessageFor(model => model.M_straf)
+                        }
+                    </div>
+                </div>
+                <br />
+                <div class="blueLine">   </div>
+                <h4>Предписание.</h4>
+                <div class="row margined">
+                    <div class="col-md-2" style="padding-top:5px;">
+                        Предписание № @string.Format("{0,4:D4}", Model.Generator) от
+                    </div>
+                    <div class="col-md-1" style="padding-left:1px;padding-right:1px;">
+                        @Html.EditorFor(model => Model.M_dakt2, new { @class = "form-control", tabindex = "14" })
+                    </div>
+                </div>
+                <div class="row margined">
+                    <div class="col-md-6">
+                        (Код и наименование проверяемой организации): @Model.LPU_ID @Model.M_mo <br />
+                    </div>
+                </div>
+                <div class="row margined">
+                    <div class="col-md-2" style="padding-top:5px;">
+                        за период с...по...
+                    </div>
+                    <div class="col-md-1" style="padding-left:1px;padding-right:1px;">
+                        @Html.EditorFor(model => Model.PeriodFrom, new { @class = "form-control", tabindex = "15" })
+                    </div>
+                    <div class="col-md-1" style="padding-left:1px;padding-right:1px;">
+                        @Html.EditorFor(model => Model.PeriodTo, new { @class = "form-control", tabindex = "16" })
+                    </div>
+                </div>
+                <div class="row margined">
+                    <div class="col-md-2">
+                        @Html.DisplayNameFor(model => Model.Coefficient)
+                    </div>
+                    <div class="col-md-1" style="padding-left:1px;padding-right:1px;">
+                        @Html.TextBoxFor(model => Model.Coefficient, new { @class = "form-control", tabindex = "17" })
+                    </div>
+                </div>
+                <div class="row margined">
+                    <div class="col-md-2">
+                        @Html.DisplayNameFor(model => Model.UserPosition)
+                    </div>
+                    <div class="col-md-2" style="padding-left:1px;padding-right:1px;">
+                        @Html.TextBoxFor(model => Model.UserPosition, new { @class = "form-control", tabindex = "19" })
+                    </div>
+                </div>
+                <div class="row margined">
+                    <div class="col-md-2">
+                        @Html.DisplayNameFor(model => Model.UserFIO)
+                    </div>
+                    <div class="col-md-3" style="padding-left:1px;padding-right:1px;">
+                        @Html.TextBoxFor(model => Model.UserFIO, new { @class = "form-control", tabindex = "18" })
+                    </div>
+                </div>
+
+                <br />
+                <div class="blueLine">    </div>
+                <div class="row margined">
+                    <div class="col-md-4 form-inline">
+                        Сгенерировано: @Html.DisplayFor(model => Model.UserFIO)
+                    </div>
+                    <div class="col-md-4 form-inline">
+                        @Html.DisplayNameFor(model => Model.CreateDate)
+                        @Html.DisplayTextFor(model => Model.CreateDate)
+                    </div>
+                </div>
+
+
+                @if (Model.UpdateUserId.HasValue)
+                {
+                    <div class="row margined">
+                        <div class="col-md-4 form-inline">
+                            Обновлено: @Html.DisplayFor(model => Model.UpdateUserFIO)
+                        </div>
+                        <div class="col-md-4 form-inline">
+                            @Html.DisplayNameFor(model => Model.UpdateDate)
+                            @Html.DisplayTextFor(model => Model.UpdateDate)
+                        </div>
+                    </div>
+                }
+                <br />
+                <div class="row margined">
+                    <div class="col-md-2">
+                        <input class="btn btn-primary"
+                               type="submit"
+                               value="Сохранить претензию" />
+                    </div>
+                    <div class="col-md-8">
+
+                    </div>
+                    <div class="col-md-2">
+                        <a href="@Url.Action("Details", "Client", new { id = Model.ClientId })">
+                            <button type="button" class="btn btn-default">Вернуться в клиента</button>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    }//end form
+    <br />
+    
+    <div class="row margined">
+        <div class="col-md-1">
+            @Html.Label("1.","1.")
+        </div>
+        <div class="col-md-2">
+            @Html.Label("Генерация запроса")
+            @using (@Html.BeginForm("Pretension_RequestLPU", "Client"))
+                {
+                @Html.HiddenFor(model => model.ClientId)
+                @Html.HiddenFor(model => Model.Generator)
+
+                <input class="btn btn-primary"
+                       type="submit"
+                       value="Запрос в ЛПУ" />
+            }
+        </div>
+
+    <form id="Load_RequestLPUForm">
+        @Html.HiddenFor(model => model.Generator)
+        @Html.HiddenFor(model => model.ClientId)
+        <div class="col-md-3">
+            @Html.Label("Загрузка подписанного документа")
+            <input id="Load_RequestLPU" class="btn btn-default" type="file" />
+        </div>
+        <div class="col-md-2" style="padding-top:5px;">
+            <br />
+            <input class="btn btn-default" id="uploadFileName"
+                    type="button"
+                    onclick="FileProcessor.uploadDbf('Load_RequestLPU', '/Client/Load_RequestLPU', 'report', 'Load_RequestLPUForm')"
+                    value="Загрузить pdf" />
+        </div>
+    </form>
+
+        <div class="col-md-2">
+            
+            @if (Model.IsExistFileLPU)
+            {
+                @Html.Label("Скачать")<br />
+                @Html.ActionLink(Model.FileNameLPU, "FileGet", "File", new { filename = Model.FileNameLPU, fileurl = Model.FileUrlLPU }, new { target = "_blank" })
+                @Model.SizeFileLPU
+            }
+            else
+            {
+                <br />
+                @Html.DisplayFor(modelItem => Model.FileNameLPU)
+            }
+        </div>
+        <div class="col-md-2">
+            @Html.Label("Выгрузить: Pdf + паспорт")
+            @using (@Html.BeginForm("Pretension_PackageLPU", "Client"))
+                {
+                @Html.HiddenFor(model => model.ClientId)
+                @Html.HiddenFor(model => model.Generator)
+
+                <input class="btn btn-primary"
+                       type="submit"
+                       value="Создать посылку" />
+            }
+        </div>
+    </div>
+    <div class="row margined" >
+        <div class="col-md-1">
+
+        </div>
+        <div class="col-md-9" id="report">
+        </div>
+        <div class="col-md-1">
+        </div>
+    </div>
+    <br />
+    <div class="blueLine"></div>
+    <br />
+    <div class="row margined">
+        <div class="col-md-1">
+            @Html.Label("2.", "2.")
+        </div>
+        <div class="col-md-2">
+            @Html.Label("Выгрузить: 2 Excel + паспорт")
+            @using (@Html.BeginForm("PretensionGetFile", "Client"))
+            {
+                @Html.HiddenFor(model => model.Generator)
+                @Html.HiddenFor(model => model.ClientId)
+                @Html.HiddenFor(model => model.LPU_ID)
+                @Html.HiddenFor(model => model.DATE_IN)
+                @Html.HiddenFor(model => model.M_nakt)
+                @Html.HiddenFor(model => model.M_dakt)
+                @Html.HiddenFor(model => model.M_expert_Id)
+                @Html.HiddenFor(model => model.MedicalCenterId)
+                @Html.HiddenFor(model => model.M_mo)
+                @Html.HiddenFor(model => model.M_mcod)
+                @Html.HiddenFor(model => model.M_period)
+                @Html.HiddenFor(model => model.M_snpol)
+                @Html.HiddenFor(model => model.M_fd)
+                @Html.HiddenFor(model => model.M_nd1)
+                @Html.HiddenFor(model => model.M_nd2)
+                @Html.HiddenFor(model => model.IsConfirm)
+                @Html.HiddenFor(model => model.M_osn230_Id)
+                @Html.HiddenFor(model => model.M_straf)
+                @Html.HiddenFor(model => model.PeriodFrom)
+                @Html.HiddenFor(model => model.PeriodTo)
+                @Html.HiddenFor(model => model.Coefficient)
+                @Html.HiddenFor(model => model.UserId)
+                @Html.HiddenFor(model => model.UserFIO)
+                @Html.HiddenFor(model => model.UserPosition)
+                @Html.HiddenFor(model => model.CreateDate)
+
+                <input class="btn btn-primary"
+                        type="submit"
+                        value="Создать посылку" />
+            }
+        </div>
+
+        <form id="Load_AnnulirovanieForm">
+            @Html.HiddenFor(model => model.Generator)
+            @Html.HiddenFor(model => model.ClientId)
+            <div class="col-md-3">
+                @Html.Label("Загрузка подписанного акта аннулирования")
+                <input id="Load_Annulirovanie" class="btn btn-default" type="file" />
+            </div>
+            <div class="col-md-2" style="padding-top:5px;">
+                <br />
+                <br />
+                <input class="btn btn-default" id="uploadFileName2"
+                       type="button"
+                       onclick="FileProcessor.uploadDbf('Load_Annulirovanie', '/Client/Load_Annulirovanie', 'report2', 'Load_AnnulirovanieForm')"
+                       value="Загрузить pdf" />
+            </div>
+        </form>
+
+        <div class="col-md-2">
+            @if (Model.IsExistFile2)
+            {
+                @Html.Label("Скачать")<br />
+                @Html.ActionLink(Model.FileName2, "FileGet", "File", new { filename = Model.FileName2, fileurl = Model.FileUrl2 }, new { target = "_blank" })
+                @Model.SizeFile2
+            }
+            else
+            {
+                <br />
+                @Html.DisplayFor(modelItem => Model.FileName2)
+            }
+        </div>
+        <div class="col-md-2">
+            @Html.Label("Выгрузить: pdf+dbf+паспорт")
+            @using (@Html.BeginForm("Pretension_PackageLast", "Client"))
+                {
+                @Html.HiddenFor(model => model.ClientId)
+                @Html.HiddenFor(model => model.Generator)
+
+                <input class="btn btn-primary"
+                       type="submit"
+                       value="Создать посылку" />
+            }
+        </div>
+    </div>
+    <div class="row margined">
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-9" id="report2">
+        </div>
+        <div class="col-md-1">
+        </div>
+    </div>
+}
+else
+{
+    <br />
+    <div class="alert-danger">
+        <h4>Автоматическое формирование документов опирается на номерник. Данные по нему отсутствуют.</h4>
+    </div>
+}
+
+<script>
+    select1.addEventListener('change', function () {
+        select2.value = select1.value;
+        if (select2.value === "true") {
+            $("#M_osn230_Id").prop("disabled", true);
+            $("#M_straf").prop("disabled", true);
+        } else {
+            $("#M_osn230_Id").prop("disabled", false);
+            $("#M_straf").prop("disabled", false);
+        }
+    }, false);
+    select2.addEventListener('change', function () {
+        select1.value = select2.value;
+        if (select1.value === "true") {
+            $("#M_osn230_Id").prop("disabled", true);
+            $("#M_straf").prop("disabled", true);
+        } else {
+            $("#M_osn230_Id").prop("disabled", false);
+            $("#M_straf").prop("disabled", false);
+        }
+    }, false);
+
+    $("#M_dakt").change(function () {
+        $("#M_dakt2").val($(this).val());
+    });
+    $("#M_dakt2").change(function () {
+        $("#M_dakt").val($(this).val());
+    });
+</script>

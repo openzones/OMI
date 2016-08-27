@@ -1,0 +1,103 @@
+﻿@using OMInsurance.Entities
+@model OMInsurance.WebApps.Models.FundResponseCopyFieldsModel
+@using (Ajax.BeginForm("ApplyResponse", "FundRequestProcessing", null,
+            new AjaxOptions
+            {
+                HttpMethod = "POST",
+                OnSuccess = "FundResponseProcessor.successSubmitResponse",
+                OnFailure = "FundResponseProcessor.errorSubmitResponse",
+            }, new { id = "chooseFieldsForm" }))
+{
+    <div class="row">
+        @Html.HiddenFor(m => m.ClientVisitGroupId, new { id = "ClientVisitGroupId" })
+        @Html.HiddenFor(m => m.ResponseId, new { id = "ResponseId" })
+        <div class="col-md-6">
+            <h5>Скопировать в новые данные</h5>
+            <ul>
+                <li>
+                    <input type="checkbox"
+                        class="checkAll" />
+                    <label>Выбрать всё</label>
+                </li>
+                <li>
+                    <input type="checkbox"
+                        class="checkGeneralFields" />
+                    <label>Выбрать основные поля</label>
+                    <div class="blueLine"></div>
+                </li>
+                @foreach (var g in EnumHelper<FundResponseFields>.GetValues())
+                {
+                    <li>
+                        @if (g.Key == FundResponseFields.Lastname)
+                        {
+                            <div class="blueLine"></div>
+                        }
+                        @if (g.Key < FundResponseFields.Lastname)
+                        {
+                            <input type="checkbox" name="NewFields" value="@((int)g.Key)" id="NewFields_@((int)g.Key)" class="generalField" />
+                        }
+                        else
+                        {
+                            if (g.Key != FundResponseFields.UnifierPolicyNumberToPolicyNumber)
+                            {
+                                <input type="checkbox" name="NewFields" value="@((int)g.Key)" id="NewFields_@((int)g.Key)" class="otherField" />
+                            }
+                            else
+                            {
+                                <input type="checkbox" name="NewFields" value="@((int)g.Key)" id="NewFields_@((int)g.Key)" />
+                            }
+                        }
+                        <label for="@g.Value">@g.Value</label>
+                    </li>
+                }
+            </ul>
+        </div><div class="col-md-6">
+            <h5>Скопировать в старые данные</h5>
+            <ul>
+                <li>
+                    <input type="checkbox"
+                        class="checkAll" />
+                    <label>Выбрать всё</label>
+                </li>
+                <li>
+                    <input type="checkbox"
+                        class="checkGeneralFields" />
+                    <label>Выбрать основные поля</label>
+                    <div class="blueLine"></div>
+                </li>
+                @foreach (var g in EnumHelper<FundResponseFields>.GetValues())
+                {
+                    <li>                        
+                        @if (g.Key == FundResponseFields.Lastname)
+                        {
+                            <div class="blueLine"></div>
+                        }
+                        @if (g.Key < FundResponseFields.Lastname)
+                        {
+                            <input type="checkbox" name="OldFields" value="@((int)g.Key)" id="NewFields_@((int)g.Key)" class="generalField" />
+                        }
+                        else
+                        {
+                            if (g.Key != FundResponseFields.UnifierPolicyNumberToPolicyNumber)
+                            {
+                                <input type="checkbox" name="OldFields" value="@((int)g.Key)" id="NewFields_@((int)g.Key)" class="otherField" />
+                            }
+                            else
+                            {
+                                <input type="checkbox" name="OldFields" value="@((int)g.Key)" id="NewFields_@((int)g.Key)" />
+                            }
+                        }
+                        <label for="@g.Value">@g.Value</label>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-primary pull-right">
+                Применить
+            </button>
+        </div>
+    </div>
+}

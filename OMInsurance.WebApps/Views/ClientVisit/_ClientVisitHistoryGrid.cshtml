@@ -1,0 +1,51 @@
+﻿@model IEnumerable<OMInsurance.WebApps.Models.ClientVisitHistoryItemModel>
+<table class="table table-striped">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ClientVisitId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StatusDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserLogin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserLastname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserFirstname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserSecondname)
+        </th>
+    </tr>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClientVisitId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StatusDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserLogin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserLastname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserFirstname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserSecondname)
+        </td>
+    </tr>
+}
+</table>

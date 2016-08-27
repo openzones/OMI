@@ -1,0 +1,36 @@
+﻿@model IEnumerable<OMInsurance.WebApps.Models.BSOBaseInfoModel>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TemporaryPolicyNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PolicyPartyNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StatusDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ResponsibleName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem =>  item.DeliveryCenter)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeliveryPoint)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ChangeDate)
+            </td>
+            <td>
+                @OMHelpers.ActionLinkIcon(Url, "BSOHistory", "BSO", item.BSO_ID, "", "glyphicon-pencil", true)
+            </td>
+        </tr>
+    }

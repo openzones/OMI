@@ -1,0 +1,27 @@
+﻿@model System.DateTime
+@{
+    ViewBag.Title = "Проставление статусов";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <form id="SetStatusesFromDbfParameters">
+        <div class="col-md-3">
+            <input id="SetStatusesFromDbf" class="btn btn-default" type="file" />
+        </div>
+        <div class="col-md-2">
+            @Html.Label("statusdate", "Дата статуса")
+        </div>
+        <div class="col-md-3">
+            @Html.TextBox("statusdate", Model.ToString("dd.MM.yyyy"),
+        new { @class = "form-control datepicker", id = "statusdate" })
+        </div>
+        <div class="col-md-4">
+            <input class="btn btn-default" id="uploadFileName"
+                type="button"
+                onclick="FileProcessor.uploadDbf('SetStatusesFromDbf', '/DbfPackage/SetStatusesFromDbf', 'report', 'SetStatusesFromDbfParameters')"
+                value="Обновить статусы из DBF" />
+        </div>
+    </form>
+</div>
+<div class="row" id="report">
+</div>

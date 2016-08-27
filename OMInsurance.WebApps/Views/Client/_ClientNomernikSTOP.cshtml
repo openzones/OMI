@@ -1,0 +1,91 @@
+﻿@model IEnumerable<OMInsurance.WebApps.Models.ClientNomernikModel>
+@if (Model.Count() > 0)
+{
+    <table class="table table-striped">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SCENARIO)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.S_CARD)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.N_CARD)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ENP)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VSN)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QZ)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DATE_END)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DATE_ARC)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IST)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LoadDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FileDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FIO)
+            </th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SCENARIO)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.S_CARD)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.N_CARD)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ENP)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VSN)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.QZ)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DATE_END)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DATE_ARC)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IST)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LoadDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FileDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FIO)
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+<div class="col-md-12">
+    Записи отсутствуют<br />
+</div>
+}

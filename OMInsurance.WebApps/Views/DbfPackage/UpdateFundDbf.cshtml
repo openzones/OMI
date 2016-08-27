@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "Загрузка DBF из фонда";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-md-4">
+        <input id="UpdateFundDbf" class="btn btn-default" type="file" />
+    </div>
+
+    <div class="col-md-8">
+        <input class="btn btn-default" id="uploadFileName"
+            type="button"
+            onclick="FileProcessor.uploadDbf('UpdateFundDbf', '/DbfPackage/UpdateFundDbf', 'report')"
+            value="Загрузить DBF" />
+    </div>
+</div>
+<div class="row" id="report">
+</div>

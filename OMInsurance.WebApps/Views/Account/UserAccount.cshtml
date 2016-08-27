@@ -1,0 +1,223 @@
+﻿@model OMInsurance.WebApps.Models.UserEditModel
+@{
+    ViewBag.Title = "Аккаунт пользователя";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>Аккаунт пользователя: @Model.Login</h3>
+<h3>@Model.Lastname @Model.Firstname @Model.Secondname</h3>
+
+<div class="row margined">
+    <div class="col-md-3">
+        <div>
+            @Html.HiddenFor(m => m.Id)
+            @Html.DisplayNameFor(m => m.Login)
+        </div>
+        <div>
+            @Html.TextBoxFor(m => m.Login, new { @class = "form-control", autocomplete = "off", maxlength = "50", disabled = "disabled" })
+        </div>
+        <div>
+            @Html.ValidationMessageFor(m => m.Login)
+        </div>
+    </div>
+    @if (!Model.Id.HasValue)
+    {
+        <div class="col-md-3">
+            <div>
+                @Html.DisplayNameFor(m => m.Password)
+            </div>
+            <div>
+                @Html.TextBoxFor(m => m.Password, new { @class = "form-control", autocomplete = "off", maxlength = "50", disabled = "disabled" })
+            </div>
+            <div>
+                @Html.ValidationMessageFor(m => m.Password)
+            </div>
+        </div>
+    }
+</div>
+
+<div class="row margined">
+    <div class="col-md-3">
+        <div>
+            @Html.DisplayNameFor(m => m.Lastname)
+        </div>
+        <div>
+            @Html.TextBoxFor(m => m.Lastname, new { @class = "form-control", maxlength = "50", disabled = "disabled" })
+        </div>
+        <div>
+            @Html.ValidationMessageFor(m => m.Lastname)
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div>
+            @Html.DisplayNameFor(m => m.Position)
+        </div>
+        <div>
+            @Html.TextBoxFor(m => m.Position, new { @class = "form-control", maxlength = "50", disabled = "disabled" })
+        </div>
+        <div>
+            @Html.ValidationMessageFor(m => m.Position)
+        </div>
+    </div>
+</div>
+<div class="row margined">
+    <div class="col-md-3">
+        <div>
+            @Html.DisplayNameFor(m => m.Firstname)
+        </div>
+        <div>
+            @Html.TextBoxFor(m => m.Firstname, new { @class = "form-control", maxlength = "50", disabled = "disabled" })
+        </div>
+        <div>
+            @Html.ValidationMessageFor(m => m.Firstname)
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div>
+            @Html.DisplayNameFor(m => m.DepartmentId)
+        </div>
+        <div>
+            <div>
+                @Html.DropDownListFor(model => model.DepartmentId, Model.Departments, new { @class = "form-control", disabled = "disabled" })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row margined">
+    <div class="col-md-3">
+        <div>
+            @Html.DisplayNameFor(m => m.Secondname)
+        </div>
+        <div>
+            @Html.TextBoxFor(m => m.Secondname, new { @class = "form-control", maxlength = "50", disabled = "disabled" })
+        </div>
+        <div>
+            @Html.ValidationMessageFor(m => m.Secondname)
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div>
+            @Html.DisplayNameFor(m => m.DeliveryPointId)
+        </div>
+        <div>
+            @Html.DropDownListFor(model => model.DeliveryPointId, Model.DeliveryPoints, new { @class = "form-control", disabled = "disabled" })
+        </div>
+    </div>
+</div>
+
+<div class="row margined">
+    <div class="col-md-3">
+        <div>
+            @Html.DisplayNameFor(m => m.Email)
+        </div>
+        <div>
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", maxlength = "100", disabled = "disabled" })
+        </div>
+        <div>
+            @Html.ValidationMessageFor(m => m.Email)
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div>
+            @Html.DisplayNameFor(m => m.Phone)
+        </div>
+        <div>
+            @Html.TextBoxFor(model => model.Phone, new { @class = "form-control phone", disabled = "disabled" })
+            @Html.ValidationMessageFor(model => model.Phone)
+        </div>
+    </div>
+</div>
+
+
+<div class="row margined">
+    <div class="col-md-12">
+        <div>
+            @Html.DisplayNameFor(m => m.Roles)
+        </div>
+        <div>
+            @Html.CheckBoxListFor(x => x.Roles,
+                      x => x.RolesList,
+                      x => x.Value,
+                      x => x.Text,
+                      x => x.Selected,
+                      x => new { disabled = "disabled" }
+                      )
+        </div>
+    </div>
+</div>
+
+<br />
+@if (!string.IsNullOrEmpty(Model.Password))
+{
+    <div class="row margined">
+        <div class="col-md-7">
+            <div class="alert alert-info" role="alert">
+                Пароль успешно изменен на @Model.Password
+            </div>
+        </div>
+    </div>
+}
+
+@if (Model.Id.HasValue)
+{
+    <div class="margined row col-md-7">
+        <div class="panel panel-primary ">
+            <div class="panel-heading">
+                <h3 class="clickable panel-title panel-collapsed">Сбросить пароль</h3>
+            </div>
+            <div class="panel-body" style="display: none;">
+                @using (Html.BeginForm("ResetAutoGenerationForUser", "Account", new { id = Model.Id }))
+                {
+                    @Html.HiddenFor(m => m.Id)
+                    <div class="margined row">
+                        <h4>
+                            Автоматическая генерация
+                        </h4>
+                    </div>
+                    <div class="margined row">
+                        <div class="col-md-8">
+                            Новый пароль будет выслан вам на e-mail.
+                        </div>
+                        <div class="col-md-2">
+                            <input class="btn btn-default"
+                                   type="submit"
+                                   value="Сгенерировать" />
+                        </div>
+                    </div>
+                }
+
+                <br />
+                <div class="blueLine">
+                </div>
+
+                @using (Html.BeginForm("ResetManualGenerationForUser", "Account", new { id = Model.Id, password = Model.Password }))
+                {
+                    @Html.HiddenFor(m => m.Id)
+                    <div class="margined row">
+                        <h4>
+                            Ручной ввод
+                        </h4>
+                    </div>
+                    <div class="margined row">
+                        <div class="col-md-4">
+                            Новый пароль:
+                        </div>
+                        <div class="col-md-4">
+                            <div>
+                                @Html.TextBoxFor(m => m.Password, new { @class = "form-control", autocomplete = "off", maxlength = "50" })
+                            </div>
+                            <div>
+                                @Html.ValidationMessageFor(m => m.Password)
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <input class="btn btn-default"
+                                   type="submit"
+                                   value="Сохранить" />
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,125 @@
+﻿@{
+    ViewBag.Title = "Помощник";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row margined">
+    <div class="col-md-12">
+        <h2>Помощник</h2>
+        <h5>
+            По вопросам работы портала, технической составляющей, сбоев и т.д., а так же предложений и пожеланий, просьба обращаться
+            <a href="malto:vechkaevkv@uralsibins.ru">vechkaevkv@uralsibins.ru</a>
+        </h5>
+        <h5>
+            Для экстренной связи:
+            +7-495-737-00-55 добавочный 6121
+            или
+            +7-929-509-4567
+        </h5>
+    </div>
+</div>
+
+<div class="row margined">
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-4">
+        <div><a href="@Url.Action("Actuals", "ClientVisit")" class="btn btn-lg btn-block btn-primary">Начать работу</a></div>
+    </div>
+    <div class="col-md-4">
+    </div>
+</div>
+
+<div class="blueLine"></div>
+<div class="row margined">
+    <h4 style="color: red;">C 25.03.2016 при оформлении заявления застрахованного лица необходимо предоставить СНИЛС (на основании Приказа Минздравсоцразвития №192 н)</h4>
+</div>
+<div class="blueLine"></div>
+<div class="row margined">
+    <h4>Добавлена детализированная инструкция по работе с системой.</h4>
+    <h4>Просьба всем ознакомиться.</h4>
+
+    <h4>ВНИМАНИЕ! Участились случаи создания в одном клиенте нескольких обращений от разных клиентов.</h4>
+    <img src="~/Content/images/ClientErrorScreenshot.jpg" />
+
+    <h4>Для каждого клиента создается отдельное обращение нажатием на ссылку «Добавить обращение для нового клиента».</h4>
+    <div class="blueLine"></div>
+    <h4>Требования к браузеру </h4>
+
+    <div class="col-md-4">
+
+        <table class="table" rules="cols" border="1">
+            <thead>
+                <tr>
+                    <th>Рекомендованные</th>
+                    <th>Совместимые</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Chrome</td>
+                    <td>Internet Exporer 8*</td>
+                </tr>
+                <tr>
+                    <td>Firefox</td>
+                    <td>Safari</td>
+                </tr>
+                <tr>
+                    <td>Internet Explorer 9 и старше</td>
+                    <td>Opera</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-12">
+        <div>*При работе в Internet Exporer 8 на старых компьютерах могут наблюдаться задержки. Рекомендуется использовать более современный браузер.</div>
+
+        <h5>Вход на портал осуществляется из сети по адресу: <a href="http://oms/">http://oms/</a> </h5>
+        <h5>Если ваш компьютер не в сети, вход осуществляется по отдельному логину и паролю через интернет: <a href="http://ap.uralsibins.ru">http://ap.uralsibins.ru</a></h5>
+
+    </div>
+</div>
+<div class="blueLine"></div>
+
+<div class="row margined">
+    <h4>Инструкции</h4>
+    <div class="col-md-1">
+
+        <video width="400" poster="~/Content/images/slide_for_video.jpg" controls>
+            <source src="~/Content/video/portal-oms.mp4" type="video/mp4" />
+            <source src="~/Content/video/portal-oms.ogg" type='video/ogg; codecs="theora, vorbis"' />
+            <source src="~/Content/video/portal-oms.wmv" type="video/x-ms-wmv" />
+            <object width="400" type="application/x-shockwave-flash" data="video/player.swf">
+                <param name="movie" value="video/player.swf" />
+                <param name="allowfullscreen" value="true" />
+                <param name="flashvars" value='~/Content/portal-oms-2.mp4' />
+            </object>
+            <a href="~/Content/video/portal-oms.mp4">Скачать видео</a>
+        </video>
+
+    </div>
+</div>
+<div class="row margined">
+
+    <div class=" = col-md-11">
+        <h5>Если видео не проигрывается, его можно <a href="~/Content/video/portal-oms.mp4">скачать</a> отдельно.</h5>
+    </div>
+
+    <div class="col-md-12">
+
+
+        <ul>
+            <li>@Html.ActionLink("Общая инструкция работы с системой.pdf", "GetFileFromAppData", "File", new { @filename = "Общая_инструкция_работы_с_системой.pdf" }, null)</li>
+            <li>@Html.ActionLink("Детализированная инструкция.pdf", "GetFileFromAppData", "File", new { @filename = "Детализированная_инструкция.pdf" }, null)</li>
+            <li>@Html.ActionLink("Инструкция по работе через интернет.pdf", "GetFileFromAppData", "File", new { @filename = "Инструкция_по_работе_через_интернет.pdf" }, null)</li>
+            <li>@Html.ActionLink("Видео-инструкция по работе через интернет.pdf", "GetFileFromAppData", "File", new { @filename = "Инструкция_по_работе_через_интернет.pdf" }, null)</li>
+        </ul>
+    </div>
+</div>
+<div class="row margined">
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-4">
+        <div><a href="@Url.Action("Actuals", "ClientVisit")" class="btn btn-lg btn-block btn-primary">Начать работу</a></div>
+    </div>
+    <div class="col-md-4">
+    </div>
+</div>

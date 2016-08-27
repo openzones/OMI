@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "Загрузка заявок из филиалов";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Model
+<h2>Загрузка заявок из филиалов</h2>
+<form id="UploadClientVisitsFromDbfParameters">
+    <div class="row margined">
+        <div class="col-md-1">
+            @Html.Label("Файл с архивом")
+        </div>
+        <div class="col-md-11">
+            <input id="UploadClientVisitsFromDbf" class="btn btn-default" type="file" />
+        </div>
+    </div>
+    <div class="row margined">
+        <div class="col-md-1">
+            @Html.Label("Место выдачи")
+        </div>
+        <div class="col-md-2">
+            @Html.DropDownList("DeliveryPointId", ViewBag.DeliveryPoints as System.Collections.Generic.IEnumerable<SelectListItem>, new { @class = "form-control", id = "DeliveryPointId"})
+        </div>
+        <div class="col-md-1">
+            @Html.Label("Специалист, привлекший клиента")
+        </div>
+        <div class="col-md-2">
+            @Html.DropDownList("ClientAcquisitionEmployee", ViewBag.ListClientAcquisitionEmployee as System.Collections.Generic.IEnumerable<SelectListItem>, new { @class = "form-control", id = "ClientAcquisitionEmployee"})
+        </div>
+        <div class="col-md-4">
+            <input class="btn btn-default" id="uploadFileName"
+                type="button"
+                onclick="FileProcessor.uploadDbf('UploadClientVisitsFromDbf', '/DbfPackage/UploadClientVisitsFromDbf', 'report', 'UploadClientVisitsFromDbfParameters')"
+                value="Загрузить заявки из DBF" />
+        </div>
+    </div>
+</form>
+<div class="row" id="report">
+</div>
+

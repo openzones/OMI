@@ -1,0 +1,775 @@
+﻿@model OMInsurance.WebApps.Models.ClientVisitSaveDataModel
+@using OMInsurance.WebApps.Helpers
+@Html.HiddenFor(m => m.ClientId)
+@Html.HiddenFor(m => m.VisitId)
+@Html.HiddenFor(m => m.Registrator.Id)
+@Html.HiddenFor(m => m.VisitGroupId)
+
+
+
+@if (Model.Messages.Count > 0 || Model.MessagesNotCritical.Count > 0)
+{
+    if (Model.Messages.Count > 0)
+    {
+        <div id="modal" class="modal fade" role="dialog" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" text-align: center!important; >
+                        <button class="close" type="button" data-dismiss="modal">x</button>
+                        <h3>Заявка не сохранена!</h3>
+                    </div>
+                    <div class="modal-body">
+                        <h3>Критические ошибки: @Model.Messages.Count шт.</h3>
+                        <div class="alert alert-danger alert-dismissable" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            @foreach (var message in Model.Messages)
+                            {
+                                <span>
+                                    @message<br />
+                                </span>
+                            }
+                        </div>
+                        <h3>Некритические ошибки: @Model.MessagesNotCritical.Count шт.</h3> 
+                        <div class="alert alert-warning alert-dismissable" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            @foreach (var message in Model.MessagesNotCritical)
+                            {
+                                <span>
+                                    @message<br />
+                                </span>
+                            }
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Перейти к редактированию</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        if (Model.MessagesNotCritical.Count > 0)
+        {
+            <div id="modal" class="modal fade" role="dialog" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button class="close" type="button" data-dismiss="modal">x</button>
+                            <h3>Заявка успешно сохранена!</h3>
+                        </div>
+                        <div class="modal-body">
+                            <h3>Некритические ошибки: @Model.MessagesNotCritical.Count шт.</h3>
+                            <div class="alert alert-warning alert-dismissable" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                @foreach (var message in Model.MessagesNotCritical)
+                                {
+                                    <span>
+                                        @message<br />
+                                    </span>
+                                }
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Перейти к редактированию</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    <script>
+    $(document).ready(function () {
+        $('#modal').modal({
+            show:true,
+            width:"700px"
+        })
+    });
+    </script>
+}
+
+
+
+@if (Model.MessagesNotCritical.Count > 0)
+{
+    <div class="row margined">
+        <div class="col-md-12">
+            <div class="alert alert-warning alert-dismissable" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                @foreach (var message in Model.MessagesNotCritical)
+                {
+                    <span>
+                        @message<br />
+                    </span>
+                }
+            </div>
+        </div>
+    </div>
+}
+@if (Model.Messages.Count > 0)
+{
+    <div class="row margined">
+        <div class="col-md-12">
+            <div class="alert alert-danger" role="alert">
+                @foreach (var message in Model.Messages)
+                {
+                    <span>
+                        @message<br />
+                </span>
+                }
+            </div>
+        </div>
+    </div>
+}
+<input data-val="false" id="CreateDate" name="CreateDate" type="hidden" value="@Model.CreateDate">
+<div class="container" id="clientVisitData">
+    <div class="row margined">
+        <div class="col-md-9">
+            <button type="button" style="display: none;" class="btn btn-default btn collapseAll">
+                <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>Свернуть всё
+            </button>
+            <button type="button" class="btn btn-default btn uncollapseAll">
+                <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>Развернуть всё
+            </button>
+        </div>
+        <div class="col-md-3">
+            <a href="@Url.Action("Details", "Client", new { id = Model.ClientId })">
+                <button type="button" class="btn btn-default">Посмотреть карточку клиента</button>
+            </a>
+        </div>
+    </div>
+    <div class="row margined">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="clickable panel-title panel-collapsed">Общая информация по обращению</h3>
+                    <span class="pull-right"><i class="glyphicon glyphicon-chevron-up"></i></span>
+                </div>
+                <div class="panel-body" style="display: none;">
+                    <div class="row margined">
+                        <div class="col-md-2">
+                            <div>
+                                @Html.DisplayNameFor(model => model.DeliveryCenterId)
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div>
+                                @Html.DropDownListFor(model => model.DeliveryCenterId, Model.DeliveryCenters, new
+                                {
+                                    @class = "form-control",
+                                    required = "required",
+                                    disabled = "disabled",
+                                    id = string.Format("DeliveryCenter{0}", Model.VisitId ?? 0)
+                                })
+                                @Html.HiddenFor(model => model.DeliveryCenterId, new { id = string.Format("DeliveryCenterHidden{0}", Model.VisitId ?? 0) })
+                                @Html.ValidationMessageFor(model => Model.DeliveryCenterId)
+                            </div>
+
+                        </div>
+                        <div class="col-md-1">
+                            @Html.DisplayNameFor(model => model.StatusId)
+                        </div>
+                        <div class="col-md-3">
+                            <div>
+                                @if (Model.StatusEnabled)
+                                {
+                                    @Html.DropDownListFor(model => model.StatusId, Model.Statuses, new { @class = "form-control" })
+                                }
+                                else
+                                {
+                                    //Разрешить менять статус регистратору с "внимание комментарий"
+                                    if ((User.IsInRole(OMInsurance.Entities.Core.Role.Registrator.Name) ||
+                                        User.IsInRole(OMInsurance.Entities.Core.Role.ResponsibleBSO.Name)) &&
+                                        Model.StatusId == 8)
+                                    {
+                                        @Html.DropDownListFor(model => model.StatusId, Model.Statuses, new { @class = "form-control" })
+                                    }
+                                    else
+                                    {
+                                        @Html.HiddenFor(model => model.StatusId)
+                                        @Html.TextBoxFor(model => model.StatusName, new { @class = "form-control", @readonly = "readonly" })
+                                    }
+                                }
+                            </div>
+                            <div class="pull-right">
+                                @this.Model.StatusDate.ToShortDateString()
+                                @Html.HiddenFor(model => model.StatusDate)
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            @Html.DisplayNameFor(model => model.ScenarioId)
+                        </div>
+                        <div class="col-md-3">
+                            <div>
+                                @Html.DropDownListFor(model => model.ScenarioId, Model.Scenaries, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margined">
+                        <div class="col-md-2">
+                            <div>
+                                @if (string.IsNullOrEmpty(Model.TemporaryPolicyNumber))
+                                {
+                                    @Html.DisplayNameFor(model => model.TemporaryPolicyNumber)
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("Временное свидетельство", "GoToBSOHistory", "BSO", new { temporaryPolicyNumber = Model.TemporaryPolicyNumber }, new { target = "_blank" })
+                                }
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div>
+                                @Html.TextBoxFor(model => model.TemporaryPolicyNumber, new { @class = "form-control", maxlength = "9",
+                               onchange = string.Format("FundResponseProcessor.checkBSO({0},{1},{2})", Model.ClientId, Model.VisitGroupId, Model.VisitId),
+                               id = string.Format("TemporaryPolicyNumber{0}", Model.VisitId)
+                           })
+                                @Html.ValidationMessageFor(m => m.TemporaryPolicyNumber)
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div>
+                                @Html.DisplayNameFor(model => model.TemporaryPolicyDate)
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div>
+                                @Html.TextBoxFor(model => model.TemporaryPolicyDate, Model.TemporaryPolicyDate.HasValue ? Model.TemporaryPolicyDate.Value.ToShortDateString() : String.Empty,
+                                    new { @class = "form-control datepicker", required = "required", id = string.Format("TemporaryPolicyDate{0}", Model.NewPolicy.Id) })
+                                @Html.ValidationMessageFor(m => m.TemporaryPolicyNumber)
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div>
+                                @Html.DisplayNameFor(model => model.TemporaryPolicyExpirationDate)
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div>
+                                @Html.TextBoxFor(model => model.TemporaryPolicyExpirationDate,
+                                    new { @class = "form-control datepicker", id = string.Format("TemporaryPolicyExpirationDate{0}", Model.NewPolicy.Id) })
+                                @Html.ValidationMessageFor(m => m.TemporaryPolicyExpirationDate)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margined" style="@(Model.IsGoznakBlockVisible ? "display:block;" : "display:none;")">
+                        <div class="col-md-2">
+                            <div>
+                                @Html.DisplayNameFor(m => m.GOZNAKTypeId)
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div>
+                                @Html.DropDownListFor(model => model.GOZNAKTypeId, Model.GoznakTypes, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div>
+                                @Html.DisplayNameFor(m => m.GOZNAKDate)
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div>
+                                @Html.TextBoxFor(model => model.GOZNAKDate, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margined">
+                        <div class="col-md-2">
+                            <div>
+                                @Html.DisplayNameFor(m => m.IssueDate)
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div>
+                                @if (Model.IssueDateEnabled)
+                                {
+                                    @Html.EditorFor(model => model.IssueDate)
+                                }
+                                else
+                                {
+                                    @Html.TextBoxFor(model => model.IssueDate, new { @class = "form-control", @readonly = "readonly" })
+                                }
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div>
+                                @Html.DisplayNameFor(m => m.ApplicationMethodId)
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div>
+                                @Html.DropDownListFor(model => model.ApplicationMethodId, Model.ApplicationMethods, new { @class = "form-control", required = "required" })
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div>
+                                @Html.DisplayNameFor(m => m.IsActual)
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div>
+                                @if (Model.IsActualEnabled)
+                                {
+                                    @Html.CheckBoxFor(model => model.IsActual)
+                                }
+                                else
+                                {
+                                    @Html.CheckBoxFor(model => model.IsActual, new { onclick = "return false" })
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margined">
+                        <div class="col-md-2">
+                            <div>
+                                @Html.DisplayNameFor(m => m.CarrierId)
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div>
+                                @Html.DropDownListFor(model => model.CarrierId, Model.Carriers, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => Model.CarrierId)
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div>
+                                @Html.DisplayNameFor(m => m.ClientCategoryId)
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div>
+                                @Html.DropDownListFor(model => model.ClientCategoryId, Model.UralsibClientCategories, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div>
+                                @Html.DisplayNameFor(m => m.DeliveryPointId)
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div>
+                                @Html.DropDownListFor(model => model.DeliveryPointId, Model.DeliveryPoints, new
+                                {
+                                    @class = "form-control",
+                                    required = "required",
+                                    onchange = string.Format("FundResponseProcessor.changeDeliveryPoint({0})", Model.VisitId ?? 0),
+                                    id = string.Format("DeliveryPoint{0}", Model.VisitId ?? 0)
+                                })
+                                @Html.ValidationMessageFor(model => Model.DeliveryPointId)
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                    <div class="row margined">
+                        <div class="col-md-2">
+                            <div>
+                                @*@Html.DisplayNameFor(m => m.UralsibCard)*@
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div>
+                                @*@Html.CheckBoxFor(model => model.UralsibCard)*@
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div>
+                                @Html.DisplayNameFor(m => m.PolicyPartyNumber)
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div>
+                                @Html.TextBoxFor(m => m.PolicyPartyNumber, new { @readonly = "readonly", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div style='@string.Format("{0}", Model.IsReadyToFundSubmitRequestEnabled ? "" : "visibility:hidden;")'>
+                                @Html.DisplayNameFor(m => m.IsReadyToFundSubmitRequest)
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div style='@string.Format("{0}", Model.IsReadyToFundSubmitRequestEnabled ? "" : "visibility:hidden;")'>
+                                @Html.CheckBoxFor(model => model.IsReadyToFundSubmitRequest)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margined">
+                        <div class="col-md-2">
+                            <div>
+                                @Html.DisplayNameFor(m => m.Comment)
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div>
+                                @Html.TextAreaFor(model => model.Comment, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div>
+                                @Html.DisplayNameFor(model => model.IsDifficultCase)
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div>
+                                @Html.CheckBoxFor(model => model.IsDifficultCase)
+                           @*new
+                           {
+                               onchange = string.Format("FundResponseProcessor.setDifficultCase({0}, this)", Model.VisitId),
+                               class = "setDifficultCaseCheckBox",
+                           })*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row margined">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="clickable panel-title panel-collapsed">Информация о клиенте</h3>
+                    <span class="pull-right"><i class="glyphicon glyphicon-chevron-up"></i></span>
+                </div>
+                <div class="panel-body" style="display: none;">
+                    <div class="row margined">
+                        <div class="col-md-6">
+                            <h3>
+                                @Html.DisplayNameFor(model => model.NewClientInfo)
+                            </h3>
+                            @Html.EditorFor(model => model.NewClientInfo)
+                        </div>
+                        <div class="col-md-6">
+                            <h3>
+                                @Html.DisplayNameFor(model => model.OldClientInfo)
+                            </h3>
+                            @Html.EditorFor(model => model.OldClientInfo)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row margined">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="clickable panel-title panel-collapsed">Документы</h3>
+                    <span class="pull-right"><i class="glyphicon glyphicon-chevron-up"></i></span>
+                </div>
+                <div class="panel-body" style="display: none;">
+                    <div class="row margined">
+                        <div class="col-md-6 document">
+                            <h3>
+                                @Html.DisplayNameFor(model => model.NewDocument)
+                            </h3>
+                            @Html.EditorFor(model => model.NewDocument)
+                        </div>
+                        <div class="col-md-6 document">
+                            <h3>
+                                @Html.DisplayNameFor(model => model.NewForeignDocument)
+                            </h3>
+                            @Html.EditorFor(model => model.NewForeignDocument)
+                        </div>
+                        <div class="col-md-6 document">
+                            <h3>
+                                @Html.DisplayNameFor(model => model.OldDocument)
+                            </h3>
+                            @Html.EditorFor(model => model.OldDocument)
+                        </div>
+                        <div class="col-md-6 document">
+                            <h3>
+                                @Html.DisplayNameFor(model => model.OldForeignDocument)
+                            </h3>
+                            @Html.EditorFor(model => model.OldForeignDocument)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row margined">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="clickable panel-title panel-collapsed">Контактная информация</h3>
+                    <span class="pull-right"><i class="glyphicon glyphicon-chevron-up"></i></span>
+                </div>
+                <div class="panel-body" style="display: none;">
+                    <div class="row margined">
+                        <div class="col-md-3">
+                            <div>
+                                @Html.DisplayNameFor(m => m.Phone)
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div>
+                                @Html.TextBoxFor(model => model.Phone, new { @class = "form-control phone" })
+                                @Html.ValidationMessageFor(model => model.Phone)
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div>
+                                @Html.DisplayNameFor(m => m.Email)
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div>
+                                @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Email)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margined">
+                        <div class="col-md-3">
+                            <div>
+                                @Html.DisplayNameFor(m => m.ClientContacts)
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div>
+                                @Html.TextAreaFor(model => model.ClientContacts, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row margined">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="clickable panel-title panel-collapsed">Адрес</h3>
+                    <span class="pull-right"><i class="glyphicon glyphicon-chevron-up"></i></span>
+                </div>
+                <div class="panel-body" style="display: none;">
+                    <div class="row margined">
+                        <div class="col-md-6" id="@string.Format("livingAddress{0}", Model.NewPolicy.Id)">
+                            <h3>
+                                @Html.DisplayNameFor(model => model.LivingAddress)
+                            </h3>
+                            @Html.EditorFor(model => model.LivingAddress)
+                        </div>
+                        <div class="col-md-6" id="@string.Format("registrationAddress{0}", Model.NewPolicy.Id)">
+                            <h3>
+                                @Html.DisplayNameFor(model => model.RegistrationAddress)
+                            </h3>
+                            @Html.EditorFor(model => model.RegistrationAddress)
+                        </div>
+                    </div>
+                    <div class="row margined">
+                        <div class="col-md-3">
+                            @Html.DisplayNameFor(model => model.RegistrationAddressDate)
+                        </div>
+                        <div class="col-md-3">
+                            <div>
+                                @Html.TextBoxFor(model => model.RegistrationAddressDate, Model.RegistrationAddressDate.HasValue ? Model.RegistrationAddressDate.Value.ToShortDateString() : String.Empty,
+                               new { @class = "form-control datepicker", required = "required", id = string.Format("RegistrationAddressDate{0}", Model.NewPolicy.Id) })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row margined">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="clickable panel-title panel-collapsed">Данные полисов</h3>
+                    <span class="pull-right"><i class="glyphicon glyphicon-chevron-up"></i></span>
+                </div>
+                <div class="panel-body" style="display: none;">
+
+                    <div class="row margined">
+                        <div class="col-md-6" id="@string.Format("newPolicy{0}", Model.NewPolicy.Id)">
+                            <h3>
+                                @Html.DisplayNameFor(model => model.NewPolicy)
+                            </h3>
+                            @Html.EditorFor(model => model.NewPolicy)
+                        </div>
+                        <div class="col-md-6" id="@string.Format("oldPolicy{0}", Model.OldPolicy.Id)">
+                            <h3>
+                                @Html.DisplayNameFor(model => model.OldPolicy)
+                            </h3>
+                            @Html.EditorFor(model => model.OldPolicy)
+                        </div>
+                    </div>
+                    <div class="row margined">
+                        <div class="col-md-2">
+                            @Html.DisplayNameFor(model => model.PolicyBlanc)
+                        </div>
+                        <div class="col-md-4">
+                            @Html.TextBoxFor(model => model.PolicyBlanc, new { @class = "form-control", @readonly = "readonly" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row margined">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="clickable panel-title panel-collapsed">@Html.DisplayNameFor(model => model.Representative)</h3>
+                    <span class="pull-right"><i class="glyphicon glyphicon-chevron-up"></i></span>
+                </div>
+                <div class="panel-body" style="display: none;">
+                    <div class="col-md-12">
+                        <div class="document">
+                            @Html.EditorFor(m => m.Representative)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row margined">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="clickable panel-title panel-collapsed">Фото и подпись</h3>
+                    <span class="pull-right"><i class="glyphicon glyphicon-chevron-up"></i></span>
+                </div>
+                <div class="panel-body" style="display: none;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <a onclick="FileProcessor.loadImagesFromStudioUEC('@Model.SignatureFileName', '@Model.PhotoFileName')">StudioUEC</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <a onclick="FileProcessor.reloadImage('photoImage')">Проверить фото</a>
+                        </div>
+                        <div class="col-md-4">
+                            <a onclick="FileProcessor.clearImage('photoImage')">Очистить фото</a>
+                        </div>
+                        <div class="col-md-2">
+                            <a onclick="FileProcessor.reloadImage('signatureImage')">Проверить подпись</a>
+                        </div>
+                        <div class="col-md-4">
+                            <a onclick="FileProcessor.clearImage('signatureImage')">Очистить подпись</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            @Html.HiddenFor(m => m.PhotoFileName, new { @class = "photoFileName" })
+                            <div>
+                                @Html.ActionImage("Image", "File", "photoImage", Model.PhotoFileName, string.Empty, 400, 320)
+                            </div>
+                            <div>
+                                <input class="btn btn-default" id="PhotoFile" type="file" />
+                                <input class="btn btn-default" id="uploadPhotoFileName"
+                                       type="button"
+                                       onclick="FileProcessor.uploadImage('PhotoFile', 'photoImage', 'PhotoFileName')"
+                                       value="Загрузить фото" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            @Html.HiddenFor(m => m.SignatureFileName, new { @class = "signatureFileName" })
+                            <div>
+                                @Html.ActionImage("Image", "File", "signatureImage", Model.SignatureFileName, string.Empty, 80, 367)
+                            </div>
+                            <div>
+                                <input class="btn btn-default" id="SignatureFile" type="file" />
+                                <input class="btn btn-default" id="uploadSignatureFileName"
+                                       type="button"
+                                       onclick="FileProcessor.uploadImage('SignatureFile', 'signatureImage', 'SignatureFileName')"
+                                       value="Загрузить подпись" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row margined">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="clickable panel-title panel-collapsed">Прикрепление к МО</h3>
+                    <span class="pull-right"><i class="glyphicon glyphicon-chevron-up"></i></span>
+                </div>
+                <div class="panel-body" style="display: none;">
+                    <div class="row margined">
+                        <div class="col-md-2">
+                            <div>
+                                @Html.DisplayNameFor(m => m.AttachmentTypeId)
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div>
+                                @Html.DropDownListFor(model => model.AttachmentTypeId, Model.AttachmentTypes, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div>
+                                @Html.DisplayNameFor(m => m.AttachmentDate)
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div>
+                                @Html.TextBoxFor(model => model.AttachmentDate,
+                                    new { @class = "form-control datepicker", id = string.Format("AttachmentDate{0}", Model.NewPolicy.Id) })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margined">
+                        <div class="col-md-2">
+                            <div>
+                                @Html.DisplayNameFor(m => m.MedicalCentreId)
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div>
+                                @Html.DropDownListFor(model => model.MedicalCentreId, Model.MedicalCenters, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row margined">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="clickable panel-title panel-collapsed">
+                        @Html.DisplayNameFor(model => model.Registrator)
+                    </h3>
+                    <span class="pull-right"><i class="glyphicon glyphicon-chevron-up"></i></span>
+                </div>
+                <div class="panel-body" style="display: none;">
+                    <div class="row margined">
+                        <div class="col-md-2">
+                            <div>
+                                @Html.DisplayNameFor(m => m.ClientAcquisitionEmployee)
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div>
+                                @Html.DropDownListFor(model => model.ClientAcquisitionEmployee, Model.ListClientAcquisitionEmployee, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => Model.ClientAcquisitionEmployee)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margined">
+                        @Html.DisplayFor(model => model.Registrator)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    AddressProcessor.bind('@string.Format("livingAddress{0}", Model.NewPolicy.Id)');
+    AddressProcessor.bind('@string.Format("registrationAddress{0}", Model.NewPolicy.Id)');
+    PolicyProcessor.bind('@string.Format("newPolicy{0}", Model.NewPolicy.Id)');
+    PolicyProcessor.bind('@string.Format("oldPolicy{0}", Model.OldPolicy.Id)');
+</script>
+

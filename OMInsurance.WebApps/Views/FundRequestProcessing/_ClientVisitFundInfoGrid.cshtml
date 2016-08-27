@@ -1,0 +1,109 @@
+﻿@model IEnumerable<OMInsurance.WebApps.Models.ClientVisitFundInfoModel>
+<table class="fixed-table table-hover table-striped table-condensed">
+    <thead>
+        <tr>
+            <th style="width: 2%">
+                <input type="checkbox" id ="markAllReadyToSubmit" onchange = "FundResponseProcessor.markAllReadyToSubmit(this)"/>
+            </th>
+            <th style="width: 15%">
+                @Html.DisplayNameFor(model => model.Fullname)
+            </th>
+            <th style="width: 10%">
+                @Html.DisplayNameFor(model => model.DeliveryCenter)
+            </th>
+            <th style="width: 7%">
+                @Html.DisplayNameFor(model => model.PolicyPartyNumber)
+            </th>
+            <th style="width: 7%">
+                @Html.DisplayNameFor(model => model.PolicySeries)
+            </th>
+            <th style="width: 10%">
+                @Html.DisplayNameFor(model => model.PolicyNumber)
+            </th>
+            <th style="width: 13%">
+                @Html.DisplayNameFor(model => model.UnifiedPolicyNumber)
+            </th>
+            <th style="width: 6%">
+                @Html.DisplayNameFor(model => model.Sex)
+            </th>
+            <th style="width: 6%">
+                @Html.DisplayNameFor(model => model.Birthday)
+            </th>
+            <th style="width: 6%">
+                @Html.DisplayNameFor(model => model.Scenario)
+            </th>
+            <th style="width: 3%">
+                !
+            </th>
+            <th style="width: 5%">
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th style="width: 7%">
+                @Html.DisplayNameFor(model => model.StatusDate)
+            </th>
+            <th style="width: 3%"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr data-clientvisitid="@item.Id">
+                <td style="width: 2%">
+                    @Html.CheckBoxFor(model => item.IsReadyToFundSubmitRequest,
+                    new
+                    {
+                        onchange = string.Format("FundResponseProcessor.setReadyToFundSubmitRequest({0}, this)", item.Id),
+                        title = item.FundResponseApplyingMessage,
+                        @class = "readyForSubmitCheckBox",
+                    })
+                </td>
+                <td style="width: 15%" class="clientVisitRowElement">
+                    @Html.DisplayFor(modelItem => item.Fullname)
+                </td>
+                <td style="width: 10%" class="clientVisitRowElement">
+                    @Html.DisplayFor(modelItem => item.DeliveryCenter.Code)
+                </td>
+                <td style="width: 7%" class="clientVisitRowElement">
+                    @Html.DisplayFor(modelItem => item.PolicyPartyNumber)
+                </td>
+                <td style="width: 7%" class="clientVisitRowElement">
+                    @Html.DisplayFor(modelItem => item.PolicySeries)
+                </td>
+                <td style="width: 10%" class="clientVisitRowElement">
+                    @Html.DisplayFor(modelItem => item.PolicyNumber)
+                </td>
+                <td style="width: 13%" class="clientVisitRowElement">
+                    @Html.DisplayFor(modelItem => item.UnifiedPolicyNumber)
+                </td>
+                <td style="width: 6%" class="clientVisitRowElement">
+                    @Html.DisplayFor(modelItem => item.Sex)
+                </td>
+                <td style="width: 6%" class="clientVisitRowElement">
+                    @Html.DisplayFor(modelItem => item.Birthday)
+                </td>
+                <td style="width: 6%" class="clientVisitRowElement">
+                    @Html.DisplayFor(modelItem => item.Scenario.Code)
+                </td>
+                <td style="width: 3%">
+                    @Html.CheckBoxFor(model => item.IsDifficultCase,
+                    new
+                    {
+                        onchange = string.Format("FundResponseProcessor.setDifficultCase({0}, this)", item.Id),
+                        @class = "setDifficultCaseCheckBox",
+                    })
+                </td>
+                <td style="width: 5%" class="clientVisitRowElement">
+                    @Html.DisplayFor(modelItem => item.Status.Id)
+                </td>
+                <td style="width: 7%" class="clientVisitRowElement">
+                    @Html.DisplayFor(modelItem => item.StatusDate)
+                </td>
+                <td style="width: 3%">
+                    <a href="@Url.Action("Details", "ClientVisit", new { id = item.Id })" target = "_blank" class="btn-default">
+                        <span class="glyphicon glyphicon-pencil" />
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

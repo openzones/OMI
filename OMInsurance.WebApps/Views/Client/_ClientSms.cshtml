@@ -1,0 +1,86 @@
+﻿@model IEnumerable<OMInsurance.WebApps.Models.ClientSmsModel>
+@if (Model.Count() > 0)
+{
+    <table class="table table-striped">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SenderId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VisitGroupId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VisitId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Message)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreateDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StatusIdInside)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StatusFromService)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MessageFromService)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SendDate)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SenderId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VisitGroupId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VisitId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Message)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreateDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Comment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StatusIdInside)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StatusFromService)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MessageFromService)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SendDate)
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+<div class="col-md-12">
+    Записи отсутствуют<br />
+</div>
+}

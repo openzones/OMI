@@ -1,0 +1,234 @@
+﻿@model OMInsurance.WebApps.Models.BaseCheckClientModel
+@{
+    OMInsurance.WebApps.Models.CheckClientModel ch = new OMInsurance.WebApps.Models.CheckClientModel();
+    ch = Model.ListCheckClientModel.FirstOrDefault();
+}
+<table class="table table-striped table-condensed">
+    <tr>
+        <th>
+
+        </th>
+        @if (Model.ViewColumn.IsId)
+        {
+            <th>
+                @Html.DisplayNameFor(model => model.ViewColumn.IsId)
+            </th>
+        }
+        @if (Model.ViewColumn.IsLastname)
+        {
+            <th>
+                @Html.DisplayNameFor(model => model.ViewColumn.IsLastname)
+            </th>
+        }
+        @if (Model.ViewColumn.IsFirstname)
+        {
+            <th>
+                @Html.DisplayNameFor(model => model.ViewColumn.IsFirstname)
+            </th>
+        }
+        @if (Model.ViewColumn.IsSecondname)
+        {
+            <th>
+                @Html.DisplayNameFor(model => model.ViewColumn.IsSecondname)
+            </th>
+        }
+        @if (Model.ViewColumn.IsBirthday)
+        {
+            <th>
+                @Html.DisplayNameFor(model => model.ViewColumn.IsBirthday)
+            </th>
+        }
+        @if (Model.ViewColumn.IsSex)
+        {
+            <th>
+                @Html.DisplayNameFor(model => model.ViewColumn.IsSex)
+            </th>
+        }
+        @if (Model.ViewColumn.IsPolicySeries)
+        {
+            <th>
+                @Html.DisplayNameFor(model => model.ViewColumn.IsPolicySeries)
+            </th>
+        }
+        @if (Model.ViewColumn.IsPolicyNumber)
+        {
+            <th>
+                @Html.DisplayNameFor(model => model.ViewColumn.IsPolicyNumber)
+            </th>
+        }
+        @if (Model.ViewColumn.IsUnifiedPolicyNumber)
+        {
+            <th>
+                @Html.DisplayNameFor(model => model.ViewColumn.IsUnifiedPolicyNumber)
+            </th>
+        }
+        @if (Model.ViewColumn.IsDocumentSeries)
+        {
+            <th>
+                @Html.DisplayNameFor(model => model.ViewColumn.IsDocumentSeries)
+            </th>
+        }
+        @if (Model.ViewColumn.IsDocumentNumber)
+        {
+            <th>
+                @Html.DisplayNameFor(model => model.ViewColumn.IsDocumentNumber)
+            </th>
+        }
+        @if (Model.ViewColumn.IsLivingFullAddressString)
+        {
+            <th>
+                @Html.DisplayNameFor(model => model.ViewColumn.IsLivingFullAddressString)
+            </th>
+        }
+        @if (Model.ViewColumn.IsOfficialFullAddressString)
+        {
+            <th>
+                @Html.DisplayNameFor(model => model.ViewColumn.IsOfficialFullAddressString)
+            </th>
+        }
+        @if (Model.ViewColumn.IsTemporaryPolicyNumber)
+        {
+            <th>
+                @Html.DisplayNameFor(model => model.ViewColumn.IsTemporaryPolicyNumber)
+            </th>
+        }
+        @if (Model.ViewColumn.IsTemporaryPolicyDate)
+        {
+            <th>
+                @Html.DisplayNameFor(model => model.ViewColumn.IsTemporaryPolicyDate)
+            </th>
+        }
+        @if (Model.ViewColumn.IsSNILS)
+        {
+            <th>
+                @Html.DisplayNameFor(model => model.ViewColumn.IsSNILS)
+            </th>
+        }
+        @if (Model.ViewColumn.IsPhone)
+        {
+            <th>
+                @Html.DisplayNameFor(model => model.ViewColumn.IsPhone)
+            </th>
+        }
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.ListCheckClientModel)
+    {
+        <tr>
+            <td style="width: 3%">
+                @Html.CheckBoxFor(model => item.IsHide,
+                    new
+                    {
+                        onchange = string.Format("FundResponseProcessor.setIsHide({0}, this)", item.Id),
+                        @class = "setIsHideCheckBox",
+                    })
+            </td>
+            @if (Model.ViewColumn.IsId)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+            }
+            @if (Model.ViewColumn.IsLastname)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lastname)
+                </td>
+            }
+            @if (Model.ViewColumn.IsFirstname)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.Firstname)
+                </td>
+            }
+            @if (Model.ViewColumn.IsSecondname)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.Secondname)
+                </td>
+            }
+            @if (Model.ViewColumn.IsBirthday)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.Birthday)
+                </td>
+            }
+            @if (Model.ViewColumn.IsSex)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sex)
+                </td>
+            }
+            @if (Model.ViewColumn.IsPolicySeries)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.PolicySeries)
+                </td>
+            }
+            @if (Model.ViewColumn.IsPolicyNumber)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.PolicyNumber)
+                </td>
+            }
+            @if (Model.ViewColumn.IsUnifiedPolicyNumber)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.UnifiedPolicyNumber)
+                </td>
+            }
+            @if (Model.ViewColumn.IsDocumentSeries)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.DocumentSeries)
+                </td>
+            }
+            @if (Model.ViewColumn.IsDocumentNumber)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.DocumentNumber)
+                </td>
+            }
+            @if (Model.ViewColumn.IsLivingFullAddressString)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.LivingFullAddressString)
+                </td>
+            }
+            @if (Model.ViewColumn.IsOfficialFullAddressString)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.OfficialFullAddressString)
+                </td>
+            }
+            @if (Model.ViewColumn.IsTemporaryPolicyNumber)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.TemporaryPolicyNumber)
+                </td>
+            }
+            @if (Model.ViewColumn.IsTemporaryPolicyDate)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.TemporaryPolicyDate)
+                </td>
+            }
+            @if (Model.ViewColumn.IsSNILS)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.SNILS)
+                </td>
+            }
+            @if (Model.ViewColumn.IsPhone)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+            }
+            <td>
+                @OMHelpers.ActionLinkIcon(Url, "Details", "Client", item.Id, "", "glyphicon-pencil", true)
+            </td>
+        </tr>
+    }
+</table>

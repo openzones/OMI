@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "Проверки";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Клиенты</h2>
+<h4>
+    @Html.ActionLink("Проверка дубликатов клиентов", "BaseCheckClient", "Check")
+</h4>
+
+<h2>Файлы</h2>
+<h4>
+    @Html.ActionLink("История загрузок/выгрузок", "CheckHistoryFiles", "Check")
+</h4>
+
+<h2>Претензии</h2>
+<h4>
+    @Html.ActionLink("Журнал претензий", "CheckPretension", "Check")
+</h4>

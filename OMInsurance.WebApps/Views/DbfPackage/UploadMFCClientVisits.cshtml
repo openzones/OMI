@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "Загрузка заявок из филиалов";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h4>Загрузка заявок из МФЦ</h4>
+<div class="row">
+    <form id="UploadMFCClientVisitsForm">
+        <div class="col-md-8">
+            <input id="UploadMFCClientVisits" class="btn btn-default" type="file" />
+        </div>
+        <div class="col-md-4">
+            <input class="btn btn-default" id="uploadFileNameClientVisit"
+                type="button"
+                onclick="FileProcessor.uploadDbf('UploadMFCClientVisits', '/DbfPackage/UploadMFCClientVisits', 'report')"
+                value="Загрузить заявки" />
+        </div>
+    </form>
+</div>
+<h4>Загрузка выдачи из МФЦ</h4>
+<div class="row">
+    <form id="UploadMFCClientVisitsExtraditionForm">
+        <div class="col-md-8">
+            <input id="UploadMFCClientVisitsExtradition" class="btn btn-default" type="file" />
+        </div>
+        <div class="col-md-4">
+            <input class="btn btn-default" id="uploadFileNameExtradition"
+                type="button"
+                onclick="FileProcessor.uploadDbf('UploadMFCClientVisitsExtradition', '/DbfPackage/UploadMFCClientVisitsExtradition', 'report')"
+                value="Загрузить заявки" />
+        </div>
+    </form>
+</div>
+<br />
+<div class="blueLine"></div>
+@if (User.IsInRole(OMInsurance.Entities.Core.Role.Administrator.Name)
+               || User.IsInRole(OMInsurance.Entities.Core.Role.OperatorSG.Name))
+{
+    <h4>Загрузка старых данных из МФЦ</h4>
+    <div class="row">
+        <form id="UploadMFCClientVisitsOldDataForm">
+            <div class="col-md-3">
+                <input id="UploadMFCClientVisitsOldData" class="btn btn-default" type="file" />
+            </div>
+            <div class="col-md-5">
+                Формат файла [*.zip]. В нём должно быть минимум 3 файла вида: adrPxxxx.dbf, dulPxxxx.dbf, fioPxxxx.dbf
+            </div>
+            <div class="col-md-4">
+                <input class="btn btn-default" id="uploadFileNameOldData"
+                       type="button"
+                       onclick="FileProcessor.uploadDbf('UploadMFCClientVisitsOldData', '/DbfPackage/UploadMFCClientVisitsOldData', 'report')"
+                       value="Загрузить заявки" />
+            </div>
+        </form>
+    </div>
+}
+
+<div class="row" id="report">
+</div>
+

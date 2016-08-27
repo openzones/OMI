@@ -1,0 +1,127 @@
+﻿@model OMInsurance.WebApps.Models.ClientVisitSaveDataModel
+
+@if (Model.FlagPrintReport != null && (Model.FlagPrintReport[0] || Model.FlagPrintReport[1]|| Model.FlagPrintReport[2]))
+{
+    <div class="container">
+        <div class="row margined">
+            <div class="col-md-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="clickable panel-title">Печать документов</h3>
+                        <span class="pull-right"><i class="glyphicon glyphicon-chevron-up"></i></span>
+                    </div>
+                    <div class="panel-body collapse in">
+                        <div class="container">
+                            @if (Model.FlagPrintReport[0])
+                            {
+                                using (@Html.BeginForm("TemporaryPolicyBSO", "PrintedForms", new { id = Model.VisitId }))
+                                {
+                                    <div class="margined row">
+                                        <div class="col-md-3">
+                                            <input class="btn btn-default"
+                                                    type="submit"
+                                                    value="Временное свидетельство" />
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            @if (Model.FlagPrintReport[1])
+                            {
+                                using (@Html.BeginForm("ChangeInsuranceCompanyApplication", "PrintedForms", new { id = Model.VisitId }))
+                                {
+                                    <div class="margined row">
+                                        <div class="col-md-3">
+                                            <input class="btn btn-default"
+                                                    type="submit"
+                                                    value="Заявление о выборе СМО" />
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            @if (Model.FlagPrintReport[2])
+                            {
+                                using (@Html.BeginForm("DuplicateApplication", "PrintedForms", new { id = Model.VisitId }))
+                                {
+                                    <div class="margined row">
+                                        <div class="col-md-3">
+                                            <input class="btn btn-default"
+                                                    type="submit"
+                                                    value="Заявление на дубликат" />
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+<div id="clientVisitContainer">
+    @using (Ajax.BeginForm("Edit", "ClientVisit",
+        new AjaxOptions
+        {
+            HttpMethod = "POST",
+            UpdateTargetId = "clientVisitContainer",
+            InsertionMode = InsertionMode.Replace,
+        },
+        new { id = string.Format("clientVisitForm{0}", Model.VisitId) }))
+    {
+        @Html.Partial("_EditClientVisit", Model)
+        <div class="row margined">
+            <div class="col-md-12">
+                @if (Model.IsSuccessfullySaved.HasValue)
+                {
+                    if (!Model.IsSuccessfullySaved.Value)
+                    {
+                    @Html.Partial("_ErrorMessage", "Обращение не сохранено")
+                    }
+                    else
+                    {
+                    @Html.Partial("_Message", "Обращение сохранено. При необходимости обновите страницу.")
+                    }
+                }
+            </div>
+        </div>
+        <div class="row margined">
+            @Html.ActionLink("Заявление на смену СК", "ChangeInsuranceCompanyApplication", "PrintedForms", new { id = Model.VisitId }, null)
+            @Html.ActionLink("Заявление на дубликат", "DuplicateApplication", "PrintedForms", new { id = Model.VisitId }, null)
+            @Html.ActionLink("Временное свидетельство", "TemporaryPolicyBSO", "PrintedForms", new { id = Model.VisitId }, null)
+            <div class="col-md-12">
+                <div class="btn-group pull-right" role="group">
+                    @if (User.IsInRole(OMInsurance.Entities.Core.Role.Administrator.Name)
+                                        || User.IsInRole(OMInsurance.Entities.Core.Role.OperatorSG.Name))
+                    {
+                        <button class="btn btn-primary"
+                    type="button" 
+                    onclick="PartialProcessor.getPartial('@Url.Content(string.Format("~/ClientVisit/AddToClient/{0}?CopyVisitId={1}&newGroup=true", Model.ClientId, Model.VisitId))', 'AddVisitForm')" 
+                    id="addVisitButton">
+                            Скопировать в новое обращение</button>
+                    
+                        <button class="btn btn-primary"
+                    type="button" 
+                    onclick="PartialProcessor.getPartial('@Url.Content(string.Format("~/ClientVisit/AddToClient/{0}?CopyVisitId={1}&newGroup=false", Model.ClientId, Model.VisitId))', 'AddVisitForm')" 
+                    id="addVisitButton">
+                            Скопировать в новую заявку</button>
+                    }
+                    <input title="Сохранить" 
+                        value="Сохранить" 
+                        onclick='if (confirm("Вы уверены, что хотите сохранить заявку?")) { return Validation.validate(event) } else return false;' 
+                        class="btn btn-primary"
+                        type="submit"
+                        id="@string.Format("saveButton{0}", Model.VisitId)">
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<script>$.validator.unobtrusive.addValidation("#@string.Format("clientVisitForm{0}", Model.VisitId)")</script>
+@if (Model.DisableAll.HasValue && Model.DisableAll.Value)
+{
+    <script type="text/javascript">
+        DisplaySettings.disableAll('clientVisitData', 'clientVisitContainer');
+    </script>
+}

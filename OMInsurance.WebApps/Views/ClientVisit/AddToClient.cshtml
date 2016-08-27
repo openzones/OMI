@@ -1,0 +1,12 @@
+﻿@model OMInsurance.WebApps.Models.ClientVisitSaveDataModel
+<div id="clientVisitContainer">
+    @using (Html.BeginForm("AddToClient", "ClientVisit", FormMethod.Post, new { id = "clientVisitcreateForm" }))
+    {
+        @Html.Partial("_EditClientVisit", Model)
+        <div class="pull-right">
+            <button id="addToClientButton"  value="Сохранить"  class="btn btn-primary" onclick='if (confirm("Вы уверены, что хотите сохранить заявку?")) { return Validation.validate(event) } else return false;' 
+                         type="submit">Сохранить обращение</button>
+        </div>
+    }
+</div>
+<script>$.validator.unobtrusive.addValidation("#clientVisitcreateForm")</script>

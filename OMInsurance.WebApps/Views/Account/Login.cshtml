@@ -1,0 +1,56 @@
+﻿@model OMInsurance.WebApps.Models.LoginModel
+@{
+    ViewBag.Title = "Вход в портал ОМС";
+    Layout = "~/Views/Shared/_UnauthorizedLayout.cshtml";
+}
+@using (Html.BeginForm())
+{
+
+    <div class="margined row">
+        <div class="col-md-8">
+            <h2>Портал ОМС</h2>
+        </div>
+    </div>
+
+    <div class="margined row">
+        <div class="col-md-8">
+            <h5>@Html.DisplayNameFor(m => m.Login)</h5>
+            @Html.TextBoxFor(m => m.Login, new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(m => m.Login)
+        </div>
+    </div>
+
+    <div class="margined row">
+        <div class="col-md-8">
+            <h5>@Html.DisplayNameFor(m => m.Password)</h5>
+            @Html.TextBoxFor(m => m.Password, new { @class = "form-control", type = "password", required = "required" })
+            @Html.ValidationMessageFor(m => m.Password)
+        </div>
+    </div>
+    if (ViewBag.Message != null)
+    {
+        <div class="margined row">
+            <div class="col-md-8">
+                <div class="alert alert-danger" role="alert">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">@ViewBag.Message</span>
+                    @ViewBag.Message
+                </div>
+            </div>
+        </div>
+    }
+
+<br />
+    <div class="margined row">
+        <div class="col-md-8">
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
+        </div>
+    </div>
+}
+
+<div class="margined row">
+    <div class="col-md-8">
+       или
+        @Html.ActionLink("восстановить пароль", "RestorePassword")
+    </div>
+</div>

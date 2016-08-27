@@ -1,0 +1,102 @@
+﻿@model OMInsurance.WebApps.Models.NomernikDisplayModel
+@Html.HiddenFor(m => m.FilePath)
+<h4>Предзагрузка файла номерника</h4>
+<div class="margined row">
+    <div class="col-md-4">
+        @if (Model.StatusLoad)
+        {
+            @Html.Partial("_Message", "Файл успешно загружен на сервер!")
+        }
+        else
+        {
+            @Html.Partial("_ErrorMessage", "Файл не загружен!")
+        }
+    </div>
+</div>
+@using (@Html.BeginForm("GoWorkNOMP", "DbfPackage"))
+{
+    @Html.HiddenFor(m => m.FilePath)
+    @Html.HiddenFor(m => m.CountAllRow)
+    @Html.HiddenFor(m => m.CountOurRow)
+    <div class="margined row">
+        <div class="col-md-4">
+            <table class="table table-striped">
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.StatusLoad)
+                    </td>
+                    <td>
+                        @if (Model.StatusLoad)
+                        {
+                            <div>Ok</div>
+                        }
+                        else
+                        {
+                            <div>Fail</div>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.FileSizeToString)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.FileSizeToString)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.CountAllRow)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.CountAllRow)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.CountOurRow)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.CountOurRow)
+                    </td>
+                </tr>
+            </table>
+            <h4>Укажите месяц и год загрузки</h4>
+                <table class="table table-striped">
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => Model.MonthID)
+                        </td>
+                        <td>
+                            @Html.DropDownListFor(model => model.MonthID, Model.Months, new { @class = "form-control" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => Model.Year)
+                        </td>
+                        <td>
+                            @Html.DropDownListFor(model => model.Year, Model.Years, new { @class = "form-control" })
+                        </td>
+                    </tr>
+                </table>
+        </div>
+    </div>
+    <div class="margined row">
+        <div class="col-md-3">
+            @if (Model.StatusLoad)
+            {
+                <input class="btn btn-default"
+                       type="submit"
+                       value="Выполнить анализ" />
+            }
+            else
+            {
+                <input class="btn btn-default"
+                       type="submit"
+                       value="Выполнить анализ"
+                       disabled="disabled" />
+            }
+        </div>
+    </div>
+}

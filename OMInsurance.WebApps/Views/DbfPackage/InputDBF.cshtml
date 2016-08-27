@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "Обработка DBF файлов";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h3>
+    Сверки
+</h3>
+<h4>
+    @Html.ActionLink("Загрузка сверок", "UploadFundResponse", "FundRequestProcessing")
+</h4>
+
+<h3>
+    Обработка DBF файлов
+</h3>
+<h4>
+    @Html.ActionLink("Загрузка из филиалов", "UploadClientVisitsFromDbf", "DbfPackage")
+</h4>
+
+@if (User.IsInRole(OMInsurance.Entities.Core.Role.Administrator.Name)
+  || User.IsInRole(OMInsurance.Entities.Core.Role.OperatorSG.Name))
+{
+    <h4>
+        @Html.ActionLink("Загрузить DBF из фонда", "UpdateFundDbf", "DbfPackage")
+    </h4>
+    <h4>
+        @Html.ActionLink("Проставить статусы", "SetStatusesFromDbf", "DbfPackage")
+    </h4>
+
+}
+
+@if (User.IsInRole(OMInsurance.Entities.Core.Role.Administrator.Name))
+{
+    <h4>
+        @Html.ActionLink("Миграция DBF из других ИС", "MigrateClientVisitsFromDbf", "DbfPackage")
+    </h4>
+}
+
+<h4>
+    @Html.ActionLink("Загрузка номерника", "UploadNOMP", "DbfPackage")
+</h4>
+<h4>
+    @Html.ActionLink("Загрузка стоп-листа", "UploadSTOP", "DbfPackage")
+</h4>
+<h4>
+    @Html.ActionLink("Загрузка МФЦ", "UploadMFCClientVisits", "DbfPackage")
+</h4>
+
+
+<h3>
+    Обработка Excel файлов
+</h3>
+<h4>
+    @Html.ActionLink("Загрузка файлов из регионов", "UploadRegionExcel", "DbfPackage")
+</h4>
+

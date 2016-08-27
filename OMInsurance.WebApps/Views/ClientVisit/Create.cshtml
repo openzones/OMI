@@ -1,0 +1,112 @@
+﻿@{
+    ViewBag.Title = "Добавление обращения";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model OMInsurance.WebApps.Models.ClientVisitSaveDataModel
+@Html.HiddenFor(m => Model.ClientId)
+
+<div>
+    <h1>Добавление заявки</h1>
+</div>
+
+@if (Model.FlagPrintReport != null && (Model.FlagPrintReport[0] || Model.FlagPrintReport[1] || Model.FlagPrintReport[2]))
+{
+    <div class="container">
+        <div class="row margined">
+            <div class="col-md-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="clickable panel-title">Печать документов</h3>
+                        <span class="pull-right"><i class="glyphicon glyphicon-chevron-up"></i></span>
+                    </div>
+                    <div class="panel-body collapse in">
+                        <div class="container">
+                            @if (Model.FlagPrintReport[0])
+                            {
+                                using (@Html.BeginForm("TemporaryPolicyBSO", "PrintedForms", new { id = Model.VisitId }))
+                                {
+                                    <div class="margined row">
+                                        <div class="col-md-3">
+                                            <input class="btn btn-default"
+                                                    type="submit"
+                                                    value="Временное свидетельство" />
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            @if (Model.FlagPrintReport[1])
+                            {
+                                using (@Html.BeginForm("ChangeInsuranceCompanyApplication", "PrintedForms", new { id = Model.VisitId }))
+                                {
+                                    <div class="margined row">
+                                        <div class="col-md-3">
+                                            <input class="btn btn-default"
+                                                    type="submit"
+                                                    value="Заявление о выборе СМО" />
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            @if (Model.FlagPrintReport[2])
+                            {
+                                using (@Html.BeginForm("DuplicateApplication", "PrintedForms", new { id = Model.VisitId }))
+                                {
+                                    <div class="margined row">
+                                        <div class="col-md-3">
+                                            <input class="btn btn-default"
+                                                    type="submit"
+                                                    value="Заявление на дубликат" />
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div id="clientVisitContainer">
+    @using (Html.BeginForm("Create", "ClientVisit", FormMethod.Post))
+    {
+        @Html.HiddenFor(m => Model.ClientId)
+
+        @Html.Partial("_EditClientVisit", Model)
+        <div class="row margined">
+            <div class="col-md-12">
+                @if (Model.IsSuccessfullySaved.HasValue)
+                {
+                    if (!Model.IsSuccessfullySaved.Value)
+                    {
+                        @Html.Partial("_ErrorMessage", "Обращение не сохранено")
+                    }else{
+                        @Html.Partial("_Message", "Обращение сохранено")
+                    }
+                }
+            </div>
+        </div>
+        if (Model.ClientId.HasValue)
+        {
+            <div class="col-md-9">
+            </div>
+            <div class="col-md-3">
+                <a href="@Url.Action("Details", "Client", new { id = Model.ClientId })">
+                    <button type="button" class="btn btn-default">Посмотреть карточку клиента</button>
+                </a>
+            </div>
+        }
+        else
+        {
+            <div class="pull-right">
+                <button id="saveButton" class="btn btn-primary" onclick='if (confirm("Вы уверены, что хотите сохранить заявку?")) { return Validation.validate(event) } else return false;'
+                        type="submit">
+                    Сохранить обращение
+                </button>
+            </div>
+        }
+    }
+</div>
+
+

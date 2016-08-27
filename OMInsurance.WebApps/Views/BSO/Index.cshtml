@@ -1,0 +1,227 @@
+﻿@model OMInsurance.WebApps.Models.BSOListModel
+@using OMInsurance.Entities
+@Html.HiddenFor(m => m.Items)
+@{
+    ViewBag.Title = "Страница БСО";
+    Layout = "~/Views/Shared/_LayoutBSO.cshtml";
+}
+<div class="row">
+    @if (User.IsInRole(OMInsurance.Entities.Core.Role.Administrator.Name)
+                      || User.IsInRole(OMInsurance.Entities.Core.Role.AdministratorBSO.Name))
+    {
+        <div class="col-md-12">
+            @Html.ActionLink("Добавить новый(ые) БСО вручную", "CreateBSO", "BSO")
+        </div>
+    }
+</div>
+
+@using (Html.BeginForm("Index", "BSO", FormMethod.Post))
+{
+    @Html.ValidationSummary(true)
+        <div class="row search-panel">
+            <h4>Параметры поиска</h4>
+            <div class="container">
+                <div class="row margined">
+                    <div class="form-group-md">
+                        <div class="col-md-2">
+                            @Html.LabelFor(model => Model.SearchCriteriaModel.TemporaryPolicyNumberFrom)
+                            @Html.TextBoxFor(model => Model.SearchCriteriaModel.TemporaryPolicyNumberFrom,
+                            new { @class = "form-control", maxlength = "9", tabindex = "1" })
+                            @Html.ValidationMessageFor(model => Model.SearchCriteriaModel.TemporaryPolicyNumberFrom)
+                        </div>
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => Model.SearchCriteriaModel.StatusId)
+                            @Html.DropDownListFor(model => model.SearchCriteriaModel.StatusId,
+                                Model.listBSOStatuses, new { @class = "form-control", tabindex = "6" })
+                        </div>
+                        <div class="col-md-0">
+                        </div>
+                        <div class="col-md-3">
+                            @if (User.IsInRole(OMInsurance.Entities.Core.Role.ResponsibleBSO.Name) &&
+                                !User.IsInRole(OMInsurance.Entities.Core.Role.Administrator.Name) &&
+                                !User.IsInRole(OMInsurance.Entities.Core.Role.AdministratorBSO.Name))
+                            {
+                                @Html.LabelFor(model => Model.SearchCriteriaModel.ResponsibleID)
+                                @Html.DropDownListFor(model => model.SearchCriteriaModel.ResponsibleID,
+                                    Model.listBSOResponsibles, new { @class = "form-control", disabled = "disabled", tabindex = "6" })
+                                @Html.HiddenFor(model => model.SearchCriteriaModel.ResponsibleID)
+                            }
+                            else
+                            {
+                                @Html.LabelFor(model => Model.SearchCriteriaModel.ResponsibleID)
+                                @Html.DropDownListFor(model => model.SearchCriteriaModel.ResponsibleID,
+                                    Model.listBSOResponsibles, new { @class = "form-control", tabindex = "6" })
+                            }
+                        </div>
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => Model.SearchCriteriaModel.ChangeDateFrom)
+                            @Html.EditorFor(model => Model.SearchCriteriaModel.ChangeDateFrom, new { @class = "form-control", tabindex = "7" })
+                            @Html.ValidationMessageFor(model => Model.SearchCriteriaModel.ChangeDateFrom)
+                        </div>
+                    </div>
+                </div>
+                <div class="row margined">
+                    <div class="form-group-md">
+                        <div class="col-md-2">
+                            @Html.LabelFor(model => Model.SearchCriteriaModel.TemporaryPolicyNumberTo)
+                            @Html.TextBoxFor(model => Model.SearchCriteriaModel.TemporaryPolicyNumberTo,
+                            new { @class = "form-control", maxlength = "9", tabindex = "2" })
+                            @Html.ValidationMessageFor(model => Model.SearchCriteriaModel.TemporaryPolicyNumberTo)
+                        </div>
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => Model.SearchCriteriaModel.StatusDateFrom)
+                            @Html.EditorFor(model => Model.SearchCriteriaModel.StatusDateFrom, new { @class = "form-control", tabindex = "7" })
+                            @Html.ValidationMessageFor(model => Model.SearchCriteriaModel.StatusDateFrom)
+                        </div>
+                        <div class="col-md-0">
+                        </div>
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => Model.SearchCriteriaModel.DeliveryCenterIds)
+                            @if (User.IsInRole(OMInsurance.Entities.Core.Role.Registrator.Name) &&
+                                !User.IsInRole(OMInsurance.Entities.Core.Role.Administrator.Name) &&
+                                !User.IsInRole(OMInsurance.Entities.Core.Role.AdministratorBSO.Name) &&
+                                !User.IsInRole(OMInsurance.Entities.Core.Role.ResponsibleBSO.Name)    )
+                            {
+                                @Html.ListBoxFor(model => model.SearchCriteriaModel.DeliveryCenterIds,
+                                    Model.DeliveryCenters, new { @class = "form-control multiselect", disabled = "disabled", tabindex = "4" })
+                                @Html.HiddenFor(model => model.SearchCriteriaModel.DeliveryCenterIds)
+                            }
+                            else
+                            {
+                                @Html.ListBoxFor(model => model.SearchCriteriaModel.DeliveryCenterIds,
+                                    Model.DeliveryCenters, new { @class = "form-control multiselect", tabindex = "4" })
+                            }
+                        </div>
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => Model.SearchCriteriaModel.ChangeDateTo)
+                            @Html.EditorFor(model => Model.SearchCriteriaModel.ChangeDateTo, new { @class = "form-control", tabindex = "8" })
+                            @Html.ValidationMessageFor(model => Model.SearchCriteriaModel.ChangeDateTo)
+                        </div>
+                    </div>
+                </div>
+                <div class="row margined">
+                    <div class="form-group-md">
+                        <div class="col-md-2">
+                            @Html.LabelFor(model => Model.SearchCriteriaModel.PolicyPartyNumber)
+                            @Html.TextBoxFor(model => Model.SearchCriteriaModel.PolicyPartyNumber,
+                            new { @class = "form-control", maxlength = "3", tabindex = "3" })
+                            @Html.ValidationMessageFor(model => Model.SearchCriteriaModel.PolicyPartyNumber)
+                        </div>
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => Model.SearchCriteriaModel.StatusDateTo)
+                            @Html.EditorFor(model => Model.SearchCriteriaModel.StatusDateTo, new { @class = "form-control", tabindex = "8" })
+                            @Html.ValidationMessageFor(model => Model.SearchCriteriaModel.StatusDateTo)
+                        </div>
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => Model.SearchCriteriaModel.DeliveryPointIds)
+                            @if (User.IsInRole(OMInsurance.Entities.Core.Role.Registrator.Name) &&
+                                !User.IsInRole(OMInsurance.Entities.Core.Role.Administrator.Name) &&
+                                !User.IsInRole(OMInsurance.Entities.Core.Role.AdministratorBSO.Name) &&
+                                !User.IsInRole(OMInsurance.Entities.Core.Role.ResponsibleBSO.Name))
+                            {
+                                @Html.ListBoxFor(model => model.SearchCriteriaModel.DeliveryPointIds,
+                                    Model.DeliveryPoints, new { @class = "form-control multiselect", disabled = "disabled", tabindex = "5" })
+                                @Html.HiddenFor(model => model.SearchCriteriaModel.DeliveryPointIds)
+                            }
+                            else
+                            {
+                                @Html.ListBoxFor(model => model.SearchCriteriaModel.DeliveryPointIds,
+                                    Model.DeliveryPoints, new { @class = "form-control multiselect", tabindex = "5" })
+                            }
+                        </div>
+                        <div class="col-md-2 form-inline media-right">
+                            <div> &nbsp;</div>
+                            @Html.DisplayNameFor(model => Model.PageSize)
+                            @Html.DropDownListFor(model => model.PageSize,
+                            new List<SelectListItem>()
+                                {
+                                    new SelectListItem() {  Value = "10", Text = "10", Selected = true } ,
+                                    new SelectListItem() {  Value = "25", Text = "25" } ,
+                                    new SelectListItem() {  Value = "50", Text = "50" }
+                                }, new { @class = "form-control", tabindex = "9" })
+                            
+
+                        </div>
+                        <div class="col-md-1">
+                            <div> &nbsp;</div>
+                            <input type="submit" value="Найти" class="btn pull-right btn-primary" tabindex="10" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div>
+                    <table class="table table-striped">
+                        <tr>
+                            <th>
+                                @Html.ActionLink("№ БСО", "Index", new { sortField = (int)BSOSortField.TemporaryPolicyNumber, Model.SortOrder })
+                            </th>
+                            <th>
+                                @Html.ActionLink("№ Партии", "Index", new { sortField = (int)BSOSortField.PolicyPartyNumber, Model.SortOrder })
+                            </th>
+                            <th>
+                                @Html.ActionLink("Статус", "Index", new { sortField = (int)BSOSortField.StatusId, Model.SortOrder })
+                            </th>
+                            <th>
+                                @Html.ActionLink("Дата статуса", "Index", new { sortField = (int)BSOSortField.StatusDate, Model.SortOrder })
+                            </th>
+                            <th>
+                                @Html.ActionLink("Ответственный", "Index", new { sortField = (int)BSOSortField.ResponsibleID, Model.SortOrder })
+                            </th>
+                            <th>
+                                @Html.ActionLink("Пункт выдачи", "Index", new { sortField = (int)BSOSortField.DeliveryCenterId, Model.SortOrder })
+                            </th>
+                            <th>
+                                @Html.ActionLink("Точка выдачи", "Index", new { sortField = (int)BSOSortField.DeliveryPointId, Model.SortOrder })
+                            </th>
+                            <th>
+                                @Html.ActionLink("Комментарий", "Index", new { sortField = (int)BSOSortField.Comment, Model.SortOrder })
+                            </th>
+                            <th>
+                                @Html.ActionLink("Дата изменений", "Index", new { sortField = (int)BSOSortField.ChangeDate, Model.SortOrder })
+                            </th>
+                            <th>
+                                Edit
+                            </th>
+                        </tr>
+                        @Html.Partial("_BSOsGrid", Model.Items)
+                    </table>
+
+                </div>
+            </div>
+        </div>
+        @Html.HiddenFor(m => m.SortField)
+        @Html.HiddenFor(m => m.SortOrder)
+        @OMHelpers.Pagination("PageNumber", Model.PageNumber, Model.PageSize, Model.TotalCount)
+}
+<div class="row margined">
+    <div class="col-md-2">
+        @Html.DisplayNameFor(model => Model.TotalCount): @Html.DisplayTextFor(model => Model.TotalCount)
+    </div>
+</div>
+<div class="margined row">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="clickable panel-title">Массовое изменение статусов</h3>
+        </div>
+        <div class="panel-body collapse" style="display: none;">
+            @if (User.IsInRole(OMInsurance.Entities.Core.Role.Administrator.Name)
+              || User.IsInRole(OMInsurance.Entities.Core.Role.AdministratorBSO.Name)
+              || User.IsInRole(OMInsurance.Entities.Core.Role.ResponsibleBSO.Name))
+            {
+                @Html.Partial("MassChanges", Model)
+            }
+            else
+            {
+                <div class="alert alert-danger" role="alert">
+                    Доступно только для ролей: @string.Format("{0}, {1}, {2}.", OMInsurance.Entities.Core.Role.Administrator.Description,
+                                                                               OMInsurance.Entities.Core.Role.AdministratorBSO.Description,
+                                                                               OMInsurance.Entities.Core.Role.ResponsibleBSO.Description)
+                </div>
+            }
+        </div>
+    </div>
+</div>

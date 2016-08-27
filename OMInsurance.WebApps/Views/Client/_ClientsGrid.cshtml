@@ -1,0 +1,68 @@
+﻿@model IEnumerable<OMInsurance.WebApps.Models.ClientBaseInfoModel>
+<table class="table table-striped">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Lastname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Firstname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Secondname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Birthday)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TemporaryPolicyNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UnifiedPolicyNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PolicySeries)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PolicyNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PolicyNumberDate)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lastname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Firstname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Secondname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Birthday)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TemporaryPolicyNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UnifiedPolicyNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PolicySeries)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PolicyNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PolicyNumberDate)
+        </td>
+        <td>
+            @OMHelpers.ActionLinkIcon(Url, "Details", "Client", item.Id, "", "glyphicon-pencil", true)
+        </td>
+    </tr>
+}
+</table>

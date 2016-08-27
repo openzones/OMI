@@ -1,0 +1,95 @@
+﻿@{
+    ViewBag.Title = string.Format("№ БСО {0}", Model.TemporaryPolicyNumber ?? string.Empty);
+    Layout = "~/Views/Shared/_LayoutBSO.cshtml";
+}
+@model OMInsurance.WebApps.Models.BSOBaseModel
+    <div class="margined row">
+        <div class="panel panel-primary ">
+            <div class="panel-heading  ">
+                <h3 class="clickable panel-title ">Актуальная информация</h3>
+            </div>
+            <div class="panel-body col-md-5 collapse in ">
+                <table class="table table-striped table-condensed ">
+                    <tr>
+                       <td>@Html.DisplayNameFor(item => item.TemporaryPolicyNumber)</td>
+                       <td>@Html.DisplayFor(item => item.TemporaryPolicyNumber)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(item => item.PolicyPartyNumber)</td>
+                        <td>@Html.DisplayFor(item => item.PolicyPartyNumber)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(item => item.Status.Name)</td>
+                        <td>@Html.DisplayFor(item => item.Status.Name)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(item => item.StatusDate)</td>
+                        <td>@Html.DisplayFor(item => item.StatusDate)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(item => item.ResponsibleID)</td>
+                        <td>@Html.DisplayFor(item => item.HistoryModel.LastOrDefault().ResponsibleName)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(item => item.DeliveryCenter)</td>
+                        <td>@Html.DisplayFor(item => item.DeliveryCenter)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(item => item.DeliveryPoint)</td>
+                        <td>@Html.DisplayFor(item => item.DeliveryPoint)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(item => item.VisitGroupId)</td>
+                        <td>@Html.DisplayFor(item => item.VisitGroupId)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(item => item.UserId)</td>
+                        <td>@Html.DisplayFor(item => item.HistoryModel.LastOrDefault().UserName)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(item => item.ChangeDate)</td>
+                        <td>@Html.DisplayFor(item => item.HistoryModel.LastOrDefault().ChangeDate)</td>
+                    </tr>
+                </table>
+                @if (Model.VisitGroupId != null)
+                {
+                    <div class="col-md-5">
+                        <a href="@Url.Action("Details", "ClientVisit", new { id = Model.ClientVisitId })">
+                            <button type="button" class="btn btn-default">Посмотреть обращение</button>
+                        </a>
+                    </div>
+                    <div class="col-md-5">
+                        <a href="@Url.Action("Details", "Client", new { id = Model.ClientId })">
+                            <button type="button" class="btn btn-default">Посмотреть карточку клиента</button>
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="margined row">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="clickable panel-title">История/Журнал</h3>
+            </div>
+            <div class="panel-body collapse" style="display: none;">
+                @Html.Partial("_BSOsHistoryGrid", Model.HistoryModel)
+            </div>
+        </div>
+    </div>
+
+    <div class="row margined">
+        <div class="col-md-4">
+            <button class="btn btn-primary"
+                    onclick="PartialProcessor.getPartial('@Url.Content("~/BSO/Edit/" + Model.BSO_ID)', 'AddForm')"
+                    id="addVisitButton">
+                Изменить текущий БСО
+            </button>
+        </div>
+    </div>
+    <div class="row margined">
+        <div id="AddForm"></div>
+    </div>
+
+

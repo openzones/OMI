@@ -1,0 +1,148 @@
+﻿@model IEnumerable<OMInsurance.WebApps.Models.SvdFundResponseModel>
+@if (Model.Count() > 0){
+<div class="largeTable">
+    <table class="table table-hover table-striped table-condensed">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayName("")
+                </th>
+                <th>
+                </th>
+                <th>
+                </th>
+                <th>
+                    @Html.DisplayNameFor(modelItem => modelItem.UnifiedPolicyNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(modelItem => modelItem.PolicySeries)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(modelItem => modelItem.PolicyNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(modelItem => modelItem.StartDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(modelItem => modelItem.ExpirationDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(modelItem => modelItem.OmsCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(modelItem => modelItem.OGRN)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(modelItem => modelItem.Firstname)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(modelItem => modelItem.Secondname)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(modelItem => modelItem.Lastname)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(modelItem => modelItem.Birthday)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(modelItem => modelItem.Sex)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(modelItem => modelItem.DocumentType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(modelItem => modelItem.DocumentSeries)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(modelItem => modelItem.DocumentNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(modelItem => modelItem.DocumentIssueDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(modelItem => modelItem.Citizenship)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(modelItem => modelItem.ERZ)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(modelItem => modelItem.Snils)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr data-client-visit-group-id="@item.ClientVisitGroupId" 
+                    data-response-id="@item.Id" class="responseRow" >
+                    <td>
+                        SVD
+                    </td>
+                    <td>
+                    </td>
+                    <td style="width:5%">
+                        @Html.DisplayFor(modelItem => item.DataType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UnifiedPolicyNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PolicySeries)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PolicyNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ExpirationDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OmsCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OGRN)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Firstname)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Secondname)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Lastname)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Birthday)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Sex)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DocumentType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DocumentSeries)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DocumentNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DocumentIssueDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Citizenship)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ERZ)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Snils)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+}

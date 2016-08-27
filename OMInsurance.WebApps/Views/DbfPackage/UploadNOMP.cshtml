@@ -1,0 +1,104 @@
+﻿@model OMInsurance.WebApps.Models.NomernikDisplayModel
+@Html.HiddenFor(m=>m.FilePath)
+@{
+    ViewBag.Title = "Номерник";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Номерник</h2>
+
+@if (Model.CountOurRow > 0)
+{
+
+    <div class="margined row">
+        <h4>История предыдущей загрузки номерника</h4>
+        <div class="col-md-4">
+            <table class="table table-striped">
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.LoadDate)
+                    </td>
+                    <td>
+                        @Model.LoadDate.ToString()
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.FileDate)
+                    </td>
+                    <td>
+                        @Html.DropDownListFor(model => model.FileDate.Month, Model.Months, new { @class = "form-control", disabled = "disabled" })
+                        @Html.DropDownListFor(model => model.FileDate.Year, Model.Years, new { @class = "form-control", disabled = "disabled" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @*@Html.DisplayNameFor(model => model.CountAllRow)*@
+                        Всего записей в файле
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.CountAllRow)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @*@Html.DisplayNameFor(model => model.CountOurRow)*@
+                        Всего найдено и обработано по нашей СГ
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.CountOurRow)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.CountChangeRow)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.CountChangeRow)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.FIO)
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.FIO)
+                    </td>
+                </tr>
+            </table>
+        </div>
+     </div>
+}
+
+
+    @using (Html.BeginForm("UploadNOMP", "DbfPackage", FormMethod.Post))
+    {
+
+        <div class="margined row">
+           <h3>Новая загрузка номерника</h3>
+            <div class="col-md-4">
+                <input id="UploadNOMP" class="btn btn-default" type="file" value="loadFile" />
+            </div>
+
+            <div class="col-md-4">
+                <input class="btn btn-default" id="uploadFileName"
+                       type="button"
+                       onclick="FileProcessor.uploadDbf('UploadNOMP', '/DbfPackage/UploadNOMP', 'report', 'UploadNOMPParameters')"
+                       value="Загрузить файл" />
+            </div>
+        </div>
+    }
+    <div class="margined row">
+        <div>
+            @if (Model.Messages.Count > 0)
+            {
+                foreach (string message in Model.Messages)
+                {
+                    @Html.Partial("_Message", message);
+                }
+            }
+        </div>
+    </div>
+    <div class="row" id="report">
+    </div>
+

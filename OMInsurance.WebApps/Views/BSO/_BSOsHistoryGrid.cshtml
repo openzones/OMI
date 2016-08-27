@@ -1,0 +1,65 @@
+﻿@model IEnumerable<OMInsurance.WebApps.Models.BSOHistoryModel>
+<table class="table table-striped">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StatusDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ResponsibleID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeliveryCenter)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeliveryPoint)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VisitGroupId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Comment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ChangeDate)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StatusDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ResponsibleName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeliveryCenter)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeliveryPoint)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VisitGroupId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ChangeDate)
+            </td>
+        </tr>
+    }
+</table>

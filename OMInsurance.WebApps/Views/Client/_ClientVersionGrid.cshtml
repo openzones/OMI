@@ -1,0 +1,64 @@
+﻿@model IEnumerable<OMInsurance.WebApps.Models.ClientVersionModel>
+<table class="table table-striped">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Lastname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Firstname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Secondname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Birthday)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sex)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SNILS)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Citizenship)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Birthplace)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Category)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lastname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Firstname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Secondname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Birthday)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sex)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SNILS)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Citizenship.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Birthplace)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Category.Name)
+        </td>
+    </tr>
+}
+</table>

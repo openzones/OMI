@@ -1,0 +1,23 @@
+﻿@model OMInsurance.WebApps.Models.ClientModel
+@using (Html.BeginForm("MergeClients", "Client", new { DestinationClientId = ViewBag.DestinationClientId, id = ViewBag.SourceId }, FormMethod.Post))
+{
+    <div class="row margined">
+        <div class="col-md-12">Вы уверены, что хотите объединить текущего клиента с клиентом? </div>
+    </div>
+    <div class="row margined">
+        <div class="col-md-2">@Html.Label("ФИО")</div>
+        <div class="col-md-2">@string.Format("{0} {1} {2}", Model.ActualVersion.Lastname, Model.ActualVersion.Firstname, Model.ActualVersion.Secondname ?? string.Empty)</div>
+        
+    </div>
+    <div class="row margined">
+        <div class="col-md-2">@Html.Label("Дата рождения")</div>
+        <div class="col-md-2">@Html.DisplayFor(m => m.ActualVersion.Birthday)</div>
+    </div>
+    <div class="row margined">
+        <div class="col-md-2">
+            <input type="submit" class="btn-default btn" name="name" value="Подтвердить" />
+        </div>
+    </div>
+}
+
+

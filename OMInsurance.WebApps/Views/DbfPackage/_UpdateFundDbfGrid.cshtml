@@ -1,0 +1,61 @@
+﻿@model IEnumerable<OMInsurance.WebApps.Models.ClientVisitUpdateResultModel>
+<div class="col-md-12">
+    <table class="table table-striped">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UnifiedPolicyNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lastname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Firstname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Secondname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Birthday)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Message)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => item.UnifiedPolicyNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Lastname)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Firstname)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Secondname)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Birthday)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Message)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Status)
+                </td>
+                <td>
+                    @if (item.ClientId != 0)
+                    {
+                        @OMHelpers.ActionLinkIcon(Url, "Details", "Client", item.ClientId, "", "glyphicon-pencil", true)
+                    } 
+                </td>
+            </tr>
+        }
+    </table>
+</div>

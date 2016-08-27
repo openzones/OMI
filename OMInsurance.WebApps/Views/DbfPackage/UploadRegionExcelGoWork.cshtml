@@ -1,0 +1,116 @@
+﻿@model OMInsurance.WebApps.Models.UploadRegionExcelModel
+@Html.HiddenFor(m => m.FilePath)
+<h3>Предзагрузка файла</h3>
+<div class="margined row">
+    <div class="col-md-4">
+        @if (Model.StatusLoad)
+        {
+            @Html.Partial("_Message", "Файл успешно загружен на сервер!")
+        }
+        else
+        {
+            @Html.Partial("_ErrorMessage", "Файл не загружен!")
+        }
+    </div>
+</div>
+
+@using (@Html.BeginForm("GoWorkRegionExcel", "DbfPackage"))
+{
+    @Html.HiddenFor(m => m.FilePath)
+    @Html.HiddenFor(model => model.OriginalFileName)
+    <div class="margined row">
+        <div class="col-md-4">
+            <table class="table table-striped">
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.StatusLoad)
+                    </td>
+                    <td>
+                        @if (Model.StatusLoad)
+                        {
+                            <div>Ok</div>
+                        }
+                        else
+                        {
+                            <div>Fail</div>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.OriginalFileName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.OriginalFileName)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.FileSizeToString)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.FileSizeToString)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.CountField)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.CountField)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.CountRow)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.CountRow)
+                    </td>
+                </tr>
+                @if (!string.IsNullOrEmpty(Model.AutoRegion))
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.AutoRegion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.AutoRegion)
+                        </td>
+                    </tr>
+                }
+
+            </table>
+            <h3>Укажите регион</h3>
+            <table class="table table-striped">
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => Model.RegionId)
+                    </td>
+                    <td>
+                        @Html.DropDownListFor(model => model.RegionId, Model.Regions, new { @class = "form-control", required = "required" })
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+        <div class="margined row">
+            <div class="col-md-3">
+                @if (Model.StatusLoad)
+                {
+                    <input class="btn btn-default"
+                           type="submit"
+                           value="Выполнить анализ" />
+                }
+                else
+                {
+                    <input class="btn btn-default"
+                           type="submit"
+                           value="Выполнить анализ"
+                           disabled="disabled" />
+                }
+            </div>
+        </div>
+
+}

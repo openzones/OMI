@@ -1,0 +1,121 @@
+﻿@model OMInsurance.WebApps.Models.BSOSaveDataModel
+@using OMInsurance.WebApps.Helpers
+@Html.HiddenFor(m => m.Id)
+@*@Html.HiddenFor(m => m.VisitGroupId)*@
+@if (Model.Messages.Count > 0)
+{
+    <div class="row margined">
+        <div class="col-md-12">
+            <div class="alert alert-danger" role="alert">
+                @foreach (var message in Model.Messages)
+                {
+                    <span>@message<br /></span>
+                }
+            </div>
+        </div>
+    </div>
+}
+<input data-val="false" id="CreateDate" name="CreateDate" type="hidden" value="@Model.StatusDate">
+<div class="container" id="clientVisitData">
+    <div class="row margined">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="clickable panel-title panel-collapsed">Редактирование БСО</h3>
+                    <span class="pull-right"><i class="glyphicon glyphicon-chevron-up"></i></span>
+                </div>
+                <div class="panel-body collapse in">
+                    <div class="container">
+                        <div class="row margined">
+                            <div class="form-group-md">
+                                <div class="col-md-2">
+                                    @Html.DisplayNameFor(model => Model.TemporaryPolicyNumber)
+                                    @Html.TextBoxFor(model => Model.TemporaryPolicyNumber, new { @class = "form-control", maxlength = "9", disabled = "disabled" })
+                                    @Html.HiddenFor(m => m.TemporaryPolicyNumber)
+                                    @Html.ValidationMessageFor(model => Model.TemporaryPolicyNumber)
+                                </div>
+                                <div class="col-md-3">
+                                    @Html.DisplayNameFor(model => Model.StatusId)
+                                    @Html.DropDownListFor(model => model.StatusId, Model.listBSOStatusesAvailable, new { @class = "form-control", required = "required" })
+                                </div>
+                                <div class="col-md-3">
+                                     @if ((User.IsInRole(OMInsurance.Entities.Core.Role.Registrator.Name) || User.IsInRole(OMInsurance.Entities.Core.Role.ResponsibleBSO.Name)) &&
+                                           !User.IsInRole(OMInsurance.Entities.Core.Role.Administrator.Name) &&
+                                           !User.IsInRole(OMInsurance.Entities.Core.Role.AdministratorBSO.Name))
+                                     {
+                                        @Html.DisplayNameFor(model => Model.ResponsibleID)
+                                        @Html.DropDownListFor(model => model.ResponsibleID, Model.listBSOResponsibles, new { @class = "form-control", disabled = "disabled" })
+                                        @Html.HiddenFor(model => model.ResponsibleID)
+                                     }
+                                     else
+                                     {
+                                        @Html.DisplayNameFor(model => Model.ResponsibleID)
+                                        @Html.DropDownListFor(model => model.ResponsibleID, Model.listBSOResponsibles, new { @class = "form-control" })
+                                     }
+                                </div>
+                                <div class="col-md-3">
+                                    @if (User.IsInRole(OMInsurance.Entities.Core.Role.Administrator.Name) ||
+                                         User.IsInRole(OMInsurance.Entities.Core.Role.AdministratorBSO.Name))
+                                    {
+                                        @Html.DisplayNameFor(model => model.VisitGroupId)
+                                        @Html.TextBoxFor(model => model.VisitGroupId, new { @class = "form-control" })
+                                    }
+                                    else
+                                    {
+                                        @Html.HiddenFor(m => m.VisitGroupId)
+                                    }
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row margined">
+                            <div class="form-group-md">
+                                <div class="col-md-2">
+                                    @Html.DisplayNameFor(model => Model.PolicyPartyNumber)
+                                    @Html.TextBoxFor(model => Model.PolicyPartyNumber, new { @class = "form-control", maxlength = "3" })
+                                    @Html.ValidationMessageFor(model => Model.PolicyPartyNumber)
+                                </div>
+                                <div class="col-md-3">
+                                    @if (Model.StatusId != null )
+                                    {
+                                        @Html.DisplayNameFor(model => Model.DeliveryPointId)
+                                        @Html.DropDownListFor(model => model.DeliveryPointId, Model.DeliveryPoints, new { @class = "form-control" })
+                                    }
+                                    else
+                                    {
+                                        @Html.DisplayNameFor(model => Model.DeliveryPointId)
+                                        @Html.DropDownListFor(model => model.DeliveryPointId, Model.DeliveryPoints, new { @class = "form-control", disabled = "disabled" })
+                                        @Html.HiddenFor(model => model.DeliveryPointId)
+                                    }
+                                </div>
+                                <div class="col-md-3">
+                                    @*@Html.DisplayNameFor(model => Model.StatusDate)*@
+                                    Новая дата статуса
+                                    @Html.EditorFor(model => Model.StatusDate, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => Model.StatusDate)
+                                </div>
+                                <div class="col-md-3">
+                                    @Html.DisplayNameFor(model => Model.Comment)
+                                    @Html.TextAreaFor(model => Model.Comment, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => Model.Comment)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row margined">
+
+                            <div class="form-group-md">
+                                <div class="col-md-3">
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <button type="submit" id="btnSaveProject" class="btn btn-primary" onclick='{ return Validation.validate(event) }'>
+                            Сохранить БСО
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

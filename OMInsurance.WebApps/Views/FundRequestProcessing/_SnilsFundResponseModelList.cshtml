@@ -1,0 +1,54 @@
+﻿@model IEnumerable<OMInsurance.WebApps.Models.SnilsFundResponseModel>
+@if(Model.Count() > 0){
+<table class="table table-hover table-striped table-condensed">
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr data-client-visit-group-id="@item.ClientVisitGroupId" 
+                data-response-id="@item.Id" class="responseRow"
+                style="@string.Format("{0}", item.Order > 2 ? "display: none;" : "")">
+                <td style="width:5%">
+                   SNILS
+                </td>
+                <td style="width:5%">
+                    @Html.DisplayFor(modelItem => item.DataType)
+                </td>
+                <td style="width:6%">
+                    @Html.DisplayFor(modelItem => item.Order)
+                </td>
+                <td style="width:11.5%">
+                    @Html.DisplayFor(modelItem => item.UnifiedPolicyNumber)
+                </td>
+                <td style="width:3%">
+                    @Html.DisplayFor(modelItem => item.PolicyType.Code)
+                </td>
+                <td style="width:4%">
+                    @Html.DisplayFor(modelItem => item.PolicySeries)
+                </td>
+                <td style="width:8%">
+                    @Html.DisplayFor(modelItem => item.PolicyNumber)
+                </td>
+                <td style="width:5%">
+                    @Html.DisplayFor(modelItem => item.OKATO)
+                </td>
+                <td style="width:10%">
+                    @Html.DisplayFor(modelItem => item.OGRN)
+                </td>
+                <td style="width:7%">
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td style="width:7%">
+                    @Html.DisplayFor(modelItem => item.ExpirationDate)
+                </td>
+                <td style="width:3%">
+                    @Html.DisplayFor(modelItem => item.FundAnswer)
+                </td>
+                <td style="width:10%">
+                    @Html.DisplayFor(modelItem => item.ErrorMessage)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="blueLine"></div>
+}

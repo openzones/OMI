@@ -1,0 +1,39 @@
+﻿@using OMInsurance.WebApps.Models
+@model OMInsurance.WebApps.Models.FundResponsePackageModel
+<div class="panel panel-primary nav-justified container-wide">
+    <div class="panel-heading  ">
+        <h3 class="@string.Format("clickable panel-title {0}", ((bool)ViewBag.IsFirstResponseInPackage) ? string.Empty : "panel-collapsed")">Сверка на дату: @Html.DisplayFor(model => model.ImportDate)</h3>
+    </div>
+    <div class="panel-body fundResponsePackage collapse in" style="@string.Format("{0}", ((bool)ViewBag.IsFirstResponseInPackage) ? string.Empty : "display:none;")">
+        <a onclick="FundResponseProcessor.showHidedResponses(this)">Pазвернуть сверки</a>
+        @if (Model.Responses.OfType<S5FundResponseModel>().Count() != 0
+            || Model.Responses.OfType<S6FundResponseModel>().Count() != 0
+            || Model.Responses.OfType<SnilsFundResponseModel>().Count() != 0)
+        {
+            <table class="table-hover table-striped table-condensed">
+                <tr>
+                    <th style="width: 5%"></th>
+                    <th style="width: 5%"></th>
+                    <th style="width: 6%">NPP</th>
+                    <th style="width: 11.5%">ENP</th>
+                    <th style="width: 3%">TIP_D</th>
+                    <th style="width: 4%">S_POL</th>
+                    <th style="width: 8%">N_POL</th>
+                    <th style="width: 5%">OMS_OKATO</th>
+                    <th style="width: 10%">OGRN</th>
+                    <th style="width: 7%">DATE_B</th>
+                    <th style="width: 7%">DATE_E</th>
+                    <th style="width: 3%">ANS_FL</th>
+                    <th style="width: 10%">ERR</th>
+                </tr>
+            </table>
+        }
+        @Html.Partial("_GoznakResponseModelList", Model.Responses.OfType<GoznakResponseModel>())
+        @Html.Partial("_FundErrorResponseModelList", Model.Responses.OfType<FundErrorResponseModel>())
+        @Html.Partial("_S5FundResponseModelList", Model.Responses.OfType<S5FundResponseModel>())
+        @Html.Partial("_S6FundResponseModelList", Model.Responses.OfType<S6FundResponseModel>())
+        @Html.Partial("_S9FundResponseModelList", Model.Responses.OfType<S9FundResponseModel>())
+        @Html.Partial("_SnilsFundResponseModelList", Model.Responses.OfType<SnilsFundResponseModel>())
+        @Html.Partial("_SvdFundResponseModelList", Model.Responses.OfType<SvdFundResponseModel>())
+    </div>
+</div>

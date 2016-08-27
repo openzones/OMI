@@ -1,0 +1,148 @@
+﻿@model IEnumerable<OMInsurance.WebApps.Models.FundErrorResponseModel>
+@if(Model.Count() > 0){
+<table class="table-hover table-striped table-condensed">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayName("")
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => modelItem.FundResponseStage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => modelItem.LID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => modelItem.OrderNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => modelItem.UnifiedPolicyNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => modelItem.SNILS)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => modelItem.PolicyType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => modelItem.PolicySeries)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => modelItem.PolicyNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => modelItem.TemporaryPolicyDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => modelItem.ExpirationDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => modelItem.SMO_ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => modelItem.Lastname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => modelItem.Firstname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => modelItem.Secondname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => modelItem.Sex)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => modelItem.Birthday)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => modelItem.DeliveryCenter)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => modelItem.ErrorCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => modelItem.ErrorText)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => modelItem.TerritoryCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => modelItem.OGRN)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr data-client-visit-group-id="@item.ClientVisitGroupId" data-response-id="@item.Id" class="responseRowErr">
+                <td>
+                    Err
+                </td>
+                <td>
+                @Html.DisplayFor(modelItem => item.FundResponseStage.Code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnifiedPolicyNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SNILS)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PolicyType.Code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PolicySeries)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PolicyNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TemporaryPolicyDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExpirationDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SMO_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lastname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Firstname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Secondname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sex)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Birthday)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeliveryCenter.Code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ErrorCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ErrorText)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TerritoryCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OGRN)
+            </td>
+            </tr>
+        }
+    </tbody>
+</table>
+}
