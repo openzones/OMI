@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C55CE709-ACA3-4727-A0F3-665BFC986790}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OMInsurance.BusinessLogic</RootNamespace>
+    <AssemblyName>OMInsurance.BusinessLogic</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BSO\BSOBusinessLogic.cs" />
+    <Compile Include="Check\CheckBusinessLogic.cs" />
+    <Compile Include="Client\ClientBusinessLogic.cs" />
+    <Compile Include="Core\FiasBusinessLogic.cs" />
+    <Compile Include="Core\LogBusinessLogic.cs" />
+    <Compile Include="Core\ReferenceBusinessLogic.cs" />
+    <Compile Include="DBFProcessing\DbfProcessingBusinessLogic.cs" />
+    <Compile Include="FundRequest\ClientVisitNewDataBuilder.cs" />
+    <Compile Include="FundRequest\ClientVisitOldDataBuilder.cs" />
+    <Compile Include="FundRequest\FundRequestBusinessLogic.cs" />
+    <Compile Include="FundRequest\POKProcessor.cs" />
+    <Compile Include="FundRequest\SecondStepReconciliationProcessor.cs" />
+    <Compile Include="Nomernik\NomernikBusinessLogic.cs" />
+    <Compile Include="FundRequest\ScenarioSpecifications\CIScenarioSpecification.cs" />
+    <Compile Include="FundRequest\ScenarioSpecifications\PRScenarioSpecification.cs" />
+    <Compile Include="FundRequest\ScenarioSpecifications\CPScenarioSpecification.cs" />
+    <Compile Include="FundRequest\ScenarioSpecifications\CRScenarioSpecification.cs" />
+    <Compile Include="FundRequest\ScenarioSpecifications\DPScenarioSpecification.cs" />
+    <Compile Include="FundRequest\ScenarioSpecifications\PRTScenarioSpecification.cs" />
+    <Compile Include="FundRequest\ScenarioSpecifications\PTScenarioSpecification.cs" />
+    <Compile Include="FundRequest\ScenarioSpecifications\RTScenarioSpecification.cs" />
+    <Compile Include="FundRequest\ScenarioSpecifications\CTScenarioSpecification.cs" />
+    <Compile Include="FundRequest\ScenarioSpecifications\PRIScenarioSpecification.cs" />
+    <Compile Include="FundRequest\ScenarioSpecifications\PIScenarioSpecification.cs" />
+    <Compile Include="FundRequest\ScenarioSpecifications\RIScenarioSpecification.cs" />
+    <Compile Include="FundRequest\ScenarioSpecifications\NBScenarioSpecification.cs" />
+    <Compile Include="FundRequest\ScenarioSpecifications\ScenarioResolver.cs" />
+    <Compile Include="FundRequest\ScenarioSpecifications\ScenarioSpecification.cs" />
+    <Compile Include="Post\PostBusinessLogic.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SMS\SmsBusinessLogic.cs" />
+    <Compile Include="User\UserBusinessLogic.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OMInsurance.Configuration\OMInsurance.Configuration.csproj">
+      <Project>{cbcdbd33-86ea-43bc-aa9e-5d1b5a02893f}</Project>
+      <Name>OMInsurance.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OMInsurance.DataAccess\OMInsurance.DataAccess.csproj">
+      <Project>{1b4472f9-ca26-4296-9f66-5010c795da1a}</Project>
+      <Name>OMInsurance.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OMInsurance.DBUtils\OMInsurance.DBUtils.csproj">
+      <Project>{2da608a9-622a-41ad-80a6-e9d6e146c3bc}</Project>
+      <Name>OMInsurance.DBUtils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OMInsurance.Entities\OMInsurance.Entities.csproj">
+      <Project>{88f8110f-5870-48df-89d7-a14f9b7efc1a}</Project>
+      <Name>OMInsurance.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OmInsurance.FundPackages\OmInsurance.FundPackages.csproj">
+      <Project>{8a203952-6222-45b5-be19-63c91f04e738}</Project>
+      <Name>OmInsurance.FundPackages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OMInsurance.Interfaces\OMInsurance.Interfaces.csproj">
+      <Project>{10daf551-9369-4b8b-b94d-aec6815a8504}</Project>
+      <Name>OMInsurance.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OMInsurance.PrintedForms\OMInsurance.PrintedForms.csproj">
+      <Project>{bc355a7b-5ce6-4344-a700-559221a3c16f}</Project>
+      <Name>OMInsurance.PrintedForms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OMInsurance.Utils\OMInsurance.Utils.csproj">
+      <Project>{88b9882a-92c7-4c07-b19c-2362022d7750}</Project>
+      <Name>OMInsurance.Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
