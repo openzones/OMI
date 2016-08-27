@@ -1,0 +1,146 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMInsurance.BusinessLogic", "OMInsurance.BusinessLogic\OMInsurance.BusinessLogic.csproj", "{C55CE709-ACA3-4727-A0F3-665BFC986790}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMInsurance.DataAccess", "OMInsurance.DataAccess\OMInsurance.DataAccess.csproj", "{1B4472F9-CA26-4296-9F66-5010C795DA1A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMInsurance.Entities", "OMInsurance.Entities\OMInsurance.Entities.csproj", "{88F8110F-5870-48DF-89D7-A14F9B7EFC1A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMInsurance.Configuration", "OMInsurance.Configuration\OMInsurance.Configuration.csproj", "{CBCDBD33-86EA-43BC-AA9E-5D1B5A02893F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMInsurance.Interfaces", "OMInsurance.Interfaces\OMInsurance.Interfaces.csproj", "{10DAF551-9369-4B8B-B94D-AEC6815A8504}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMInsurance.Services.Interfaces", "OMInsurance.Services.Interfaces\OMInsurance.Services.Interfaces.csproj", "{F988AD02-0922-4A1E-A08D-BC2CE22CB0CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMInsurance.Services.Tests", "OMInsurance.Services.Tests\OMInsurance.Services.Tests.csproj", "{138837D9-7C76-4725-94DC-0D61BA7381C9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{923D092B-C078-4FC9-AB16-FD4D5E554397} = {923D092B-C078-4FC9-AB16-FD4D5E554397}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DMZ", "DMZ", "{C38C8E45-CD7C-4E8A-B35E-2181AC1AD3CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMInsurance.Services.DMZ.PolicyStatusService", "OMInsurance.Services.DMZ.PolicyStatusService\OMInsurance.Services.DMZ.PolicyStatusService.csproj", "{923D092B-C078-4FC9-AB16-FD4D5E554397}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMInsurance.Services.AuthService", "OMInsurance.Services.AuthService\OMInsurance.Services.AuthService.csproj", "{15B3E0D2-6217-493A-A690-158C497F5318}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMInsurance.Services.IIS.Host", "OMInsurance.Services.PolicyStatusService.Host\OMInsurance.Services.IIS.Host.csproj", "{5592FD22-C760-4422-8F36-E226ADB8BBDE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMInsurance.Utils", "OMInsurance.Utils\OMInsurance.Utils.csproj", "{88B9882A-92C7-4C07-B19C-2362022D7750}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMInsurance.Services.PolicyStatusService", "OMInsurance.Services.PolicyStatusService\OMInsurance.Services.PolicyStatusService.csproj", "{39706996-CE0C-4D03-B026-CD6830D6277E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMInsurance.DBUtils", "OMInsurance.DBUtils\OMInsurance.DBUtils.csproj", "{2DA608A9-622A-41AD-80A6-E9D6E146C3BC}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 14
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://msk01-miotst01.uralsibins.ru:8080/tfs/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = OMInsurance.BusinessLogic\\OMInsurance.BusinessLogic.csproj
+		SccProjectName1 = OMInsurance.BusinessLogic
+		SccLocalPath1 = OMInsurance.BusinessLogic
+		SccProjectUniqueName2 = OMInsurance.DataAccess\\OMInsurance.DataAccess.csproj
+		SccProjectName2 = OMInsurance.DataAccess
+		SccLocalPath2 = OMInsurance.DataAccess
+		SccProjectUniqueName3 = OMInsurance.Entities\\OMInsurance.Entities.csproj
+		SccProjectName3 = OMInsurance.Entities
+		SccLocalPath3 = OMInsurance.Entities
+		SccProjectUniqueName4 = OMInsurance.Configuration\\OMInsurance.Configuration.csproj
+		SccProjectName4 = OMInsurance.Configuration
+		SccLocalPath4 = OMInsurance.Configuration
+		SccProjectUniqueName5 = OMInsurance.Interfaces\\OMInsurance.Interfaces.csproj
+		SccProjectName5 = OMInsurance.Interfaces
+		SccLocalPath5 = OMInsurance.Interfaces
+		SccProjectUniqueName6 = OMInsurance.Services.Interfaces\\OMInsurance.Services.Interfaces.csproj
+		SccProjectName6 = OMInsurance.Services.Interfaces
+		SccLocalPath6 = OMInsurance.Services.Interfaces
+		SccProjectUniqueName7 = OMInsurance.Services.Tests\\OMInsurance.Services.Tests.csproj
+		SccProjectName7 = OMInsurance.Services.Tests
+		SccLocalPath7 = OMInsurance.Services.Tests
+		SccProjectUniqueName8 = OMInsurance.Services.DMZ.PolicyStatusService\\OMInsurance.Services.DMZ.PolicyStatusService.csproj
+		SccProjectTopLevelParentUniqueName8 = OMInsurance.Services.sln
+		SccProjectName8 = OMInsurance.Services.DMZ.PolicyStatusService
+		SccLocalPath8 = OMInsurance.Services.DMZ.PolicyStatusService
+		SccProjectUniqueName9 = OMInsurance.Services.AuthService\\OMInsurance.Services.AuthService.csproj
+		SccProjectName9 = OMInsurance.Services.AuthService
+		SccLocalPath9 = OMInsurance.Services.AuthService
+		SccProjectUniqueName10 = OMInsurance.Services.PolicyStatusService.Host\\OMInsurance.Services.IIS.Host.csproj
+		SccProjectName10 = OMInsurance.Services.PolicyStatusService.Host
+		SccLocalPath10 = OMInsurance.Services.PolicyStatusService.Host
+		SccProjectUniqueName11 = OMInsurance.Utils\\OMInsurance.Utils.csproj
+		SccProjectName11 = OMInsurance.Utils
+		SccLocalPath11 = OMInsurance.Utils
+		SccProjectUniqueName12 = OMInsurance.Services.PolicyStatusService\\OMInsurance.Services.PolicyStatusService.csproj
+		SccProjectName12 = OMInsurance.Services.PolicyStatusService
+		SccLocalPath12 = OMInsurance.Services.PolicyStatusService
+		SccProjectUniqueName13 = OMInsurance.DBUtils\\OMInsurance.DBUtils.csproj
+		SccProjectName13 = OMInsurance.DBUtils
+		SccLocalPath13 = OMInsurance.DBUtils
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C55CE709-ACA3-4727-A0F3-665BFC986790}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C55CE709-ACA3-4727-A0F3-665BFC986790}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C55CE709-ACA3-4727-A0F3-665BFC986790}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C55CE709-ACA3-4727-A0F3-665BFC986790}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B4472F9-CA26-4296-9F66-5010C795DA1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B4472F9-CA26-4296-9F66-5010C795DA1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B4472F9-CA26-4296-9F66-5010C795DA1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B4472F9-CA26-4296-9F66-5010C795DA1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88F8110F-5870-48DF-89D7-A14F9B7EFC1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88F8110F-5870-48DF-89D7-A14F9B7EFC1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88F8110F-5870-48DF-89D7-A14F9B7EFC1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88F8110F-5870-48DF-89D7-A14F9B7EFC1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBCDBD33-86EA-43BC-AA9E-5D1B5A02893F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBCDBD33-86EA-43BC-AA9E-5D1B5A02893F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBCDBD33-86EA-43BC-AA9E-5D1B5A02893F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBCDBD33-86EA-43BC-AA9E-5D1B5A02893F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10DAF551-9369-4B8B-B94D-AEC6815A8504}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10DAF551-9369-4B8B-B94D-AEC6815A8504}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10DAF551-9369-4B8B-B94D-AEC6815A8504}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10DAF551-9369-4B8B-B94D-AEC6815A8504}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F988AD02-0922-4A1E-A08D-BC2CE22CB0CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F988AD02-0922-4A1E-A08D-BC2CE22CB0CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F988AD02-0922-4A1E-A08D-BC2CE22CB0CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F988AD02-0922-4A1E-A08D-BC2CE22CB0CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{138837D9-7C76-4725-94DC-0D61BA7381C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{138837D9-7C76-4725-94DC-0D61BA7381C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{138837D9-7C76-4725-94DC-0D61BA7381C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{138837D9-7C76-4725-94DC-0D61BA7381C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{923D092B-C078-4FC9-AB16-FD4D5E554397}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{923D092B-C078-4FC9-AB16-FD4D5E554397}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{923D092B-C078-4FC9-AB16-FD4D5E554397}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{923D092B-C078-4FC9-AB16-FD4D5E554397}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15B3E0D2-6217-493A-A690-158C497F5318}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15B3E0D2-6217-493A-A690-158C497F5318}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15B3E0D2-6217-493A-A690-158C497F5318}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15B3E0D2-6217-493A-A690-158C497F5318}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5592FD22-C760-4422-8F36-E226ADB8BBDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5592FD22-C760-4422-8F36-E226ADB8BBDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5592FD22-C760-4422-8F36-E226ADB8BBDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5592FD22-C760-4422-8F36-E226ADB8BBDE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88B9882A-92C7-4C07-B19C-2362022D7750}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88B9882A-92C7-4C07-B19C-2362022D7750}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88B9882A-92C7-4C07-B19C-2362022D7750}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88B9882A-92C7-4C07-B19C-2362022D7750}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39706996-CE0C-4D03-B026-CD6830D6277E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39706996-CE0C-4D03-B026-CD6830D6277E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39706996-CE0C-4D03-B026-CD6830D6277E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39706996-CE0C-4D03-B026-CD6830D6277E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DA608A9-622A-41AD-80A6-E9D6E146C3BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DA608A9-622A-41AD-80A6-E9D6E146C3BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DA608A9-622A-41AD-80A6-E9D6E146C3BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DA608A9-622A-41AD-80A6-E9D6E146C3BC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{923D092B-C078-4FC9-AB16-FD4D5E554397} = {C38C8E45-CD7C-4E8A-B35E-2181AC1AD3CD}
+	EndGlobalSection
+EndGlobal
